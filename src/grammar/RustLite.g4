@@ -3,7 +3,7 @@ grammar RustLite;
 prog: stmt* EOF;
 
 INT: [0-9]+;
-IDENTIFIER: [a-zA-Z_]
+IDENTIFIER: [a-zA-Z_];
 TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
 
 expr: IDENTIFIER
@@ -35,7 +35,7 @@ whileStmt: 'while' expr block;
 // For loops
 iterable: IDENTIFIER
         | INT'..'INT
-        | 'range' '(' INT ',' INT ')'
+        | 'range' '(' INT ',' INT ')';
 
 forStmt: 'for' IDENTIFIER 'in' iterable block;
 
@@ -50,11 +50,11 @@ fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 
 // Structs
 structDeclareStmt: IDENTIFIER '{' structDeclareFieldList '}';
-structDeclareFieldList: structField (',' structDeclareField)*;
+structDeclareFieldList: structDeclareField (',' structDeclareField)*;
 structDeclareField: IDENTIFIER ':' TYPE;
 
 structInitStmt: IDENTIFIER '{' structInitFieldList '}';
-structInitFieldList: structField (',' structInitField)*;
+structInitFieldList: structInitField (',' structInitField)*;
 structInitField: IDENTIFIER ':' expr;
 
 structFieldAccess: IDENTIFIER '.' IDENTIFIER;
