@@ -51,8 +51,14 @@ fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 // Structs
 structDeclareStmt: IDENTIFIER '{' structDeclareFieldList '}';
 structDeclareFieldList: structField (',' structDeclareField)*;
-structDeclareField: IDENTIFER ':' TYPE;
+structDeclareField: IDENTIFIER ':' TYPE;
 
 structInitStmt: IDENTIFIER '{' structInitFieldList '}';
 structInitFieldList: structField (',' structInitField)*;
-structInitField: IDENTIFER ':' expr;
+structInitField: IDENTIFIER ':' expr;
+
+structFieldAccess: IDENTIFIER '.' IDENTIFIER;
+
+// Ignore whitespace and comments
+WS: [ \t\r\n]+ -> skip;
+COMMENT: '//' ~[\r\n]* -> skip;
