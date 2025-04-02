@@ -4,7 +4,9 @@ prog: stmt* EOF;
 
 INT: [0-9]+;
 BOOL: 'true' | 'false';
-IDENTIFIER: [a-zA-Z_];
+IDENTIFIER: CHAR (CHAR | [0-9] | '_' | '-')+
+        | '_' CHAR (CHAR | [0-9] | '_' | '-')+;
+CHAR: [a-zA-Z];
 TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
 
 expr: '(' expr ')'
@@ -16,7 +18,8 @@ expr: '(' expr ')'
     | structExpr
     | fnCall;
 
-arithExpr: arithExpr ('+'|'-'|'*'|'/') arithExpr
+arithExpr: arithExpr ('*'|'/') arithExpr
+        | arithExpr ('+'|'-') arithExpr
         | INT
         | IDENTIFIER;
 
