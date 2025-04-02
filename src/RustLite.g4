@@ -16,7 +16,10 @@ expr: '(' expr ')'
     | arithExpr
     | logicExpr
     | structExpr
-    | fnCall;
+    | fnCall
+    | 'None'
+    | 'break'
+    | 'continue';
 
 arithExpr: arithExpr ('*'|'/') arithExpr
         | arithExpr ('+'|'-') arithExpr
@@ -46,11 +49,11 @@ exprStmt: expr ';';
 
 declareStmt: 'let' 'mut'? IDENTIFIER '=' exprStmt;
 
-condStmt: 'if' expr block ('else' 'if' expr block)* ('else' block)?;
+condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?;
 
 loopStmt: 'loop' block;
 
-whileStmt: 'while' expr block;
+whileStmt: 'while' logicExpr block;
 
 // For loops
 iterable: IDENTIFIER
@@ -66,7 +69,8 @@ paramList: param (',' param)*;
 returnTypes: TYPE
             | '()';
 returnType: '->' returnTypes;
-returnStmt: 'return' exprStmt;
+returnStmt: 'return' exprStmt
+        | expr;
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 
