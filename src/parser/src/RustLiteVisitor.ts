@@ -19,9 +19,12 @@ import { IterableContext } from "./RustLiteParser.js";
 import { ForStmtContext } from "./RustLiteParser.js";
 import { ParamContext } from "./RustLiteParser.js";
 import { ParamListContext } from "./RustLiteParser.js";
+import { ReturnTypesContext } from "./RustLiteParser.js";
 import { ReturnTypeContext } from "./RustLiteParser.js";
 import { ReturnStmtContext } from "./RustLiteParser.js";
 import { FnDeclareStmtContext } from "./RustLiteParser.js";
+import { ArgListContext } from "./RustLiteParser.js";
+import { FnCallContext } from "./RustLiteParser.js";
 import { StructDeclareContext } from "./RustLiteParser.js";
 import { StructDeclareFieldListContext } from "./RustLiteParser.js";
 import { StructDeclareFieldContext } from "./RustLiteParser.js";
@@ -136,6 +139,12 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitParamList?: (ctx: ParamListContext) => Result;
     /**
+     * Visit a parse tree produced by `RustLiteParser.returnTypes`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitReturnTypes?: (ctx: ReturnTypesContext) => Result;
+    /**
      * Visit a parse tree produced by `RustLiteParser.returnType`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -153,6 +162,18 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitFnDeclareStmt?: (ctx: FnDeclareStmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.argList`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitArgList?: (ctx: ArgListContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.fnCall`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitFnCall?: (ctx: FnCallContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.structDeclare`.
      * @param ctx the parse tree

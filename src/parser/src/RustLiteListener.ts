@@ -19,9 +19,12 @@ import { IterableContext } from "./RustLiteParser.js";
 import { ForStmtContext } from "./RustLiteParser.js";
 import { ParamContext } from "./RustLiteParser.js";
 import { ParamListContext } from "./RustLiteParser.js";
+import { ReturnTypesContext } from "./RustLiteParser.js";
 import { ReturnTypeContext } from "./RustLiteParser.js";
 import { ReturnStmtContext } from "./RustLiteParser.js";
 import { FnDeclareStmtContext } from "./RustLiteParser.js";
+import { ArgListContext } from "./RustLiteParser.js";
+import { FnCallContext } from "./RustLiteParser.js";
 import { StructDeclareContext } from "./RustLiteParser.js";
 import { StructDeclareFieldListContext } from "./RustLiteParser.js";
 import { StructDeclareFieldContext } from "./RustLiteParser.js";
@@ -197,6 +200,16 @@ export class RustLiteListener implements ParseTreeListener {
      */
     exitParamList?: (ctx: ParamListContext) => void;
     /**
+     * Enter a parse tree produced by `RustLiteParser.returnTypes`.
+     * @param ctx the parse tree
+     */
+    enterReturnTypes?: (ctx: ReturnTypesContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.returnTypes`.
+     * @param ctx the parse tree
+     */
+    exitReturnTypes?: (ctx: ReturnTypesContext) => void;
+    /**
      * Enter a parse tree produced by `RustLiteParser.returnType`.
      * @param ctx the parse tree
      */
@@ -226,6 +239,26 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitFnDeclareStmt?: (ctx: FnDeclareStmtContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.argList`.
+     * @param ctx the parse tree
+     */
+    enterArgList?: (ctx: ArgListContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.argList`.
+     * @param ctx the parse tree
+     */
+    exitArgList?: (ctx: ArgListContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.fnCall`.
+     * @param ctx the parse tree
+     */
+    enterFnCall?: (ctx: FnCallContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.fnCall`.
+     * @param ctx the parse tree
+     */
+    exitFnCall?: (ctx: FnCallContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.structDeclare`.
      * @param ctx the parse tree

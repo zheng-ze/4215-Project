@@ -13,7 +13,8 @@ expr: '(' expr ')'
     | BOOL
     | arithExpr
     | logicExpr
-    | structExpr;
+    | structExpr
+    | fnCall;
 
 arithExpr: arithExpr ('+'|'-'|'*'|'/') arithExpr
         | INT
@@ -25,7 +26,8 @@ logicExpr: logicExpr ('&&'|'||') logicExpr
         | arithExpr ('>'|'<'|'=='|'!=') arithExpr;
 
 structExpr: structInit
-        | structDeclare;
+        | structDeclare
+        | structFieldAccess;
 
 stmt: exprStmt
     | declareStmt
@@ -58,10 +60,15 @@ forStmt: 'for' IDENTIFIER 'in' iterable block;
 param: IDENTIFIER ':' TYPE;
 paramList: param (',' param)*;
 
-returnType: '->' TYPE;
+returnTypes: TYPE
+            | '()';
+returnType: '->' returnTypes;
 returnStmt: 'return' exprStmt;
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
+
+argList: expr (',' expr)*;
+fnCall: IDENTIFIER '(' argList? ')';
 
 // Structs
 structDeclare: IDENTIFIER '{' structDeclareFieldList '}';
