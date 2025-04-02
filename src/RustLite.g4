@@ -25,7 +25,8 @@ logicExpr: logicExpr ('&&'|'||') logicExpr
         | arithExpr ('>'|'<'|'=='|'!=') arithExpr;
 
 structExpr: structInit
-        | structDeclare;
+        | structDeclare
+        | structFieldAccess;
 
 stmt: exprStmt
     | declareStmt
@@ -62,6 +63,9 @@ returnType: '->' TYPE;
 returnStmt: 'return' exprStmt;
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
+
+argList: expr (',' expr)*;
+fnCall: IDENTIFIER '(' argList? ')';
 
 // Structs
 structDeclare: IDENTIFIER '{' structDeclareFieldList '}';
