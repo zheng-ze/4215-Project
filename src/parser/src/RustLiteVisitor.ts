@@ -5,6 +5,9 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 import { ProgContext } from "./RustLiteParser.js";
 import { ExprContext } from "./RustLiteParser.js";
+import { ArithExprContext } from "./RustLiteParser.js";
+import { LogicExprContext } from "./RustLiteParser.js";
+import { StructExprContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
@@ -19,10 +22,10 @@ import { ParamListContext } from "./RustLiteParser.js";
 import { ReturnTypeContext } from "./RustLiteParser.js";
 import { ReturnStmtContext } from "./RustLiteParser.js";
 import { FnDeclareStmtContext } from "./RustLiteParser.js";
-import { StructDeclareStmtContext } from "./RustLiteParser.js";
+import { StructDeclareContext } from "./RustLiteParser.js";
 import { StructDeclareFieldListContext } from "./RustLiteParser.js";
 import { StructDeclareFieldContext } from "./RustLiteParser.js";
-import { StructInitStmtContext } from "./RustLiteParser.js";
+import { StructInitContext } from "./RustLiteParser.js";
 import { StructInitFieldListContext } from "./RustLiteParser.js";
 import { StructInitFieldContext } from "./RustLiteParser.js";
 import { StructFieldAccessContext } from "./RustLiteParser.js";
@@ -48,6 +51,24 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitExpr?: (ctx: ExprContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.arithExpr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitArithExpr?: (ctx: ArithExprContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.logicExpr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitLogicExpr?: (ctx: LogicExprContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.structExpr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitStructExpr?: (ctx: StructExprContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.stmt`.
      * @param ctx the parse tree
@@ -133,11 +154,11 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitFnDeclareStmt?: (ctx: FnDeclareStmtContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structDeclareStmt`.
+     * Visit a parse tree produced by `RustLiteParser.structDeclare`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructDeclareStmt?: (ctx: StructDeclareStmtContext) => Result;
+    visitStructDeclare?: (ctx: StructDeclareContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.structDeclareFieldList`.
      * @param ctx the parse tree
@@ -151,11 +172,11 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitStructDeclareField?: (ctx: StructDeclareFieldContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structInitStmt`.
+     * Visit a parse tree produced by `RustLiteParser.structInit`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructInitStmt?: (ctx: StructInitStmtContext) => Result;
+    visitStructInit?: (ctx: StructInitContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.structInitFieldList`.
      * @param ctx the parse tree

@@ -3,12 +3,29 @@ grammar RustLite;
 prog: stmt* EOF;
 
 INT: [0-9]+;
+BOOL: 'true' | 'false';
 IDENTIFIER: [a-zA-Z_];
 TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
 
-expr: IDENTIFIER
+expr: '(' expr ')'
+    | IDENTIFIER
     | INT
-    | expr ('+');
+    | BOOL
+    | arithExpr
+    | logicExpr
+    | structExpr;
+
+arithExpr: arithExpr ('+'|'-'|'*'|'/') arithExpr
+        | INT
+        | IDENTIFIER;
+
+logicExpr: logicExpr ('&&'|'||') logicExpr
+        | '!' logicExpr
+        | BOOL
+        | arithExpr ('>'|'<'|'=='|'!=') arithExpr;
+
+structExpr: structInit
+        | structDeclare;
 
 stmt: exprStmt
     | declareStmt
@@ -16,9 +33,7 @@ stmt: exprStmt
     | loopStmt
     | whileStmt
     | fnDeclareStmt
-    | returnStmt
-    | structDeclareStmt
-    | structInitStmt;
+    | returnStmt;
 
 block: '{' stmt* '}';
 
@@ -49,11 +64,11 @@ returnStmt: 'return' exprStmt;
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 
 // Structs
-structDeclareStmt: IDENTIFIER '{' structDeclareFieldList '}';
+structDeclare: IDENTIFIER '{' structDeclareFieldList '}';
 structDeclareFieldList: structDeclareField (',' structDeclareField)*;
 structDeclareField: IDENTIFIER ':' TYPE;
 
-structInitStmt: IDENTIFIER '{' structInitFieldList '}';
+structInit: IDENTIFIER '{' structInitFieldList '}';
 structInitFieldList: structInitField (',' structInitField)*;
 structInitField: IDENTIFIER ':' expr;
 

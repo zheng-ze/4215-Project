@@ -5,6 +5,9 @@ import { ErrorNode, ParseTreeListener, ParserRuleContext, TerminalNode } from "a
 
 import { ProgContext } from "./RustLiteParser.js";
 import { ExprContext } from "./RustLiteParser.js";
+import { ArithExprContext } from "./RustLiteParser.js";
+import { LogicExprContext } from "./RustLiteParser.js";
+import { StructExprContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
@@ -19,10 +22,10 @@ import { ParamListContext } from "./RustLiteParser.js";
 import { ReturnTypeContext } from "./RustLiteParser.js";
 import { ReturnStmtContext } from "./RustLiteParser.js";
 import { FnDeclareStmtContext } from "./RustLiteParser.js";
-import { StructDeclareStmtContext } from "./RustLiteParser.js";
+import { StructDeclareContext } from "./RustLiteParser.js";
 import { StructDeclareFieldListContext } from "./RustLiteParser.js";
 import { StructDeclareFieldContext } from "./RustLiteParser.js";
-import { StructInitStmtContext } from "./RustLiteParser.js";
+import { StructInitContext } from "./RustLiteParser.js";
 import { StructInitFieldListContext } from "./RustLiteParser.js";
 import { StructInitFieldContext } from "./RustLiteParser.js";
 import { StructFieldAccessContext } from "./RustLiteParser.js";
@@ -53,6 +56,36 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitExpr?: (ctx: ExprContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.arithExpr`.
+     * @param ctx the parse tree
+     */
+    enterArithExpr?: (ctx: ArithExprContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.arithExpr`.
+     * @param ctx the parse tree
+     */
+    exitArithExpr?: (ctx: ArithExprContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.logicExpr`.
+     * @param ctx the parse tree
+     */
+    enterLogicExpr?: (ctx: LogicExprContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.logicExpr`.
+     * @param ctx the parse tree
+     */
+    exitLogicExpr?: (ctx: LogicExprContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.structExpr`.
+     * @param ctx the parse tree
+     */
+    enterStructExpr?: (ctx: StructExprContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.structExpr`.
+     * @param ctx the parse tree
+     */
+    exitStructExpr?: (ctx: StructExprContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.stmt`.
      * @param ctx the parse tree
@@ -194,15 +227,15 @@ export class RustLiteListener implements ParseTreeListener {
      */
     exitFnDeclareStmt?: (ctx: FnDeclareStmtContext) => void;
     /**
-     * Enter a parse tree produced by `RustLiteParser.structDeclareStmt`.
+     * Enter a parse tree produced by `RustLiteParser.structDeclare`.
      * @param ctx the parse tree
      */
-    enterStructDeclareStmt?: (ctx: StructDeclareStmtContext) => void;
+    enterStructDeclare?: (ctx: StructDeclareContext) => void;
     /**
-     * Exit a parse tree produced by `RustLiteParser.structDeclareStmt`.
+     * Exit a parse tree produced by `RustLiteParser.structDeclare`.
      * @param ctx the parse tree
      */
-    exitStructDeclareStmt?: (ctx: StructDeclareStmtContext) => void;
+    exitStructDeclare?: (ctx: StructDeclareContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.structDeclareFieldList`.
      * @param ctx the parse tree
@@ -224,15 +257,15 @@ export class RustLiteListener implements ParseTreeListener {
      */
     exitStructDeclareField?: (ctx: StructDeclareFieldContext) => void;
     /**
-     * Enter a parse tree produced by `RustLiteParser.structInitStmt`.
+     * Enter a parse tree produced by `RustLiteParser.structInit`.
      * @param ctx the parse tree
      */
-    enterStructInitStmt?: (ctx: StructInitStmtContext) => void;
+    enterStructInit?: (ctx: StructInitContext) => void;
     /**
-     * Exit a parse tree produced by `RustLiteParser.structInitStmt`.
+     * Exit a parse tree produced by `RustLiteParser.structInit`.
      * @param ctx the parse tree
      */
-    exitStructInitStmt?: (ctx: StructInitStmtContext) => void;
+    exitStructInit?: (ctx: StructInitContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.structInitFieldList`.
      * @param ctx the parse tree
