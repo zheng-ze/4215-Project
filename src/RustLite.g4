@@ -13,7 +13,8 @@ expr: '(' expr ')'
     | BOOL
     | arithExpr
     | logicExpr
-    | structExpr;
+    | structExpr
+    | fnCall;
 
 arithExpr: arithExpr ('+'|'-'|'*'|'/') arithExpr
         | INT
@@ -59,7 +60,9 @@ forStmt: 'for' IDENTIFIER 'in' iterable block;
 param: IDENTIFIER ':' TYPE;
 paramList: param (',' param)*;
 
-returnType: '->' TYPE;
+returnTypes: TYPE
+            | '()';
+returnType: '->' returnTypes;
 returnStmt: 'return' exprStmt;
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;

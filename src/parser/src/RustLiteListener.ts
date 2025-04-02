@@ -19,6 +19,7 @@ import { IterableContext } from "./RustLiteParser.js";
 import { ForStmtContext } from "./RustLiteParser.js";
 import { ParamContext } from "./RustLiteParser.js";
 import { ParamListContext } from "./RustLiteParser.js";
+import { ReturnTypesContext } from "./RustLiteParser.js";
 import { ReturnTypeContext } from "./RustLiteParser.js";
 import { ReturnStmtContext } from "./RustLiteParser.js";
 import { FnDeclareStmtContext } from "./RustLiteParser.js";
@@ -198,6 +199,16 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitParamList?: (ctx: ParamListContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.returnTypes`.
+     * @param ctx the parse tree
+     */
+    enterReturnTypes?: (ctx: ReturnTypesContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.returnTypes`.
+     * @param ctx the parse tree
+     */
+    exitReturnTypes?: (ctx: ReturnTypesContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.returnType`.
      * @param ctx the parse tree
