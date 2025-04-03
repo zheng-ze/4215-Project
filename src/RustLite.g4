@@ -45,10 +45,8 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt;
 
-sequence: (stmt|expr)*;
-
 // expr for implicit return in fn block. Need to check when compiling to bytecode
-block: '{' sequence '}'; 
+block: '{' stmt* expr? '}';
 
 exprStmt: expr ';';
 
