@@ -37,15 +37,23 @@ import {
   WhileStmtContext,
 } from "./parser/src/RustLiteParser";
 
-const eval2 = eval;
-
 class RustLiteEvaluatorVisitor
   extends AbstractParseTreeVisitor<number>
   implements RustLiteVisitor<number>
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): number {
-    return 0;
+    const numStatements = ctx.getChildCount();
+    if (numStatements === 0) {
+      return 0;
+    }
+
+    let result = 0;
+    for (let i = 0; i < numStatements; i++) {
+      const statement = ctx.stmt(i);
+      result = this.visit(statement);
+    }
+    return result;
   }
 
   visitExpr(ctx: ExprContext): number {
@@ -56,7 +64,7 @@ class RustLiteEvaluatorVisitor
     return 0;
   }
 
-  visitLogicExpr?(ctx: LogicExprContext): number {
+  visitLogicExpr(ctx: LogicExprContext): number {
     return 0;
   }
 
@@ -65,7 +73,59 @@ class RustLiteEvaluatorVisitor
   }
 
   visitStmt(ctx: StmtContext): number {
-    return 0;
+    const numChildren = ctx.getChildCount();
+    if (numChildren === 0) {
+      return 0;
+    }
+
+    // implcit return statement
+    if (numChildren === 1) {
+      return this.visit(ctx.returnStmt());
+    } else if (ctx.getChild(0).getText() === "return") {
+      // explicit return statement
+      return this.visit(ctx.returnStmt());
+    }
+
+    if (numChildren === 2) {
+      if (ctx.getChild(0).getText() === "loop") {
+        // loop statement
+        return this.visit(ctx.loopStmt());
+      }
+      if (ctx.getChild(1).getText() === ";") {
+        // expression statement
+        return this.visit(ctx.exprStmt());
+      }
+    }
+
+    if (ctx.getChild(0).getText() === "if") {
+      // conditional statement
+      return this.visit(ctx.condStmt());
+    }
+
+    if (ctx.getChild(0).getText() === "for") {
+      // for statement
+      return this.visit(ctx.forStmt());
+    }
+
+    if (ctx.getChild(0).getText() === "while") {
+      // while statement
+      return this.visit(ctx.whileStmt());
+    }
+
+    if (ctx.getChild(0).getText() === "let") {
+      // declare statement
+      return this.visit(ctx.declareStmt());
+    }
+
+    if (ctx.getChild(0).getText() === "{") {
+      // block statement
+      return this.visit(ctx.block());
+    }
+
+    if (ctx.getChild(0).getText() === "fn") {
+      // function statement
+      return this.visit(ctx.fnDeclareStmt());
+    }
   }
 
   visitBlock(ctx: BlockContext): number {
@@ -73,7 +133,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitExprStmt(ctx: ExprStmtContext): number {
-    return 0;
+    return this.visit(ctx.expr());
   }
 
   visitLoopStmt(ctx: LoopStmtContext): number {
