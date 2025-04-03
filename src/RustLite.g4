@@ -5,8 +5,11 @@ prog: stmt* EOF;
 INT: [0-9]+;
 BOOL: 'true' | 'false';
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*; // - not allowed in name.
-CHAR: [a-zA-Z];
 TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
+
+// Ignore whitespace and comments
+WS: [ \t\r\n]+ -> skip;
+COMMENT: '//' ~[\r\n]* -> skip;
 
 expr: '(' expr ')'
     | IDENTIFIER
