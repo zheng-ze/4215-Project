@@ -64,8 +64,8 @@ loopControlStmt: loopControl ';';
 
 // For loops
 iterable: IDENTIFIER
-        | INT'..'INT
-        | 'range' '(' INT ',' INT ')';
+        | INT '..' INT
+        | INT '..=' INT;
 
 forStmt: 'for' IDENTIFIER 'in' iterable block;
 
