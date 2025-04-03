@@ -21,10 +21,13 @@ expr: '(' expr ')'
     | 'break'
     | 'continue';
 
-arithExpr: arithExpr ('*'|'/') arithExpr
-        | arithExpr ('+'|'-') arithExpr
-        | INT
-        | IDENTIFIER;
+arithExpr: term ('+'|'-');
+
+term: factor ('*'|'/') factor;
+
+factor: '-' factor | primary;
+
+primary: INT | IDENTIFIER;
 
 logicExpr: logicExpr ('&&'|'||') logicExpr
         | '!' logicExpr
@@ -43,8 +46,10 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt;
 
+sequence: (stmt|expr)*;
+
 // expr for implicit return in fn block. Need to check when compiling to bytecode
-block: '{' (stmt|expr)* '}'; 
+block: '{' sequence '}'; 
 
 exprStmt: expr ';';
 
