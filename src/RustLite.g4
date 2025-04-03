@@ -42,7 +42,8 @@ stmt: exprStmt
     | whileStmt
     | loopControlStmt
     | fnDeclareStmt
-    | returnStmt;
+    | returnStmt
+    | block;
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
 block: '{' stmt* expr? '}';
