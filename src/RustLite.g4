@@ -21,13 +21,10 @@ expr: '(' expr ')'
     | fnCall
     | 'None';
 
-arithExpr: term ('+'|'-');
-
-term: factor ('*'|'/') factor;
-
+arithExpr: term (('+'|'-') term)*;
+term: factor (('*'|'/') factor)*;
 factor: '-' factor | primary;
-
-primary: INT | IDENTIFIER;
+primary: INT | IDENTIFIER | '(' expr ')' | structFieldAccess;
 
 logicExpr: logicExpr ('&&'|'||') logicExpr
         | '!' logicExpr
