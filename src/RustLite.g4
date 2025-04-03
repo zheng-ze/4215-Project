@@ -17,9 +17,7 @@ expr: '(' expr ')'
     | logicExpr
     | structExpr
     | fnCall
-    | 'None'
-    | 'break'
-    | 'continue';
+    | 'None';
 
 arithExpr: arithExpr ('*'|'/') arithExpr
         | arithExpr ('+'|'-') arithExpr
@@ -43,7 +41,10 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt
     | forStmt
-    | block;
+    | block
+    | 'break;'
+    | 'continue;' 
+    ;
 
 block: '{' stmt* '}';
 
