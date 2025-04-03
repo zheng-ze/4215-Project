@@ -39,6 +39,7 @@ stmt: exprStmt
     | declareStmt
     | condStmt
     | loopStmt
+    | forStmt
     | whileStmt
     | loopControlStmt
     | fnDeclareStmt
