@@ -76,7 +76,7 @@ paramList: param (',' param)*;
 returnTypes: TYPE
             | '()';
 returnType: '->' returnTypes;
-returnStmt: 'return' exprStmt;
+returnStmt: 'return' expr? ';';
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 
