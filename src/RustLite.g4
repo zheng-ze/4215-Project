@@ -92,4 +92,4 @@ structInit: IDENTIFIER '{' structInitFieldList '}';
 structInitFieldList: structInitField (',' structInitField)*;
 structInitField: IDENTIFIER ':' expr;
 
-structFieldAccess: IDENTIFIER '.' IDENTIFIER;
+structFieldAccess: IDENTIFIER ('.' IDENTIFIER)+;
