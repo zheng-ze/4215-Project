@@ -16,9 +16,7 @@ expr: '(' expr ')'
     | logicExpr
     | structExpr
     | fnCall
-    | 'None'
-    | 'break'
-    | 'continue';
+    | 'None';
 
 arithExpr: term ('+'|'-');
 
@@ -42,6 +40,7 @@ stmt: exprStmt
     | condStmt
     | loopStmt
     | whileStmt
+    | loopControlStmt
     | fnDeclareStmt
     | returnStmt;
 
@@ -59,6 +58,10 @@ condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?;
 loopStmt: 'loop' block;
 
 whileStmt: 'while' logicExpr block;
+
+loopControl: 'break' | 'continue'; 
+
+loopControlStmt: loopControl ';';
 
 // For loops
 iterable: IDENTIFIER
