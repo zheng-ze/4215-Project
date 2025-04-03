@@ -41,7 +41,8 @@ stmt: exprStmt
     | loopStmt
     | whileStmt
     | fnDeclareStmt
-    | returnStmt;
+    | returnStmt
+    | forStmt;
 
 block: '{' stmt* '}';
 
