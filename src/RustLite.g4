@@ -26,10 +26,10 @@ term: factor (('*'|'/') factor)*;
 factor: '-' factor | primary;
 primary: INT | IDENTIFIER | '(' expr ')' | structFieldAccess;
 
-logicExpr: logicExpr ('&&'|'||') logicExpr
-        | '!' logicExpr
-        | BOOL
-        | arithExpr ('>'|'<'|'=='|'!=') arithExpr;
+logicExpr: logicAndExpr ('||' logicAndExpr)*;
+logicAndExpr: logicNotExpr ('&&' logicNotExpr)*;
+logicNotExpr: '!' logicNotExpr | compExpr | BOOL;
+compExpr: arithExpr ('>'|'<'|'=='|'!=') arithExpr;
 
 structExpr: structInit
         | structDeclare
