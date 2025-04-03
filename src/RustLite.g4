@@ -93,7 +93,3 @@ structInitFieldList: structInitField (',' structInitField)*;
 structInitField: IDENTIFIER ':' expr;
 
 structFieldAccess: IDENTIFIER '.' IDENTIFIER;
-
-// Ignore whitespace and comments
-WS: [ \t\r\n]+ -> skip;
-COMMENT: '//' ~[\r\n]* -> skip;
