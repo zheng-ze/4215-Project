@@ -18,8 +18,7 @@ expr: '(' expr ')'
     | arithExpr
     | logicExpr
     | structExpr
-    | fnCall
-    | 'None';
+    | fnCall;
 
 arithExpr: term (('+'|'-') term)*;
 term: factor (('*'|'/') factor)*;
