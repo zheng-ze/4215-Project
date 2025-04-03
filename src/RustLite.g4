@@ -4,8 +4,7 @@ prog: stmt* EOF;
 
 INT: [0-9]+;
 BOOL: 'true' | 'false';
-IDENTIFIER: CHAR (CHAR | [0-9] | '_' | '-')+
-        | '_' CHAR (CHAR | [0-9] | '_' | '-')+;
+IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*; // - not allowed in name.
 CHAR: [a-zA-Z];
 TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
 
