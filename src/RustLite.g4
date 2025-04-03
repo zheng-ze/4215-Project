@@ -43,7 +43,8 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt;
 
-block: '{' stmt* '}';
+// expr for implicit return in fn block. Need to check when compiling to bytecode
+block: '{' (stmt|expr)* '}'; 
 
 exprStmt: expr ';';
 
@@ -69,8 +70,7 @@ paramList: param (',' param)*;
 returnTypes: TYPE
             | '()';
 returnType: '->' returnTypes;
-returnStmt: 'return' exprStmt
-        | expr;
+returnStmt: 'return' exprStmt;
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 
