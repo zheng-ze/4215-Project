@@ -63,12 +63,12 @@ class RustLiteEvaluatorVisitor
     return 0;
   }
 
-  visitArithExpr(ctx: ArithExprContext): SUPPORTED_TYPES {
+  visitArithExpr(ctx: ArithExprContext): number {
     return 0;
   }
 
-  visitLogicExpr(ctx: LogicExprContext): SUPPORTED_TYPES {
-    return 0;
+  visitLogicExpr(ctx: LogicExprContext): boolean {
+    return false;
   }
 
   visitStructExpr(ctx: StructExprContext): SUPPORTED_TYPES {
