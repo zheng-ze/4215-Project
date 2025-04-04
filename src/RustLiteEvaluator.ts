@@ -1,11 +1,7 @@
-import { BasicEvaluator } from "conductor/dist/conductor/runner";
-import { IRunnerPlugin } from "conductor/dist/conductor/runner/types";
-import { RustLiteVisitor } from "./parser/src/RustLiteVisitor";
-import { RustLiteLexer } from "./parser/src/RustLiteLexer";
 import {
+  AbstractParseTreeVisitor,
   CharStream,
   CommonTokenStream,
-  AbstractParseTreeVisitor,
 } from "antlr4ng";
 import {
   ArithExprContext,
@@ -37,18 +33,25 @@ import {
   WhileStmtContext,
 } from "./parser/src/RustLiteParser";
 
+import { BasicEvaluator } from "conductor/dist/conductor/runner";
+import { IRunnerPlugin } from "conductor/dist/conductor/runner/types";
+import { RustLiteLexer } from "./parser/src/RustLiteLexer";
+import { RustLiteVisitor } from "./parser/src/RustLiteVisitor";
+
+type SUPPORTED_TYPES = number | boolean;
+
 class RustLiteEvaluatorVisitor
-  extends AbstractParseTreeVisitor<number>
-  implements RustLiteVisitor<number>
+  extends AbstractParseTreeVisitor<SUPPORTED_TYPES>
+  implements RustLiteVisitor<SUPPORTED_TYPES>
 {
   //TODO: Implement Visit Prog
-  visitProg(ctx: ProgContext): number {
+  visitProg(ctx: ProgContext): SUPPORTED_TYPES {
     const numStatements = ctx.getChildCount();
     if (numStatements === 0) {
       return 0;
     }
 
-    let result = 0;
+    let result: SUPPORTED_TYPES;
     for (let i = 0; i < numStatements; i++) {
       const statement = ctx.stmt(i);
       result = this.visit(statement);
@@ -56,23 +59,23 @@ class RustLiteEvaluatorVisitor
     return result;
   }
 
-  visitExpr(ctx: ExprContext): number {
+  visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitArithExpr(ctx: ArithExprContext): number {
+  visitArithExpr(ctx: ArithExprContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitLogicExpr(ctx: LogicExprContext): number {
+  visitLogicExpr(ctx: LogicExprContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructExpr(ctx: StructExprContext): number {
+  visitStructExpr(ctx: StructExprContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStmt(ctx: StmtContext): number {
+  visitStmt(ctx: StmtContext): SUPPORTED_TYPES {
     const numChildren = ctx.getChildCount();
     if (numChildren === 0) {
       return 0;
@@ -128,83 +131,85 @@ class RustLiteEvaluatorVisitor
     }
   }
 
-  visitBlock(ctx: BlockContext): number {
+  visitBlock(ctx: BlockContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitExprStmt(ctx: ExprStmtContext): number {
+  visitExprStmt(ctx: ExprStmtContext): SUPPORTED_TYPES {
     return this.visit(ctx.expr());
   }
 
-  visitLoopStmt(ctx: LoopStmtContext): number {
+  visitLoopStmt(ctx: LoopStmtContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitDeclareStmt(ctx: DeclareStmtContext): number {
+  visitDeclareStmt(ctx: DeclareStmtContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitCondStmt(ctx: CondStmtContext): number {
+  visitCondStmt(ctx: CondStmtContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitWhileStmt(ctx: WhileStmtContext): number {
+  visitWhileStmt(ctx: WhileStmtContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitIterable(ctx: IterableContext): number {
+  visitIterable(ctx: IterableContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitForStmt(ctx: ForStmtContext): number {
+  visitForStmt(ctx: ForStmtContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitParam(ctx: ParamContext): number {
+  visitParam(ctx: ParamContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitParamList(ctx: ParamListContext): number {
+  visitParamList(ctx: ParamListContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitReturnType(ctx: ReturnTypeContext): number {
+  visitReturnType(ctx: ReturnTypeContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitReturnStmt(ctx: ReturnStmtContext): number {
+  visitReturnStmt(ctx: ReturnStmtContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitFnDeclareStmt(ctx: FnDeclareStmtContext): number {
+  visitFnDeclareStmt(ctx: FnDeclareStmtContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructDeclare(ctx: StructDeclareContext): number {
+  visitStructDeclare(ctx: StructDeclareContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructDeclareField(ctx: StructDeclareFieldContext): number {
+  visitStructDeclareField(ctx: StructDeclareFieldContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructDeclareFieldList(ctx: StructDeclareFieldListContext): number {
+  visitStructDeclareFieldList(
+    ctx: StructDeclareFieldListContext
+  ): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructInit(ctx: StructInitContext): number {
+  visitStructInit(ctx: StructInitContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructInitFieldList(ctx: StructInitFieldListContext): number {
+  visitStructInitFieldList(ctx: StructInitFieldListContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructInitField(ctx: StructInitFieldContext): number {
+  visitStructInitField(ctx: StructInitFieldContext): SUPPORTED_TYPES {
     return 0;
   }
 
-  visitStructFieldAccess(ctx: StructFieldAccessContext): number {
+  visitStructFieldAccess(ctx: StructFieldAccessContext): SUPPORTED_TYPES {
     return 0;
   }
 }
