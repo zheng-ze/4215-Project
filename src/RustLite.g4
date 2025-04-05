@@ -20,15 +20,20 @@ expr: '(' expr ')'
     | structExpr
     | fnCall;
 
-arithExpr: term (('+'|'-') term)*;
-term: factor (('*'|'/') factor)*;
-factor: '-' factor | primary;
-primary: INT | IDENTIFIER | '(' expr ')' | structFieldAccess;
+arithExpr: primary=INT
+        | primary=IDENTIFIER
+        | fieldAccess=structFieldAccess
+        | '(' inner=arithExpr ')'
+        | op='-' arithExpr
+        | left=arithExpr op=('*'|'/') right=arithExpr
+        | left=arithExpr op=('+'|'-') right=arithExpr;
 
-logicExpr: logicAndExpr ('||' logicAndExpr)*;
-logicAndExpr: logicNotExpr ('&&' logicNotExpr)*;
-logicNotExpr: '!' logicNotExpr | compExpr | BOOL;
-compExpr: arithExpr ('>'|'<'|'=='|'!=') arithExpr;
+logicExpr: primary=BOOL
+        | '(' logicExpr ')'
+        | arithExpr op=('>'|'<'|'=='|'!=') arithExpr
+        | op='!' right=logicExpr
+        | left=logicExpr op='&&' right=logicExpr
+        | left=logicExpr op='||' right=logicExpr;
 
 structExpr: structInit
         | structDeclare
@@ -64,8 +69,7 @@ loopControlStmt: loopControl ';';
 
 // For loops
 iterable: IDENTIFIER
-        | INT '..' INT
-        | INT '..=' INT;
+        | INT op=('..'|'..=') INT;
 
 forStmt: 'for' IDENTIFIER 'in' iterable block;
 

@@ -6,13 +6,7 @@ import { ErrorNode, ParseTreeListener, ParserRuleContext, TerminalNode } from "a
 import { ProgContext } from "./RustLiteParser.js";
 import { ExprContext } from "./RustLiteParser.js";
 import { ArithExprContext } from "./RustLiteParser.js";
-import { TermContext } from "./RustLiteParser.js";
-import { FactorContext } from "./RustLiteParser.js";
-import { PrimaryContext } from "./RustLiteParser.js";
 import { LogicExprContext } from "./RustLiteParser.js";
-import { LogicAndExprContext } from "./RustLiteParser.js";
-import { LogicNotExprContext } from "./RustLiteParser.js";
-import { CompExprContext } from "./RustLiteParser.js";
 import { StructExprContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
@@ -78,36 +72,6 @@ export class RustLiteListener implements ParseTreeListener {
      */
     exitArithExpr?: (ctx: ArithExprContext) => void;
     /**
-     * Enter a parse tree produced by `RustLiteParser.term`.
-     * @param ctx the parse tree
-     */
-    enterTerm?: (ctx: TermContext) => void;
-    /**
-     * Exit a parse tree produced by `RustLiteParser.term`.
-     * @param ctx the parse tree
-     */
-    exitTerm?: (ctx: TermContext) => void;
-    /**
-     * Enter a parse tree produced by `RustLiteParser.factor`.
-     * @param ctx the parse tree
-     */
-    enterFactor?: (ctx: FactorContext) => void;
-    /**
-     * Exit a parse tree produced by `RustLiteParser.factor`.
-     * @param ctx the parse tree
-     */
-    exitFactor?: (ctx: FactorContext) => void;
-    /**
-     * Enter a parse tree produced by `RustLiteParser.primary`.
-     * @param ctx the parse tree
-     */
-    enterPrimary?: (ctx: PrimaryContext) => void;
-    /**
-     * Exit a parse tree produced by `RustLiteParser.primary`.
-     * @param ctx the parse tree
-     */
-    exitPrimary?: (ctx: PrimaryContext) => void;
-    /**
      * Enter a parse tree produced by `RustLiteParser.logicExpr`.
      * @param ctx the parse tree
      */
@@ -117,36 +81,6 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitLogicExpr?: (ctx: LogicExprContext) => void;
-    /**
-     * Enter a parse tree produced by `RustLiteParser.logicAndExpr`.
-     * @param ctx the parse tree
-     */
-    enterLogicAndExpr?: (ctx: LogicAndExprContext) => void;
-    /**
-     * Exit a parse tree produced by `RustLiteParser.logicAndExpr`.
-     * @param ctx the parse tree
-     */
-    exitLogicAndExpr?: (ctx: LogicAndExprContext) => void;
-    /**
-     * Enter a parse tree produced by `RustLiteParser.logicNotExpr`.
-     * @param ctx the parse tree
-     */
-    enterLogicNotExpr?: (ctx: LogicNotExprContext) => void;
-    /**
-     * Exit a parse tree produced by `RustLiteParser.logicNotExpr`.
-     * @param ctx the parse tree
-     */
-    exitLogicNotExpr?: (ctx: LogicNotExprContext) => void;
-    /**
-     * Enter a parse tree produced by `RustLiteParser.compExpr`.
-     * @param ctx the parse tree
-     */
-    enterCompExpr?: (ctx: CompExprContext) => void;
-    /**
-     * Exit a parse tree produced by `RustLiteParser.compExpr`.
-     * @param ctx the parse tree
-     */
-    exitCompExpr?: (ctx: CompExprContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.structExpr`.
      * @param ctx the parse tree

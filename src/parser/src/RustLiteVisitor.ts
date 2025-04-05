@@ -6,13 +6,7 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 import { ProgContext } from "./RustLiteParser.js";
 import { ExprContext } from "./RustLiteParser.js";
 import { ArithExprContext } from "./RustLiteParser.js";
-import { TermContext } from "./RustLiteParser.js";
-import { FactorContext } from "./RustLiteParser.js";
-import { PrimaryContext } from "./RustLiteParser.js";
 import { LogicExprContext } from "./RustLiteParser.js";
-import { LogicAndExprContext } from "./RustLiteParser.js";
-import { LogicNotExprContext } from "./RustLiteParser.js";
-import { CompExprContext } from "./RustLiteParser.js";
 import { StructExprContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
@@ -69,47 +63,11 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitArithExpr?: (ctx: ArithExprContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.term`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitTerm?: (ctx: TermContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.factor`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitFactor?: (ctx: FactorContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.primary`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitPrimary?: (ctx: PrimaryContext) => Result;
-    /**
      * Visit a parse tree produced by `RustLiteParser.logicExpr`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitLogicExpr?: (ctx: LogicExprContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.logicAndExpr`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitLogicAndExpr?: (ctx: LogicAndExprContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.logicNotExpr`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitLogicNotExpr?: (ctx: LogicNotExprContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.compExpr`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitCompExpr?: (ctx: CompExprContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.structExpr`.
      * @param ctx the parse tree
