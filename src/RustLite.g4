@@ -29,7 +29,9 @@ arithExpr: primary=INT
         | left=arithExpr op=('+'|'-') right=arithExpr;
 
 logicExpr: primary=BOOL
-        | '(' logicExpr ')'
+        | primary=IDENTIFIER
+        | fieldAccess=structFieldAccess
+        | '(' inner=logicExpr ')'
         | arithExpr op=('>'|'<'|'=='|'!=') arithExpr
         | op='!' right=logicExpr
         | left=logicExpr op='&&' right=logicExpr
