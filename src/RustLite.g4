@@ -32,7 +32,7 @@ logicExpr: primary=BOOL
         | primary=IDENTIFIER
         | fieldAccess=structFieldAccess
         | '(' inner=logicExpr ')'
-        | arithExpr op=('>'|'<'|'=='|'!=') arithExpr
+        | arithLeft=arithExpr op=('>'|'<'|'=='|'!=') arithRight=arithExpr
         | op='!' right=logicExpr
         | left=logicExpr op='&&' right=logicExpr
         | left=logicExpr op='||' right=logicExpr;

@@ -439,7 +439,7 @@ export class RustLiteParser extends antlr.Parser {
             case 5:
                 {
                 this.state = 114;
-                this.arithExpr(0);
+                localContext._arithLeft = this.arithExpr(0);
                 this.state = 115;
                 localContext._op = this.tokenStream.LT(1);
                 _la = this.tokenStream.LA(1);
@@ -451,7 +451,7 @@ export class RustLiteParser extends antlr.Parser {
                     this.consume();
                 }
                 this.state = 116;
-                this.arithExpr(0);
+                localContext._arithRight = this.arithExpr(0);
                 }
                 break;
             case 6:
@@ -1874,7 +1874,9 @@ export class LogicExprContext extends antlr.ParserRuleContext {
     public _primary?: Token | null;
     public _fieldAccess?: StructFieldAccessContext;
     public _inner?: LogicExprContext;
+    public _arithLeft?: ArithExprContext;
     public _op?: Token | null;
+    public _arithRight?: ArithExprContext;
     public _right?: LogicExprContext;
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);

@@ -123,7 +123,79 @@ class RustLiteEvaluatorVisitor
   }
 
   visitLogicExpr(ctx: LogicExprContext): boolean {
-    return false;
+    if (ctx.BOOL()) {
+      return ctx.BOOL().getText() === "true";
+    }
+
+    if (ctx.IDENTIFIER()) {
+      // Is variable
+      const variableName = ctx.IDENTIFIER().getText();
+      if (typeof variableName !== "boolean") {
+        throw new Error("Variable is not a boolean");
+      }
+      return false; //TODO: Implement retrieving variable value
+    }
+
+    if (ctx.structFieldAccess()) {
+      // Accessing struct
+      const structFieldAccess = ctx.structFieldAccess();
+      const result = this.visitStructFieldAccess(structFieldAccess);
+
+      if (typeof result !== "boolean") {
+        throw new Error("Struct field is not a boolean");
+      }
+      return result;
+    }
+
+    if (ctx._inner) {
+      return this.visitLogicExpr(ctx._inner);
+    }
+
+    if (ctx._arithLeft && ctx._arithRight && ctx._op) {
+      // Comparison operation
+      const left = this.visitArithExpr(ctx._arithLeft);
+      const right = this.visitArithExpr(ctx._arithRight);
+
+      switch (ctx._op.text) {
+        case "==":
+          return left === right;
+        case "!=":
+          return left !== right;
+        case "<":
+          return left < right;
+        case "<=":
+          return left <= right;
+        case ">":
+          return left > right;
+        case ">=":
+          return left >= right;
+        default:
+          throw new Error(`Unknown operator: ${ctx._op.text}`);
+      }
+    }
+
+    if (ctx._op && ctx._op.text === "!" && !ctx._left) {
+      // Unary negation
+      const right = this.visitLogicExpr(ctx._right);
+      return !right;
+    }
+
+    if (ctx._left && ctx._right && ctx._op) {
+      // Binary operation
+      const left = this.visitLogicExpr(ctx._left);
+      const right = this.visitLogicExpr(ctx._right);
+
+      switch (ctx._op.text) {
+        case "&&":
+          return left && right;
+        case "||":
+          return left || right;
+        default:
+          throw new Error(`Unknown operator: ${ctx._op.text}`);
+      }
+    }
+
+    throw new Error(`Invalid expression: ${ctx.getText()}`);
   }
 
   visitStructExpr(ctx: StructExprContext): SUPPORTED_TYPES {
