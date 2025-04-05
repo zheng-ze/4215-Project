@@ -86,6 +86,10 @@ class RustLiteEvaluatorVisitor
       return result;
     }
 
+    if (ctx._inner) {
+      return this.visitArithExpr(ctx._inner);
+    }
+
     if (ctx._op && ctx._op.text === "-" && !ctx._left) {
       // Unary minus
       const right = this.visitArithExpr(ctx._right);
