@@ -64,7 +64,58 @@ class RustLiteEvaluatorVisitor
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
-    return 0;
+    if (ctx.INT()) {
+      // Is integer
+      return parseInt(ctx.INT().getText());
+    }
+
+    if (ctx.IDENTIFIER()) {
+      // Is variable
+      const variableName = ctx.IDENTIFIER().getText();
+      return 0; //TODO: Implement retrieving variable value
+    }
+
+    if (ctx.structFieldAccess()) {
+      // Accessing struct
+      const structFieldAccess = ctx.structFieldAccess();
+      const result = this.visitStructFieldAccess(structFieldAccess);
+
+      if (typeof result !== "number") {
+        throw new Error("Struct field is not a number");
+      }
+      return result;
+    }
+
+    if (ctx._op && ctx._op.text === "-" && !ctx._left) {
+      // Unary minus
+      const right = this.visitArithExpr(ctx._right);
+      return -right;
+    }
+
+    if (ctx._left && ctx._right && ctx._op) {
+      // Binary operation
+      const left = this.visitArithExpr(ctx._left);
+      const right = this.visitArithExpr(ctx._right);
+
+      switch (ctx._op.text) {
+        case "+":
+          return left + right;
+        case "-":
+          return left - right;
+        case "*":
+          return left * right;
+        case "/":
+          if (right === 0) {
+            throw new Error("Division by zero");
+          }
+          return Math.trunc(left / right); // Integer division
+        // TODO: Implement other operators like % and ^
+        default:
+          throw new Error(`Unknown operator: ${ctx._op.text}`);
+      }
+    }
+
+    throw new Error(`Invalid expression: ${ctx.getText()}`);
   }
 
   visitLogicExpr(ctx: LogicExprContext): boolean {
@@ -81,7 +132,7 @@ class RustLiteEvaluatorVisitor
       return 0;
     }
 
-    // implcit return statement
+    // implicit return statement
     if (numChildren === 1) {
       return this.visit(ctx.returnStmt());
     } else if (ctx.getChild(0).getText() === "return") {
