@@ -1,5 +1,7 @@
 export type SUPPORTED_TYPES = number | boolean;
 
+export const word_size = 8;
+
 export enum instruction_type {
   LDC,
   UNOP,
