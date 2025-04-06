@@ -32,13 +32,16 @@ import {
   StructInitFieldListContext,
   WhileStmtContext,
 } from "./parser/src/RustLiteParser";
+import {
+  SUPPORTED_TYPES,
+  instruction,
+  instruction_type,
+} from "./RustLiteTypes";
 
 import { BasicEvaluator } from "conductor/dist/conductor/runner";
 import { IRunnerPlugin } from "conductor/dist/conductor/runner/types";
 import { RustLiteLexer } from "./parser/src/RustLiteLexer";
 import { RustLiteVisitor } from "./parser/src/RustLiteVisitor";
-
-type SUPPORTED_TYPES = number | boolean;
 
 class RustLiteEvaluatorVisitor
   extends AbstractParseTreeVisitor<SUPPORTED_TYPES>
