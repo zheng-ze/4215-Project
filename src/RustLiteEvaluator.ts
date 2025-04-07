@@ -61,14 +61,12 @@ class RustLiteEvaluatorVisitor
       try {
         statement = ctx.stmt(i);
       } catch {
-        throw Error("Unable to get statement");
+        throw "Unable to get statement";
       }
       try {
         result = this.visit(statement);
       } catch (error) {
-        throw Error(
-          `Error while visiting statement ${statement}, with error: ${error}`
-        );
+        throw `Error while visiting statement ${statement}, with error: ${error}`;
       }
     }
     return result;
