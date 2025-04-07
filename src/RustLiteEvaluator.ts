@@ -68,7 +68,7 @@ class RustLiteEvaluatorVisitor
       try {
         if (statement && statement[0]) {
           console.log(`Statement: ${statement[0]}`);
-          result = this.visit(statement[0]);
+          result = this.visitStmt(statement[0]);
         }
       } catch (error) {
         throw `Error while visiting statement ${statement}, with error: ${error}`;
