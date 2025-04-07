@@ -228,51 +228,51 @@ class RustLiteEvaluatorVisitor
 
     // implicit return statement
     if (numChildren === 1) {
-      return this.visit(ctx.returnStmt());
+      return this.visitReturnStmt(ctx.returnStmt());
     } else if (ctx.getChild(0).getText() === "return") {
       // explicit return statement
-      return this.visit(ctx.returnStmt());
+      return this.visitReturnStmt(ctx.returnStmt());
     }
 
     if (numChildren === 2) {
       if (ctx.getChild(0).getText() === "loop") {
         // loop statement
-        return this.visit(ctx.loopStmt());
+        return this.visitLoopStmt(ctx.loopStmt());
       }
       if (ctx.getChild(1).getText() === ";") {
         // expression statement
-        return this.visit(ctx.exprStmt());
+        return this.visitExprStmt(ctx.exprStmt());
       }
     }
 
     if (ctx.getChild(0).getText() === "if") {
       // conditional statement
-      return this.visit(ctx.condStmt());
+      return this.visitCondStmt(ctx.condStmt());
     }
 
     if (ctx.getChild(0).getText() === "for") {
       // for statement
-      return this.visit(ctx.forStmt());
+      return this.visitForStmt(ctx.forStmt());
     }
 
     if (ctx.getChild(0).getText() === "while") {
       // while statement
-      return this.visit(ctx.whileStmt());
+      return this.visitWhileStmt(ctx.whileStmt());
     }
 
     if (ctx.getChild(0).getText() === "let") {
       // declare statement
-      return this.visit(ctx.declareStmt());
+      return this.visitDeclareStmt(ctx.declareStmt());
     }
 
     if (ctx.getChild(0).getText() === "{") {
       // block statement
-      return this.visit(ctx.block());
+      return this.visitBlock(ctx.block());
     }
 
     if (ctx.getChild(0).getText() === "fn") {
       // function statement
-      return this.visit(ctx.fnDeclareStmt());
+      return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
     }
   }
 
