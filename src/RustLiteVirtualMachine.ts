@@ -3,13 +3,11 @@ import {
   BINOP,
   CALL,
   ENTER_SCOPE,
-  EXIT_SCOPE,
   GOTO,
   JOF,
   LD,
   LDC,
   LDF,
-  POP,
   Pair,
   RESET,
   SUPPORTED_TYPES,
@@ -21,8 +19,6 @@ import {
   size_offset,
   word_size,
 } from "./RustLiteTypes";
-
-import { isBoolean } from "util";
 
 interface VirtualMachineMicrocode {
   [key: string]: (instr: instruction) => void;
@@ -442,47 +438,6 @@ export class RustLiteVirtualMachine implements VirtualMachine<SUPPORTED_TYPES> {
     this.heap.set_child(new_env_address, i, frameAddress);
     return new_env_address;
   }
-
-  // private compile_time_env_position(
-  //   env: SUPPORTED_TYPES[][],
-  //   value: SUPPORTED_TYPES
-  // ): Pair<number> {
-  //   let frameIndex = env.length;
-  //   let valueIndex = -1;
-  //   while (frameIndex > 0) {
-  //     frameIndex--;
-  //     valueIndex = this.value_index(env[frameIndex], value);
-  //     if (valueIndex !== -1) {
-  //       break;
-  //     }
-  //   }
-  //   if (valueIndex === -1) {
-  //     throw new Error(`Value ${value} not found in environment`);
-  //   }
-  //   return { left: frameIndex, right: valueIndex };
-  // }
-
-  // private value_index(
-  //   frame: SUPPORTED_TYPES[],
-  //   value: SUPPORTED_TYPES
-  // ): number {
-  //   for (let i = 0; i < frame.length; i++) {
-  //     if (frame[i] === value) {
-  //       return i;
-  //     }
-  //   }
-  //   return -1;
-  // }
-
-  // private compile_time_env_extend(
-  //   env: SUPPORTED_TYPES[][],
-  //   frame: SUPPORTED_TYPES[][]
-  // ): SUPPORTED_TYPES[][] {
-  //   for (let assignment of frame) {
-  //     env.push(assignment);
-  //   }
-  //   return env;
-  // }
 
   private address_to_JS_value(address: number): SUPPORTED_TYPES {
     if (this.is_Bool(address)) {
