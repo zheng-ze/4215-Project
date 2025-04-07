@@ -220,8 +220,12 @@ class RustLiteEvaluatorVisitor
 
     // implicit return statement
     if (numChildren === 1) {
-      console.log(`context payload is ${ctx.getPayload()}`);
-      return this.visitReturnStmt(ctx.returnStmt());
+      let text = ctx.getText();
+      if (text === "true" || text === "false") {
+        return text === "true";
+      } else {
+        return parseInt(text);
+      }
     } else if (ctx.getChild(0).getText() === "return") {
       // explicit return statement
       return this.visitReturnStmt(ctx.returnStmt());
