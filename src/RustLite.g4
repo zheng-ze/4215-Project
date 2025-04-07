@@ -11,7 +11,7 @@ TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
 WS: [ \t\r\n]+ -> skip;
 COMMENT: '//' ~[\r\n]* -> skip;
 
-expr: '(' expr ')'
+expr: '(' inner=expr ')'
     | IDENTIFIER
     | INT
     | BOOL

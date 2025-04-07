@@ -71,12 +71,9 @@ class RustLiteEvaluatorVisitor
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
     console.log("Visiting Expr");
-    const numChildren = ctx.getChildCount();
-
-    if (numChildren === 3) {
-      return this.visit(ctx.expr());
+    if (ctx._inner) {
+      return this.visitExpr(ctx._inner);
     }
-
     if (ctx.BOOL()) {
       console.log("Visiting Expr: BOOL");
       return ctx.BOOL().getText() === "true";
