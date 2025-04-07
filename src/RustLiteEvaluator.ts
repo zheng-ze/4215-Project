@@ -48,6 +48,7 @@ class RustLiteEvaluatorVisitor
   implements RustLiteVisitor<SUPPORTED_TYPES> {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
+    return 0;
     const numStatements = ctx.getChildCount();
     if (numStatements === 0) {
       return 0;
@@ -66,7 +67,6 @@ class RustLiteEvaluatorVisitor
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
-    return 0;
     if (ctx.INT()) {
       // Is integer
       return parseInt(ctx.INT().getText());
