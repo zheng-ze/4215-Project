@@ -51,25 +51,14 @@ class RustLiteEvaluatorVisitor
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
-    console.log(ctx);
-    const numStatements = ctx.getChildCount();
-    if (numStatements === 0) {
-      return 0;
-    }
-
     let result: SUPPORTED_TYPES;
-    for (let i = 0; i < numStatements; i++) {
-      let statement;
+    let statement = ctx.stmt();
+
+    for (let i = 0; i < statement.length; i++) {
       try {
-        statement = ctx.stmt();
-        console.log(`Got statement at index ${i}: ${statement}`);
-      } catch {
-        throw "Unable to get statement";
-      }
-      try {
-        if (statement && statement[0]) {
-          console.log(`Statement: ${statement[0]}`);
-          result = this.visitStmt(statement[0]);
+        if (statement && statement[i]) {
+          console.log(`Statement: ${statement[i]}`);
+          result = this.visitStmt(statement[i]);
         }
       } catch (error) {
         throw `Error while visiting statement ${statement}, with error: ${error}`;
