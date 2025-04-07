@@ -57,7 +57,12 @@ class RustLiteEvaluatorVisitor
 
     let result: SUPPORTED_TYPES;
     for (let i = 0; i < numStatements; i++) {
-      const statement = ctx.stmt(i);
+      let statement;
+      try {
+        statement = ctx.stmt(i);
+      } catch {
+        Error("Unable to get statement");
+      }
       try {
         result = this.visit(statement);
       } catch (error) {
