@@ -5,7 +5,7 @@ prog: stmt* EOF;
 INT: [0-9]+;
 BOOL: 'true' | 'false';
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*; // - not allowed in name.
-TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
+TYPE: 'u8' | 'u16' | 'u32' | 'u64' | 'i8' | 'i16' | 'i32' | 'i64' | 'bool' | IDENTIFIER;
 
 // Ignore whitespace and comments
 WS: [ \t\r\n]+ -> skip;
