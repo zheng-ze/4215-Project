@@ -66,7 +66,7 @@ class RustLiteEvaluatorVisitor
         throw "Unable to get statement";
       }
       try {
-        if (Array.isArray(statement)) {
+        if (statement?.length) {
           console.log(`Statement is an array: ${statement}`);
           for (let j = 0; i < statement.length; j++) {
             result = this.visit(statement[i]);
