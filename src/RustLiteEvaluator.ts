@@ -342,6 +342,17 @@ class RustLiteEvaluatorVisitor
   visitStructFieldAccess(ctx: StructFieldAccessContext): SUPPORTED_TYPES {
     return 0;
   }
+  protected defaultResult(): SUPPORTED_TYPES {
+    return 0;
+  }
+
+  // Override the aggregate result method
+  protected aggregateResult(
+    aggregate: SUPPORTED_TYPES,
+    nextResult: SUPPORTED_TYPES
+  ): SUPPORTED_TYPES {
+    return nextResult;
+  }
 }
 
 export class RustLiteEvaluator extends BasicEvaluator {
