@@ -61,15 +61,18 @@ class RustLiteEvaluatorVisitor
       let statement;
       try {
         statement = ctx.stmt(i);
+        console.log(`Got statement at index ${i}: ${statement}`);
       } catch {
         throw "Unable to get statement";
       }
       try {
-        if (statement.constructor === Array) {
+        if (Array.isArray(statement)) {
+          console.log(`Statement is an array: ${statement}`);
           for (let j = 0; i < statement.length; j++) {
-            result = this.visit(statement[j]);
+            result = this.visit(statement[i]);
           }
         } else {
+          console.log(`Statement is not an array ${statement}`);
           result = this.visit(statement);
         }
       } catch (error) {
