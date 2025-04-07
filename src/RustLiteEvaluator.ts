@@ -243,16 +243,23 @@ class RustLiteEvaluatorVisitor
       return 0;
     }
 
-    for (let i = 0; i < numChildren; i++) {
-      console.log(`Statement child ${i}: ${ctx.getChild(i).getText()}`);
-    }
-
     return this.visitChildren(ctx);
   }
 
   visitBlock(ctx: BlockContext): SUPPORTED_TYPES {
     console.log("Visiting Block");
-    return 0;
+    const statements = ctx.stmt();
+    let result: SUPPORTED_TYPES;
+
+    for (let i = 0; i < statements.length; i++) {
+      result = this.visit(statements[i]);
+    }
+
+    if (ctx.expr()) {
+      return this.visit(ctx.expr());
+    }
+
+    return result;
   }
 
   visitExprStmt(ctx: ExprStmtContext): SUPPORTED_TYPES {
