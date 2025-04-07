@@ -1,4 +1,3 @@
 import { initialise } from "conductor/dist/conductor/runner/util/";
-import { SimpleLangEvaluator } from "./SimpleLangEvaluator";
-
-const {runnerPlugin, conduit} = initialise(SimpleLangEvaluator);
+import { RustLiteEvaluator } from "./RustLiteEvaluator";
+const { runnerPlugin, conduit } = initialise(RustLiteEvaluator);

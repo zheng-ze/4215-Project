@@ -3,13 +3,11 @@ on:
   push:
     branches:
       - main
-
+  workflow_dispatch:
 jobs:
   build:
     name: Build runner
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,7 +19,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: yarn
 
       - name: yarn install
         run: yarn install --immutable
@@ -37,19 +34,14 @@ jobs:
 
   deploy:
     needs: build
-
     name: Deploy runner
-
     permissions:
       pages: write
       id-token: write
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
