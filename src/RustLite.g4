@@ -4,8 +4,12 @@ prog: stmt* EOF;
 
 INT: [0-9]+;
 BOOL: 'true' | 'false';
-IDENTIFIER: [a-zA-Z_];
+IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*; // - not allowed in name.
 TYPE: 'i32' | 'i64' | 'bool' | IDENTIFIER;
+
+// Ignore whitespace and comments
+WS: [ \t\r\n]+ -> skip;
+COMMENT: '//' ~[\r\n]* -> skip;
 
 expr: '(' expr ')'
     | IDENTIFIER
@@ -16,14 +20,22 @@ expr: '(' expr ')'
     | structExpr
     | fnCall;
 
-arithExpr: arithExpr ('+'|'-'|'*'|'/') arithExpr
-        | INT
-        | IDENTIFIER;
+arithExpr: primary=INT
+        | primary=IDENTIFIER
+        | fieldAccess=structFieldAccess
+        | '(' inner=arithExpr ')'
+        | op='-' arithExpr
+        | left=arithExpr op=('*'|'/') right=arithExpr
+        | left=arithExpr op=('+'|'-') right=arithExpr;
 
-logicExpr: logicExpr ('&&'|'||') logicExpr
-        | '!' logicExpr
-        | BOOL
-        | arithExpr ('>'|'<'|'=='|'!=') arithExpr;
+logicExpr: primary=BOOL
+        | primary=IDENTIFIER
+        | fieldAccess=structFieldAccess
+        | '(' inner=logicExpr ')'
+        | arithLeft=arithExpr op=('>'|'<'|'=='|'!=') arithRight=arithExpr
+        | op='!' right=logicExpr
+        | left=logicExpr op='&&' right=logicExpr
+        | left=logicExpr op='||' right=logicExpr;
 
 structExpr: structInit
         | structDeclare
@@ -33,26 +45,33 @@ stmt: exprStmt
     | declareStmt
     | condStmt
     | loopStmt
+    | forStmt
     | whileStmt
+    | loopControlStmt
     | fnDeclareStmt
-    | returnStmt;
+    | returnStmt
+    | block;
 
-block: '{' stmt* '}';
+// expr for implicit return in fn block. Need to check when compiling to bytecode
+block: '{' stmt* expr? '}';
 
 exprStmt: expr ';';
 
 declareStmt: 'let' 'mut'? IDENTIFIER '=' exprStmt;
 
-condStmt: 'if' expr block ('else' 'if' expr block)* ('else' block)?;
+condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?;
 
 loopStmt: 'loop' block;
 
-whileStmt: 'while' expr block;
+whileStmt: 'while' logicExpr block;
+
+loopControl: 'break' | 'continue'; 
+
+loopControlStmt: loopControl ';';
 
 // For loops
 iterable: IDENTIFIER
-        | INT'..'INT
-        | 'range' '(' INT ',' INT ')';
+        | INT op=('..'|'..=') INT;
 
 forStmt: 'for' IDENTIFIER 'in' iterable block;
 
@@ -63,7 +82,7 @@ paramList: param (',' param)*;
 returnTypes: TYPE
             | '()';
 returnType: '->' returnTypes;
-returnStmt: 'return' exprStmt;
+returnStmt: 'return' expr? ';';
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 
@@ -79,8 +98,4 @@ structInit: IDENTIFIER '{' structInitFieldList '}';
 structInitFieldList: structInitField (',' structInitField)*;
 structInitField: IDENTIFIER ':' expr;
 
-structFieldAccess: IDENTIFIER '.' IDENTIFIER;
-
-// Ignore whitespace and comments
-WS: [ \t\r\n]+ -> skip;
-COMMENT: '//' ~[\r\n]* -> skip;
+structFieldAccess: IDENTIFIER ('.' IDENTIFIER)+;

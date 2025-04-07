@@ -15,6 +15,8 @@ import { DeclareStmtContext } from "./RustLiteParser.js";
 import { CondStmtContext } from "./RustLiteParser.js";
 import { LoopStmtContext } from "./RustLiteParser.js";
 import { WhileStmtContext } from "./RustLiteParser.js";
+import { LoopControlContext } from "./RustLiteParser.js";
+import { LoopControlStmtContext } from "./RustLiteParser.js";
 import { IterableContext } from "./RustLiteParser.js";
 import { ForStmtContext } from "./RustLiteParser.js";
 import { ParamContext } from "./RustLiteParser.js";
@@ -159,6 +161,26 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitWhileStmt?: (ctx: WhileStmtContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.loopControl`.
+     * @param ctx the parse tree
+     */
+    enterLoopControl?: (ctx: LoopControlContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.loopControl`.
+     * @param ctx the parse tree
+     */
+    exitLoopControl?: (ctx: LoopControlContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.loopControlStmt`.
+     * @param ctx the parse tree
+     */
+    enterLoopControlStmt?: (ctx: LoopControlStmtContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.loopControlStmt`.
+     * @param ctx the parse tree
+     */
+    exitLoopControlStmt?: (ctx: LoopControlStmtContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.iterable`.
      * @param ctx the parse tree
