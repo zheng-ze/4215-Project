@@ -55,20 +55,21 @@ class RustLiteEvaluatorVisitor
     console.log(ctx.getText());
     console.log(`Children: ${ctx.getChildCount()}`);
     let result: SUPPORTED_TYPES;
-    let statement = ctx.stmt();
-    if (statement) {
-      for (let i = 0; i < statement.length; i++) {
-        try {
-          if (statement && statement[i]) {
-            console.log(`Statement: ${statement[i]}`);
-            result = this.visit(statement[i]);
-          }
-        } catch (error) {
-          throw `Error while visiting statement ${statement}, with error: ${error}`;
-        }
-      }
-      return result;
-    }
+    // let statement = ctx.stmt();
+    // if (statement) {
+    //   for (let i = 0; i < statement.length; i++) {
+    //     try {
+    //       if (statement && statement[i]) {
+    //         console.log(`Statement: ${statement[i]}`);
+    //         result = this.visit(statement[i]);
+    //       }
+    //     } catch (error) {
+    //       throw `Error while visiting statement ${statement}, with error: ${error}`;
+    //     }
+    //   }
+    //   return result;
+    // }
+    return this.visitChildren(ctx);
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
@@ -229,57 +230,58 @@ class RustLiteEvaluatorVisitor
       return 0;
     }
 
-    // implicit return statement
-    if (numChildren === 1) {
-      let text = ctx.getText();
-      console.log(`text is: ${text}`);
-      return this.visit(ctx.getChild(0));
-    } else if (ctx.getChild(0).getText() === "return") {
-      // explicit return statement
-      return this.visitReturnStmt(ctx.returnStmt());
-    }
+    // // implicit return statement
+    // if (numChildren === 1) {
+    //   let text = ctx.getText();
+    //   console.log(`text is: ${text}`);
+    //   return this.visit(ctx.getChild(0));
+    // } else if (ctx.getChild(0).getText() === "return") {
+    //   // explicit return statement
+    //   return this.visitReturnStmt(ctx.returnStmt());
+    // }
 
-    if (numChildren === 2) {
-      if (ctx.getChild(0).getText() === "loop") {
-        // loop statement
-        return this.visitLoopStmt(ctx.loopStmt());
-      }
-      if (ctx.getChild(1).getText() === ";") {
-        // expression statement
-        return this.visitExprStmt(ctx.exprStmt());
-      }
-    }
+    // if (numChildren === 2) {
+    //   if (ctx.getChild(0).getText() === "loop") {
+    //     // loop statement
+    //     return this.visitLoopStmt(ctx.loopStmt());
+    //   }
+    //   if (ctx.getChild(1).getText() === ";") {
+    //     // expression statement
+    //     return this.visitExprStmt(ctx.exprStmt());
+    //   }
+    // }
 
-    if (ctx.getChild(0).getText() === "if") {
-      // conditional statement
-      return this.visitCondStmt(ctx.condStmt());
-    }
+    // if (ctx.getChild(0).getText() === "if") {
+    //   // conditional statement
+    //   return this.visitCondStmt(ctx.condStmt());
+    // }
 
-    if (ctx.getChild(0).getText() === "for") {
-      // for statement
-      return this.visitForStmt(ctx.forStmt());
-    }
+    // if (ctx.getChild(0).getText() === "for") {
+    //   // for statement
+    //   return this.visitForStmt(ctx.forStmt());
+    // }
 
-    if (ctx.getChild(0).getText() === "while") {
-      // while statement
-      return this.visitWhileStmt(ctx.whileStmt());
-    }
+    // if (ctx.getChild(0).getText() === "while") {
+    //   // while statement
+    //   return this.visitWhileStmt(ctx.whileStmt());
+    // }
 
-    if (ctx.getChild(0).getText() === "let") {
-      // declare statement
-      return this.visitDeclareStmt(ctx.declareStmt());
-    }
+    // if (ctx.getChild(0).getText() === "let") {
+    //   // declare statement
+    //   return this.visitDeclareStmt(ctx.declareStmt());
+    // }
 
-    if (ctx.getChild(0).getText() === "{") {
-      // block statement
-      return this.visitBlock(ctx.block());
-    }
+    // if (ctx.getChild(0).getText() === "{") {
+    //   // block statement
+    //   return this.visitBlock(ctx.block());
+    // }
 
-    if (ctx.getChild(0).getText() === "fn") {
-      // function statement
-      return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
-    }
-    console.log("Unable to match statement");
+    // if (ctx.getChild(0).getText() === "fn") {
+    //   // function statement
+    //   return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
+    // }
+    // console.log("Unable to match statement");
+    return this.visitChildren(ctx);
   }
 
   visitBlock(ctx: BlockContext): SUPPORTED_TYPES {
