@@ -42,6 +42,7 @@ import { BasicEvaluator } from "conductor/dist/conductor/runner";
 import { IRunnerPlugin } from "conductor/dist/conductor/runner/types";
 import { RustLiteLexer } from "./parser/src/RustLiteLexer";
 import { RustLiteVisitor } from "./parser/src/RustLiteVisitor";
+import { error } from "console";
 
 class RustLiteEvaluatorVisitor
   extends AbstractParseTreeVisitor<SUPPORTED_TYPES>
@@ -49,7 +50,6 @@ class RustLiteEvaluatorVisitor
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
-    return 0;
     const numStatements = ctx.getChildCount();
     if (numStatements === 0) {
       return 0;
@@ -58,7 +58,13 @@ class RustLiteEvaluatorVisitor
     let result: SUPPORTED_TYPES;
     for (let i = 0; i < numStatements; i++) {
       const statement = ctx.stmt(i);
-      result = this.visit(statement);
+      try {
+        result = this.visit(statement);
+      } catch (error) {
+        Error(
+          `Error while visiting statement ${statement}, with error: ${error}`
+        );
+      }
     }
     return result;
   }
