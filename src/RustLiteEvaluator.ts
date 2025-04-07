@@ -45,8 +45,7 @@ import { RustLiteVisitor } from "./parser/src/RustLiteVisitor";
 
 class RustLiteEvaluatorVisitor
   extends AbstractParseTreeVisitor<SUPPORTED_TYPES>
-  implements RustLiteVisitor<SUPPORTED_TYPES>
-{
+  implements RustLiteVisitor<SUPPORTED_TYPES> {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
     const numStatements = ctx.getChildCount();
@@ -67,6 +66,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
+    return 0;
     if (ctx.INT()) {
       // Is integer
       return parseInt(ctx.INT().getText());
