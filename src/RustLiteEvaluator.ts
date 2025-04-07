@@ -406,6 +406,23 @@ export class RustLiteEvaluator extends BasicEvaluator {
         reportAttemptingFullContext() {},
         reportContextSensitivity() {},
       });
+      lexer.removeErrorListeners();
+      lexer.addErrorListener({
+        syntaxError: (
+          recognizer,
+          offendingSymbol,
+          line,
+          charPositionInLine,
+          msg
+        ) => {
+          this.conductor.sendOutput(
+            `Lexer error at ${line}:${charPositionInLine} - ${msg}`
+          );
+        },
+        reportAmbiguity() {},
+        reportAttemptingFullContext() {},
+        reportContextSensitivity() {},
+      });
       // Parse the input
       const tree = parser.prog();
 
