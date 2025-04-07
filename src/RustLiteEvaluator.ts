@@ -283,6 +283,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitBlock(ctx: BlockContext): SUPPORTED_TYPES {
+    console.log("Visiting Block");
     return 0;
   }
 
@@ -292,18 +293,22 @@ class RustLiteEvaluatorVisitor
   }
 
   visitLoopStmt(ctx: LoopStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting LoopStmt");
     return 0;
   }
 
   visitDeclareStmt(ctx: DeclareStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting DeclareStmt");
     return 0;
   }
 
   visitCondStmt(ctx: CondStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting CondStmt");
     return 0;
   }
 
   visitWhileStmt(ctx: WhileStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting WhileStmt");
     return 0;
   }
 
