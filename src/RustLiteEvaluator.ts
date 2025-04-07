@@ -51,27 +51,21 @@ class RustLiteEvaluatorVisitor
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
-    const numStatements = ctx.getChildCount();
-    if (numStatements === 0) {
-      return 0;
-    }
-
     let result: SUPPORTED_TYPES;
-    for (let i = 0; i < numStatements; i++) {
-      let statement;
-      try {
-        statement = ctx.stmt(i);
-        console.log(`Got statement at index ${i}: ${statement}`);
-      } catch {
-        throw "Unable to get statement";
+    let statement = ctx.stmt();
+    if (statement) {
+      for (let i = 0; i < statement.length; i++) {
+        try {
+          if (statement && statement[i]) {
+            console.log(`Statement: ${statement[i]}`);
+            result = this.visitStmt(statement[i]);
+          }
+        } catch (error) {
+          throw `Error while visiting statement ${statement}, with error: ${error}`;
+        }
       }
-      try {
-        result = this.visit(statement[0]);
-      } catch (error) {
-        throw `Error while visiting statement ${statement[0]}, with error: ${error}`;
-      }
+      return result;
     }
-    return result;
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
@@ -219,57 +213,64 @@ class RustLiteEvaluatorVisitor
 
   visitStmt(ctx: StmtContext): SUPPORTED_TYPES {
     const numChildren = ctx.getChildCount();
+    console.log(`Statement has ${numChildren} Children`);
     if (numChildren === 0) {
       return 0;
     }
 
     // implicit return statement
     if (numChildren === 1) {
-      return this.visit(ctx.returnStmt());
+      let text = ctx.getText();
+      console.log(`text is :${text}}`);
+      if (text === "true" || text === "false") {
+        return text === "true";
+      } else {
+        return parseInt(text);
+      }
     } else if (ctx.getChild(0).getText() === "return") {
       // explicit return statement
-      return this.visit(ctx.returnStmt());
+      return this.visitReturnStmt(ctx.returnStmt());
     }
 
     if (numChildren === 2) {
       if (ctx.getChild(0).getText() === "loop") {
         // loop statement
-        return this.visit(ctx.loopStmt());
+        return this.visitLoopStmt(ctx.loopStmt());
       }
       if (ctx.getChild(1).getText() === ";") {
         // expression statement
-        return this.visit(ctx.exprStmt());
+        return this.visitExprStmt(ctx.exprStmt());
       }
     }
 
     if (ctx.getChild(0).getText() === "if") {
       // conditional statement
-      return this.visit(ctx.condStmt());
+      return this.visitCondStmt(ctx.condStmt());
     }
 
     if (ctx.getChild(0).getText() === "for") {
       // for statement
-      return this.visit(ctx.forStmt());
+      return this.visitForStmt(ctx.forStmt());
     }
 
     if (ctx.getChild(0).getText() === "while") {
       // while statement
-      return this.visit(ctx.whileStmt());
+      return this.visitWhileStmt(ctx.whileStmt());
     }
 
     if (ctx.getChild(0).getText() === "let") {
       // declare statement
-      return this.visit(ctx.declareStmt());
+      return this.visitDeclareStmt(ctx.declareStmt());
     }
 
     if (ctx.getChild(0).getText() === "{") {
       // block statement
-      return this.visit(ctx.block());
+      return this.visitBlock(ctx.block());
     }
 
     if (ctx.getChild(0).getText() === "fn") {
       // function statement
-      return this.visit(ctx.fnDeclareStmt());
+      return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
     }
   }
 

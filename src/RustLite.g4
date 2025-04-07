@@ -25,14 +25,14 @@ arithExpr: primary=INT
         | fieldAccess=structFieldAccess
         | '(' inner=arithExpr ')'
         | op='-' arithExpr
-        | left=arithExpr op=('*'|'/') right=arithExpr
+        | left=arithExpr op=('*'|'/'|'%') right=arithExpr
         | left=arithExpr op=('+'|'-') right=arithExpr;
 
 logicExpr: primary=BOOL
         | primary=IDENTIFIER
         | fieldAccess=structFieldAccess
         | '(' inner=logicExpr ')'
-        | arithLeft=arithExpr op=('>'|'<'|'=='|'!=') arithRight=arithExpr
+        | arithLeft=arithExpr op=('>'|'<'|'=='|'!='|'<='|'>=') arithRight=arithExpr
         | op='!' right=logicExpr
         | left=logicExpr op='&&' right=logicExpr
         | left=logicExpr op='||' right=logicExpr;
