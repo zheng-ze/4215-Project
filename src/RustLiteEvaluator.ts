@@ -66,8 +66,8 @@ class RustLiteEvaluatorVisitor
       }
       try {
         if (statement.constructor === Array) {
-          for (let i = 0; i < statement.length; i++) {
-            result = this.visit(statement[i]);
+          for (let j = 0; i < statement.length; j++) {
+            result = this.visit(statement[j]);
           }
         } else {
           result = this.visit(statement);
