@@ -51,6 +51,8 @@ class RustLiteEvaluatorVisitor
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
+    console.log("Visiting Prog");
+    console.log(ctx);
     let result: SUPPORTED_TYPES;
     let statement = ctx.stmt();
     if (statement) {
@@ -221,7 +223,7 @@ class RustLiteEvaluatorVisitor
     // implicit return statement
     if (numChildren === 1) {
       let text = ctx.getText();
-      console.log(`text is :${text}}`);
+      console.log(`text is :${text}`);
       if (text === "true" || text === "false") {
         return text === "true";
       } else {
