@@ -49,18 +49,7 @@ class RustLiteEvaluatorVisitor
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
-    return 0;
-    const numStatements = ctx.getChildCount();
-    if (numStatements === 0) {
-      return 0;
-    }
-
-    let result: SUPPORTED_TYPES;
-    for (let i = 0; i < numStatements; i++) {
-      const statement = ctx.stmt(i);
-      result = this.visit(statement);
-    }
-    return result;
+    return this.visit(ctx.expression());
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
