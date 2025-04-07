@@ -51,9 +51,7 @@ class RustLiteEvaluatorVisitor
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
-    console.log("Visiting Prog");
-    console.log(ctx.getText());
-    console.log(`Children: ${ctx.getChildCount()}`);
+    console.log(`Visiting Program, text parsed: ${ctx.getText()}`);
     let result: SUPPORTED_TYPES;
     let statement = ctx.stmt();
     if (statement) {
@@ -79,7 +77,9 @@ class RustLiteEvaluatorVisitor
       return this.visit(ctx.expr());
     }
 
-    return this.visitChildren(ctx);
+    const result = this.visitChildren(ctx);
+    console.log(`Result of expression: ${result}`);
+    return result;
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
@@ -220,6 +220,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitStructExpr(ctx: StructExprContext): SUPPORTED_TYPES {
+    console.log("Visiting StructExpr");
     return 0;
   }
 
