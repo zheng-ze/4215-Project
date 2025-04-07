@@ -67,6 +67,7 @@ class RustLiteEvaluatorVisitor
       }
       try {
         if (statement != null) {
+          console.log(`Statement: ${statement[0]}`);
           result = this.visit(statement[0]);
         }
       } catch (error) {
