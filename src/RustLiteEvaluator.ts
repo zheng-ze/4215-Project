@@ -66,7 +66,7 @@ class RustLiteEvaluatorVisitor
         throw "Unable to get statement";
       }
       try {
-        if (statement != null) {
+        if (statement) {
           console.log(`Statement: ${statement[0]}`);
           result = this.visit(statement[0]);
         }
