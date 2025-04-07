@@ -43,6 +43,7 @@ structExpr: structInit
 
 stmt: exprStmt
     | declareStmt
+    | constStmt
     | condStmt
     | loopStmt
     | forStmt
@@ -58,6 +59,8 @@ block: '{' stmt* expr? '}';
 exprStmt: expr ';';
 
 declareStmt: 'let' 'mut'? IDENTIFIER '=' exprStmt;
+
+constStmt: 'const' IDENTIFIER (':' TYPE)? '=' exprStmt;
 
 condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?;
 
