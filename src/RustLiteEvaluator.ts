@@ -43,6 +43,7 @@ import { IRunnerPlugin } from "conductor/dist/conductor/runner/types";
 import { RustLiteLexer } from "./parser/src/RustLiteLexer";
 import { RustLiteVisitor } from "./parser/src/RustLiteVisitor";
 import { error } from "console";
+import { stat } from "fs";
 
 class RustLiteEvaluatorVisitor
   extends AbstractParseTreeVisitor<SUPPORTED_TYPES>
@@ -60,13 +61,14 @@ class RustLiteEvaluatorVisitor
       let statement;
       try {
         statement = ctx.stmt(i);
+        console.log(`Got statement at index ${i}: ${statement}`);
       } catch {
         throw "Unable to get statement";
       }
       try {
-        result = this.visit(statement);
+        result = this.visit(statement[0]);
       } catch (error) {
-        throw `Error while visiting statement ${statement}, with error: ${error}`;
+        throw `Error while visiting statement ${statement[0]}, with error: ${error}`;
       }
     }
     return result;
