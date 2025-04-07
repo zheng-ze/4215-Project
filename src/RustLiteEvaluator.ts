@@ -222,12 +222,14 @@ class RustLiteEvaluatorVisitor
 
   visitStmt(ctx: StmtContext): SUPPORTED_TYPES {
     const numChildren = ctx.getChildCount();
+    console.log(`Statement has ${numChildren} Children`);
     if (numChildren === 0) {
       return 0;
     }
 
     // implicit return statement
     if (numChildren === 1) {
+      console.log(`context text is ${ctx.getText()}`);
       return this.visitReturnStmt(ctx.returnStmt());
     } else if (ctx.getChild(0).getText() === "return") {
       // explicit return statement
