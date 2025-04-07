@@ -55,27 +55,25 @@ class RustLiteEvaluatorVisitor
     console.log(ctx.getText());
     console.log(`Children: ${ctx.getChildCount()}`);
     let result: SUPPORTED_TYPES;
-    // let statement = ctx.stmt();
-    // if (statement) {
-    //   for (let i = 0; i < statement.length; i++) {
-    //     try {
-    //       if (statement && statement[i]) {
-    //         console.log(`Statement: ${statement[i]}`);
-    //         result = this.visit(statement[i]);
-    //       }
-    //     } catch (error) {
-    //       throw `Error while visiting statement ${statement}, with error: ${error}`;
-    //     }
-    //   }
-    //   return result;
-    // }
-    return this.visitChildren(ctx);
+    let statement = ctx.stmt();
+    if (statement) {
+      for (let i = 0; i < statement.length; i++) {
+        try {
+          if (statement && statement[i]) {
+            console.log(`Statement: ${statement[i]}`);
+            result = this.visit(statement[i]);
+          }
+        } catch (error) {
+          throw `Error while visiting statement ${statement}, with error: ${error}`;
+        }
+      }
+      return result;
+    }
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
     console.log("Visiting Expr");
     const numChildren = ctx.getChildCount();
-    console.log(numChildren);
 
     if (numChildren === 1) {
       return this.visit(ctx.getChild(0));
@@ -85,6 +83,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
+    console.log("Visiting ArithExpr");
     if (ctx.INT()) {
       // Is integer
       return parseInt(ctx.INT().getText());
@@ -144,6 +143,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitLogicExpr(ctx: LogicExprContext): boolean {
+    console.log("Visiting LogicExpr");
     if (ctx.BOOL()) {
       return ctx.BOOL().getText() === "true";
     }
@@ -315,60 +315,74 @@ class RustLiteEvaluatorVisitor
   }
 
   visitIterable(ctx: IterableContext): SUPPORTED_TYPES {
+    console.log("Visiting Iterable");
     return 0;
   }
 
   visitForStmt(ctx: ForStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting ForStmt");
     return 0;
   }
 
   visitParam(ctx: ParamContext): SUPPORTED_TYPES {
+    console.log("Visiting Param");
     return 0;
   }
 
   visitParamList(ctx: ParamListContext): SUPPORTED_TYPES {
+    console.log("Visiting ParamList");
     return 0;
   }
 
   visitReturnType(ctx: ReturnTypeContext): SUPPORTED_TYPES {
+    console.log("Visiting ReturnType");
     return 0;
   }
 
   visitReturnStmt(ctx: ReturnStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting ReturnStmt");
     return 0;
   }
 
   visitFnDeclareStmt(ctx: FnDeclareStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting FnDeclareStmt");
     return 0;
   }
 
   visitStructDeclare(ctx: StructDeclareContext): SUPPORTED_TYPES {
+    console.log("Visiting StructDeclare");
     return 0;
   }
 
   visitStructDeclareField(ctx: StructDeclareFieldContext): SUPPORTED_TYPES {
+    console.log("Visiting StructDeclareField");
     return 0;
   }
 
   visitStructDeclareFieldList(
     ctx: StructDeclareFieldListContext
   ): SUPPORTED_TYPES {
+    console.log("Visiting StructDeclareFieldList");
     return 0;
   }
 
   visitStructInit(ctx: StructInitContext): SUPPORTED_TYPES {
+    console.log("Visiting StructInit");
     return 0;
   }
 
   visitStructInitFieldList(ctx: StructInitFieldListContext): SUPPORTED_TYPES {
+    console.log("Visiting StructInitFieldList");
     return 0;
   }
 
   visitStructInitField(ctx: StructInitFieldContext): SUPPORTED_TYPES {
+    console.log("Visiting StructInitField");
     return 0;
   }
 
   visitStructFieldAccess(ctx: StructFieldAccessContext): SUPPORTED_TYPES {
+    console.log("Visiting StructFieldAccess");
     return 0;
   }
   protected defaultResult(): SUPPORTED_TYPES {
