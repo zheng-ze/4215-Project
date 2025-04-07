@@ -45,7 +45,8 @@ import { RustLiteVisitor } from "./parser/src/RustLiteVisitor";
 
 class RustLiteEvaluatorVisitor
   extends AbstractParseTreeVisitor<SUPPORTED_TYPES>
-  implements RustLiteVisitor<SUPPORTED_TYPES> {
+  implements RustLiteVisitor<SUPPORTED_TYPES>
+{
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
     return 0;
@@ -373,7 +374,23 @@ export class RustLiteEvaluator extends BasicEvaluator {
       const lexer = new RustLiteLexer(inputStream);
       const tokenStream = new CommonTokenStream(lexer);
       const parser = new RustLiteParser(tokenStream);
-
+      parser.removeErrorListeners();
+      parser.addErrorListener({
+        syntaxError: (
+          recognizer,
+          offendingSymbol,
+          line,
+          charPositionInLine,
+          msg
+        ) => {
+          this.conductor.sendOutput(
+            `Syntax error at ${line}:${charPositionInLine} - ${msg}`
+          );
+        },
+        reportAmbiguity() {},
+        reportAttemptingFullContext() {},
+        reportContextSensitivity() {},
+      });
       // Parse the input
       const tree = parser.prog();
 
