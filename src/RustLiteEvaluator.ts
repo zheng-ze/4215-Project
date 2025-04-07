@@ -74,6 +74,61 @@ class RustLiteEvaluatorVisitor
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
     console.log("Visiting Expr");
+
+    if (ctx._inner) {
+      return this.visitExpr(ctx._inner);
+    }
+
+    if (ctx.IDENTIFIER()) {
+      // Is variable
+      const variableName = ctx.IDENTIFIER().getText();
+      return 0; //TODO: Implement retrieving variable value
+    }
+
+    if (ctx.INT()) {
+      // Is integer
+      return parseInt(ctx.INT().getText());
+    }
+
+    if (ctx.BOOL()) {
+      // Is boolean
+      return ctx.BOOL().getText() === "true";
+    }
+
+    if (ctx.arithExpr()) {
+      // Arithmetic expression
+      const arithExpr = ctx.arithExpr();
+      const result = this.visitArithExpr(arithExpr);
+      if (typeof result !== "number") {
+        throw new Error("Arithmetic expression is not a number");
+      }
+      return result;
+    }
+
+    if (ctx.logicExpr()) {
+      // Logic expression
+      const logicExpr = ctx.logicExpr();
+      const result = this.visitLogicExpr(logicExpr);
+      if (typeof result !== "boolean") {
+        throw new Error("Logic expression is not a boolean");
+      }
+      return result;
+    }
+
+    if (ctx.structExpr()) {
+      // Struct expression
+      const structExpr = ctx.structExpr();
+      const result = this.visitStructExpr(structExpr);
+      return result;
+    }
+
+    if (ctx.fnCall()) {
+      // Struct field access
+      const fnCall = ctx.fnCall();
+      const result = this.visit(fnCall);
+      return result;
+    }
+
     return 0;
   }
 
@@ -144,9 +199,6 @@ class RustLiteEvaluatorVisitor
     if (ctx.IDENTIFIER()) {
       // Is variable
       const variableName = ctx.IDENTIFIER().getText();
-      if (typeof variableName !== "boolean") {
-        throw new Error("Variable is not a boolean");
-      }
       return false; //TODO: Implement retrieving variable value
     }
 

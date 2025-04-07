@@ -184,7 +184,7 @@ export class RustLiteParser extends antlr.Parser {
                 this.state = 74;
                 this.match(RustLiteParser.T__0);
                 this.state = 75;
-                this.expr();
+                localContext._inner = this.expr();
                 this.state = 76;
                 this.match(RustLiteParser.T__1);
                 }
@@ -2335,6 +2335,7 @@ export class ProgContext extends antlr.ParserRuleContext {
 
 
 export class ExprContext extends antlr.ParserRuleContext {
+    public _inner?: ExprContext;
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }

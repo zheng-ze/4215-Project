@@ -11,7 +11,7 @@ TYPE: 'u8' | 'u16' | 'u32' | 'u64' | 'i8' | 'i16' | 'i32' | 'i64' | 'bool' | IDE
 WS: [ \t\r\n]+ -> skip;
 COMMENT: '//' ~[\r\n]* -> skip;
 
-expr: '(' expr ')'
+expr: '(' inner=expr ')'
     | IDENTIFIER
     | INT
     | BOOL
