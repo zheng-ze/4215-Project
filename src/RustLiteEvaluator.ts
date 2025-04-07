@@ -66,17 +66,9 @@ class RustLiteEvaluatorVisitor
         throw "Unable to get statement";
       }
       try {
-        if (statement?.length) {
-          console.log(`Statement is an array: ${statement}`);
-          for (let j = 0; i < statement.length; j++) {
-            result = this.visit(statement[i]);
-          }
-        } else {
-          console.log(`Statement is not an array ${statement}`);
-          result = this.visit(statement);
-        }
+        result = this.visit(statement[0]);
       } catch (error) {
-        throw `Error while visiting statement ${statement}, with error: ${error}`;
+        throw `Error while visiting statement ${statement[0]}, with error: ${error}`;
       }
     }
     return result;
