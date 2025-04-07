@@ -221,6 +221,7 @@ class RustLiteEvaluatorVisitor
     // implicit return statement
     if (numChildren === 1) {
       let text = ctx.getText();
+      console.log(`text is :${text}}`);
       if (text === "true" || text === "false") {
         return text === "true";
       } else {
