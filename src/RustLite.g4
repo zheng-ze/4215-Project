@@ -18,7 +18,8 @@ expr: '(' expr ')'
     | arithExpr
     | logicExpr
     | structExpr
-    | fnCall;
+    | fnCall
+    | .+? {notifyErrorListeners("Invalid Expression");};
 
 arithExpr: primary=INT
         | primary=IDENTIFIER
@@ -26,7 +27,11 @@ arithExpr: primary=INT
         | '(' inner=arithExpr ')'
         | op='-' arithExpr
         | left=arithExpr op=('*'|'/'|'%') right=arithExpr
-        | left=arithExpr op=('+'|'-') right=arithExpr;
+        | left=arithExpr op=('+'|'-') right=arithExpr
+        | BOOL {notifyErrorListeners("Cannot use boolean in arithmetic expressions");}
+        | left=arithExpr op=('/'|'%') INT {
+            if ($right.text.equals("0")) notifyErrorListeners("Division by zero");
+        };
 
 logicExpr: primary=BOOL
         | primary=IDENTIFIER
@@ -35,7 +40,8 @@ logicExpr: primary=BOOL
         | arithLeft=arithExpr op=('>'|'<'|'=='|'!='|'<='|'>=') arithRight=arithExpr
         | op='!' right=logicExpr
         | left=logicExpr op='&&' right=logicExpr
-        | left=logicExpr op='||' right=logicExpr;
+        | left=logicExpr op='||' right=logicExpr
+        | INT {notifyErrorListeners("Cannot use INT without comparison operators in logical expressions");};
 
 structExpr: structInit
         | structFieldAccess;
@@ -54,22 +60,39 @@ stmt: exprStmt
     | loopControlStmt
     | fnDeclareStmt
     | returnStmt
-    | block;
+    | block
+    | structDeclare {notifyErrorListeners("Struct definitions are only allowed in global scope");}
+    | expr {notifyErrorListeners("missing semicolon")}
+    | .+? ';' {notifyErrorListeners("Invalid statement");};
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
 block: '{' stmt* expr? '}';
 
 exprStmt: expr ';';
 
-declareStmt: 'let' 'mut'? IDENTIFIER (':' TYPE)? ('=' exprStmt)?;
+declareStmt: 'let' 'mut'? IDENTIFIER ':' TYPE '=' exprStmt
+        | 'let' 'mut'? IDENTIFIER ':' TYPE ';'
+        | 'let' 'mut'? IDENTIFIER '=' exprStmt
+        | 'let' 'mut'? IDENTIFIER {
+                notifyErrorListeners("Variable declaration requires either type annotation or initialization");
+            } ';'? 
+        | 'let' 'mut'? (':' TYPE)? {notifyErrorListeners("Missing variable name in variable declaration");};
 
-constStmt: 'const' IDENTIFIER (':' TYPE)? '=' exprStmt;
+constStmt: 'const' IDENTIFIER (':' TYPE)? '=' exprStmt
+        | 'const' IDENTIFIER '=' exprStmt {notifyErrorListeners("Constants must specify a type");}
+        | 'const' 'mut' {notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' TYPE '=' exprStmt;
 
-condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?;
+condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?
+        | 'if' expr {
+                notifyErrorListeners("Condition must be a boolean expression");
+            } block ('else' block)?;
 
 loopStmt: 'loop' block;
 
-whileStmt: 'while' logicExpr block;
+whileStmt: 'while' logicExpr block
+        | 'while' expr {
+                ("Condition must be a boolean expression");
+            } block;
 
 loopControl: 'break' | 'continue'; 
 
@@ -82,8 +105,9 @@ iterable: IDENTIFIER
 forStmt: 'for' IDENTIFIER 'in' iterable block;
 
 // Function declaration
-param: IDENTIFIER ':' TYPE;
-paramList: param (',' param)*;
+param: IDENTIFIER ':' TYPE
+    | IDENTIFIER {notifyErrorListeners("Parameters must specify a type");};
+paramList: param (',' param)* ','?;
 
 returnTypes: TYPE
             | '()';
@@ -92,16 +116,17 @@ returnStmt: 'return' expr? ';';
 
 fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
 
-argList: expr (',' expr)*;
+argList: expr (',' expr)* ','?;
 fnCall: IDENTIFIER '(' argList? ')';
 
 // Structs
-structDeclare: IDENTIFIER '{' structDeclareFieldList '}';
-structDeclareFieldList: structDeclareField (',' structDeclareField)*;
+structDeclare: 'struct' IDENTIFIER '{' structDeclareFieldList? '}';
+structDeclareFieldList: structDeclareField (',' structDeclareField)* ','?;
 structDeclareField: IDENTIFIER ':' TYPE;
 
-structInit: IDENTIFIER '{' structInitFieldList '}';
-structInitFieldList: structInitField (',' structInitField)*;
+structInit: IDENTIFIER '{' structInitFieldList? '}';
+structInitFieldList: structInitField (',' structInitField)* ','?;
 structInitField: IDENTIFIER ':' expr;
 
-structFieldAccess: IDENTIFIER ('.' IDENTIFIER)+;
+structFieldAccess: IDENTIFIER ('.' IDENTIFIER)+
+                | IDENTIFIER '.' {notifyErrorListeners("Missing field name after '.'");};
