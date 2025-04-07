@@ -10,6 +10,7 @@ import { RustLiteVisitor } from "./RustLiteVisitor.js";
 // eslint-disable-next-line no-unused-vars
 type int = number;
 
+
 export class RustLiteParser extends antlr.Parser {
     public static readonly T__0 = 1;
     public static readonly T__1 = 2;
@@ -113,28 +114,15 @@ export class RustLiteParser extends antlr.Parser {
         "structFieldAccess",
     ];
 
-  public get grammarFileName(): string {
-    return "RustLite.g4";
-  }
-  public get literalNames(): (string | null)[] {
-    return RustLiteParser.literalNames;
-  }
-  public get symbolicNames(): (string | null)[] {
-    return RustLiteParser.symbolicNames;
-  }
-  public get ruleNames(): string[] {
-    return RustLiteParser.ruleNames;
-  }
-  public get serializedATN(): number[] {
-    return RustLiteParser._serializedATN;
-  }
+    public get grammarFileName(): string { return "RustLite.g4"; }
+    public get literalNames(): (string | null)[] { return RustLiteParser.literalNames; }
+    public get symbolicNames(): (string | null)[] { return RustLiteParser.symbolicNames; }
+    public get ruleNames(): string[] { return RustLiteParser.ruleNames; }
+    public get serializedATN(): number[] { return RustLiteParser._serializedATN; }
 
-  protected createFailedPredicateException(
-    predicate?: string,
-    message?: string
-  ): antlr.FailedPredicateException {
-    return new antlr.FailedPredicateException(this, predicate, message);
-  }
+    protected createFailedPredicateException(predicate?: string, message?: string): antlr.FailedPredicateException {
+        return new antlr.FailedPredicateException(this, predicate, message);
+    }
 
     public constructor(input: antlr.TokenStream) {
         super(input);
@@ -261,12 +249,12 @@ export class RustLiteParser extends antlr.Parser {
         return localContext;
     }
 
-  public arithExpr(): ArithExprContext;
-  public arithExpr(_p: number): ArithExprContext;
-  public arithExpr(_p?: number): ArithExprContext {
-    if (_p === undefined) {
-      _p = 0;
-    }
+    public arithExpr(): ArithExprContext;
+    public arithExpr(_p: number): ArithExprContext;
+    public arithExpr(_p?: number): ArithExprContext {
+        if (_p === undefined) {
+            _p = 0;
+        }
 
         let parentContext = this.context;
         let parentState = this.state;
@@ -388,26 +376,26 @@ export class RustLiteParser extends antlr.Parser {
             }
             }
         }
-      }
-    } catch (re) {
-      if (re instanceof antlr.RecognitionException) {
-        this.errorHandler.reportError(this, re);
-        this.errorHandler.recover(this, re);
-      } else {
-        throw re;
-      }
-    } finally {
-      this.unrollRecursionContexts(parentContext);
+        catch (re) {
+            if (re instanceof antlr.RecognitionException) {
+                this.errorHandler.reportError(this, re);
+                this.errorHandler.recover(this, re);
+            } else {
+                throw re;
+            }
+        }
+        finally {
+            this.unrollRecursionContexts(parentContext);
+        }
+        return localContext;
     }
-    return localContext;
-  }
 
-  public logicExpr(): LogicExprContext;
-  public logicExpr(_p: number): LogicExprContext;
-  public logicExpr(_p?: number): LogicExprContext {
-    if (_p === undefined) {
-      _p = 0;
-    }
+    public logicExpr(): LogicExprContext;
+    public logicExpr(_p: number): LogicExprContext;
+    public logicExpr(_p?: number): LogicExprContext {
+        if (_p === undefined) {
+            _p = 0;
+        }
 
         let parentContext = this.context;
         let parentState = this.state;
@@ -1586,49 +1574,33 @@ export class RustLiteParser extends antlr.Parser {
         return localContext;
     }
 
-  public override sempred(
-    localContext: antlr.ParserRuleContext | null,
-    ruleIndex: number,
-    predIndex: number
-  ): boolean {
-    switch (ruleIndex) {
-      case 2:
-        return this.arithExpr_sempred(
-          localContext as ArithExprContext,
-          predIndex
-        );
-      case 3:
-        return this.logicExpr_sempred(
-          localContext as LogicExprContext,
-          predIndex
-        );
+    public override sempred(localContext: antlr.ParserRuleContext | null, ruleIndex: number, predIndex: number): boolean {
+        switch (ruleIndex) {
+        case 2:
+            return this.arithExpr_sempred(localContext as ArithExprContext, predIndex);
+        case 3:
+            return this.logicExpr_sempred(localContext as LogicExprContext, predIndex);
+        }
+        return true;
     }
-    return true;
-  }
-  private arithExpr_sempred(
-    localContext: ArithExprContext | null,
-    predIndex: number
-  ): boolean {
-    switch (predIndex) {
-      case 0:
-        return this.precpred(this.context, 2);
-      case 1:
-        return this.precpred(this.context, 1);
+    private arithExpr_sempred(localContext: ArithExprContext | null, predIndex: number): boolean {
+        switch (predIndex) {
+        case 0:
+            return this.precpred(this.context, 2);
+        case 1:
+            return this.precpred(this.context, 1);
+        }
+        return true;
     }
-    return true;
-  }
-  private logicExpr_sempred(
-    localContext: LogicExprContext | null,
-    predIndex: number
-  ): boolean {
-    switch (predIndex) {
-      case 2:
-        return this.precpred(this.context, 2);
-      case 3:
-        return this.precpred(this.context, 1);
+    private logicExpr_sempred(localContext: LogicExprContext | null, predIndex: number): boolean {
+        switch (predIndex) {
+        case 2:
+            return this.precpred(this.context, 2);
+        case 3:
+            return this.precpred(this.context, 1);
+        }
+        return true;
     }
-    return true;
-  }
 
     public static readonly _serializedATN: number[] = [
         4,1,45,306,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
@@ -1740,1310 +1712,1166 @@ export class RustLiteParser extends antlr.Parser {
         274,291,303
     ];
 
-  private static __ATN: antlr.ATN;
-  public static get _ATN(): antlr.ATN {
-    if (!RustLiteParser.__ATN) {
-      RustLiteParser.__ATN = new antlr.ATNDeserializer().deserialize(
-        RustLiteParser._serializedATN
-      );
+    private static __ATN: antlr.ATN;
+    public static get _ATN(): antlr.ATN {
+        if (!RustLiteParser.__ATN) {
+            RustLiteParser.__ATN = new antlr.ATNDeserializer().deserialize(RustLiteParser._serializedATN);
+        }
+
+        return RustLiteParser.__ATN;
     }
 
-    return RustLiteParser.__ATN;
-  }
 
-  private static readonly vocabulary = new antlr.Vocabulary(
-    RustLiteParser.literalNames,
-    RustLiteParser.symbolicNames,
-    []
-  );
+    private static readonly vocabulary = new antlr.Vocabulary(RustLiteParser.literalNames, RustLiteParser.symbolicNames, []);
 
-  public override get vocabulary(): antlr.Vocabulary {
-    return RustLiteParser.vocabulary;
-  }
+    public override get vocabulary(): antlr.Vocabulary {
+        return RustLiteParser.vocabulary;
+    }
 
-  private static readonly decisionsToDFA =
-    RustLiteParser._ATN.decisionToState.map(
-      (ds: antlr.DecisionState, index: number) => new antlr.DFA(ds, index)
-    );
+    private static readonly decisionsToDFA = RustLiteParser._ATN.decisionToState.map( (ds: antlr.DecisionState, index: number) => new antlr.DFA(ds, index) );
 }
 
 export class ProgContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
+    }
+    public EOF(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.EOF, 0)!;
+    }
+    public stmt(): StmtContext[];
+    public stmt(i: number): StmtContext | null;
+    public stmt(i?: number): StmtContext[] | StmtContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(StmtContext);
+        }
 
-  public EOF(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.EOF, 0)!;
-  }
-  public stmt(): StmtContext[];
-  public stmt(i: number): StmtContext | null;
-  public stmt(i?: number): StmtContext[] | StmtContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(StmtContext);
+        return this.getRuleContext(i, StmtContext);
     }
-
-    return this.getRuleContext(i, StmtContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_prog;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterProg) {
-      listener.enterProg(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_prog;
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitProg) {
-      listener.exitProg(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterProg) {
+             listener.enterProg(this);
+        }
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitProg) {
-      return visitor.visitProg(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitProg) {
+             listener.exitProg(this);
+        }
     }
-  }
-
-  public expression(): ExprContext {
-    return this.getRuleContext(0, ExprContext)!;
-  }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitProg) {
+            return visitor.visitProg(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ExprContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public expr(): ExprContext | null {
-    return this.getRuleContext(0, ExprContext);
-  }
-  public IDENTIFIER(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0);
-  }
-  public INT(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.INT, 0);
-  }
-  public BOOL(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.BOOL, 0);
-  }
-  public arithExpr(): ArithExprContext | null {
-    return this.getRuleContext(0, ArithExprContext);
-  }
-  public logicExpr(): LogicExprContext | null {
-    return this.getRuleContext(0, LogicExprContext);
-  }
-  public structExpr(): StructExprContext | null {
-    return this.getRuleContext(0, StructExprContext);
-  }
-  public fnCall(): FnCallContext | null {
-    return this.getRuleContext(0, FnCallContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_expr;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterExpr) {
-      listener.enterExpr(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitExpr) {
-      listener.exitExpr(this);
+    public expr(): ExprContext | null {
+        return this.getRuleContext(0, ExprContext);
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitExpr) {
-      return visitor.visitExpr(this);
-    } else {
-      return visitor.visitChildren(this);
+    public IDENTIFIER(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0);
     }
-  }
+    public INT(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.INT, 0);
+    }
+    public BOOL(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.BOOL, 0);
+    }
+    public arithExpr(): ArithExprContext | null {
+        return this.getRuleContext(0, ArithExprContext);
+    }
+    public logicExpr(): LogicExprContext | null {
+        return this.getRuleContext(0, LogicExprContext);
+    }
+    public structExpr(): StructExprContext | null {
+        return this.getRuleContext(0, StructExprContext);
+    }
+    public fnCall(): FnCallContext | null {
+        return this.getRuleContext(0, FnCallContext);
+    }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_expr;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterExpr) {
+             listener.enterExpr(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitExpr) {
+             listener.exitExpr(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitExpr) {
+            return visitor.visitExpr(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ArithExprContext extends antlr.ParserRuleContext {
-  public _left?: ArithExprContext;
-  public _primary?: Token | null;
-  public _fieldAccess?: StructFieldAccessContext;
-  public _inner?: ArithExprContext;
-  public _op?: Token | null;
-  public _right?: ArithExprContext;
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public INT(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.INT, 0);
-  }
-  public IDENTIFIER(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0);
-  }
-  public structFieldAccess(): StructFieldAccessContext | null {
-    return this.getRuleContext(0, StructFieldAccessContext);
-  }
-  public arithExpr(): ArithExprContext[];
-  public arithExpr(i: number): ArithExprContext | null;
-  public arithExpr(i?: number): ArithExprContext[] | ArithExprContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(ArithExprContext);
+    public _left?: ArithExprContext;
+    public _primary?: Token | null;
+    public _fieldAccess?: StructFieldAccessContext;
+    public _inner?: ArithExprContext;
+    public _op?: Token | null;
+    public _right?: ArithExprContext;
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public INT(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.INT, 0);
+    }
+    public IDENTIFIER(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0);
+    }
+    public structFieldAccess(): StructFieldAccessContext | null {
+        return this.getRuleContext(0, StructFieldAccessContext);
+    }
+    public arithExpr(): ArithExprContext[];
+    public arithExpr(i: number): ArithExprContext | null;
+    public arithExpr(i?: number): ArithExprContext[] | ArithExprContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ArithExprContext);
+        }
 
-    return this.getRuleContext(i, ArithExprContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_arithExpr;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterArithExpr) {
-      listener.enterArithExpr(this);
+        return this.getRuleContext(i, ArithExprContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitArithExpr) {
-      listener.exitArithExpr(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_arithExpr;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitArithExpr) {
-      return visitor.visitArithExpr(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterArithExpr) {
+             listener.enterArithExpr(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitArithExpr) {
+             listener.exitArithExpr(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitArithExpr) {
+            return visitor.visitArithExpr(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class LogicExprContext extends antlr.ParserRuleContext {
-  public _left?: LogicExprContext;
-  public _primary?: Token | null;
-  public _fieldAccess?: StructFieldAccessContext;
-  public _inner?: LogicExprContext;
-  public _arithLeft?: ArithExprContext;
-  public _op?: Token | null;
-  public _arithRight?: ArithExprContext;
-  public _right?: LogicExprContext;
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public BOOL(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.BOOL, 0);
-  }
-  public IDENTIFIER(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0);
-  }
-  public structFieldAccess(): StructFieldAccessContext | null {
-    return this.getRuleContext(0, StructFieldAccessContext);
-  }
-  public logicExpr(): LogicExprContext[];
-  public logicExpr(i: number): LogicExprContext | null;
-  public logicExpr(i?: number): LogicExprContext[] | LogicExprContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(LogicExprContext);
+    public _left?: LogicExprContext;
+    public _primary?: Token | null;
+    public _fieldAccess?: StructFieldAccessContext;
+    public _inner?: LogicExprContext;
+    public _arithLeft?: ArithExprContext;
+    public _op?: Token | null;
+    public _arithRight?: ArithExprContext;
+    public _right?: LogicExprContext;
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public BOOL(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.BOOL, 0);
+    }
+    public IDENTIFIER(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0);
+    }
+    public structFieldAccess(): StructFieldAccessContext | null {
+        return this.getRuleContext(0, StructFieldAccessContext);
+    }
+    public logicExpr(): LogicExprContext[];
+    public logicExpr(i: number): LogicExprContext | null;
+    public logicExpr(i?: number): LogicExprContext[] | LogicExprContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(LogicExprContext);
+        }
 
-    return this.getRuleContext(i, LogicExprContext);
-  }
-  public arithExpr(): ArithExprContext[];
-  public arithExpr(i: number): ArithExprContext | null;
-  public arithExpr(i?: number): ArithExprContext[] | ArithExprContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(ArithExprContext);
+        return this.getRuleContext(i, LogicExprContext);
     }
+    public arithExpr(): ArithExprContext[];
+    public arithExpr(i: number): ArithExprContext | null;
+    public arithExpr(i?: number): ArithExprContext[] | ArithExprContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ArithExprContext);
+        }
 
-    return this.getRuleContext(i, ArithExprContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_logicExpr;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterLogicExpr) {
-      listener.enterLogicExpr(this);
+        return this.getRuleContext(i, ArithExprContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitLogicExpr) {
-      listener.exitLogicExpr(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_logicExpr;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitLogicExpr) {
-      return visitor.visitLogicExpr(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterLogicExpr) {
+             listener.enterLogicExpr(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitLogicExpr) {
+             listener.exitLogicExpr(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitLogicExpr) {
+            return visitor.visitLogicExpr(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StructExprContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public structInit(): StructInitContext | null {
-    return this.getRuleContext(0, StructInitContext);
-  }
-  public structDeclare(): StructDeclareContext | null {
-    return this.getRuleContext(0, StructDeclareContext);
-  }
-  public structFieldAccess(): StructFieldAccessContext | null {
-    return this.getRuleContext(0, StructFieldAccessContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structExpr;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructExpr) {
-      listener.enterStructExpr(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructExpr) {
-      listener.exitStructExpr(this);
+    public structInit(): StructInitContext | null {
+        return this.getRuleContext(0, StructInitContext);
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructExpr) {
-      return visitor.visitStructExpr(this);
-    } else {
-      return visitor.visitChildren(this);
+    public structDeclare(): StructDeclareContext | null {
+        return this.getRuleContext(0, StructDeclareContext);
     }
-  }
+    public structFieldAccess(): StructFieldAccessContext | null {
+        return this.getRuleContext(0, StructFieldAccessContext);
+    }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structExpr;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructExpr) {
+             listener.enterStructExpr(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructExpr) {
+             listener.exitStructExpr(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructExpr) {
+            return visitor.visitStructExpr(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public exprStmt(): ExprStmtContext | null {
-    return this.getRuleContext(0, ExprStmtContext);
-  }
-  public declareStmt(): DeclareStmtContext | null {
-    return this.getRuleContext(0, DeclareStmtContext);
-  }
-  public condStmt(): CondStmtContext | null {
-    return this.getRuleContext(0, CondStmtContext);
-  }
-  public loopStmt(): LoopStmtContext | null {
-    return this.getRuleContext(0, LoopStmtContext);
-  }
-  public forStmt(): ForStmtContext | null {
-    return this.getRuleContext(0, ForStmtContext);
-  }
-  public whileStmt(): WhileStmtContext | null {
-    return this.getRuleContext(0, WhileStmtContext);
-  }
-  public loopControlStmt(): LoopControlStmtContext | null {
-    return this.getRuleContext(0, LoopControlStmtContext);
-  }
-  public fnDeclareStmt(): FnDeclareStmtContext | null {
-    return this.getRuleContext(0, FnDeclareStmtContext);
-  }
-  public returnStmt(): ReturnStmtContext | null {
-    return this.getRuleContext(0, ReturnStmtContext);
-  }
-  public block(): BlockContext | null {
-    return this.getRuleContext(0, BlockContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_stmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStmt) {
-      listener.enterStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStmt) {
-      listener.exitStmt(this);
+    public exprStmt(): ExprStmtContext | null {
+        return this.getRuleContext(0, ExprStmtContext);
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStmt) {
-      return visitor.visitStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public declareStmt(): DeclareStmtContext | null {
+        return this.getRuleContext(0, DeclareStmtContext);
     }
-  }
+    public condStmt(): CondStmtContext | null {
+        return this.getRuleContext(0, CondStmtContext);
+    }
+    public loopStmt(): LoopStmtContext | null {
+        return this.getRuleContext(0, LoopStmtContext);
+    }
+    public forStmt(): ForStmtContext | null {
+        return this.getRuleContext(0, ForStmtContext);
+    }
+    public whileStmt(): WhileStmtContext | null {
+        return this.getRuleContext(0, WhileStmtContext);
+    }
+    public loopControlStmt(): LoopControlStmtContext | null {
+        return this.getRuleContext(0, LoopControlStmtContext);
+    }
+    public fnDeclareStmt(): FnDeclareStmtContext | null {
+        return this.getRuleContext(0, FnDeclareStmtContext);
+    }
+    public returnStmt(): ReturnStmtContext | null {
+        return this.getRuleContext(0, ReturnStmtContext);
+    }
+    public block(): BlockContext | null {
+        return this.getRuleContext(0, BlockContext);
+    }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_stmt;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStmt) {
+             listener.enterStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStmt) {
+             listener.exitStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStmt) {
+            return visitor.visitStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class BlockContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public stmt(): StmtContext[];
-  public stmt(i: number): StmtContext | null;
-  public stmt(i?: number): StmtContext[] | StmtContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(StmtContext);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public stmt(): StmtContext[];
+    public stmt(i: number): StmtContext | null;
+    public stmt(i?: number): StmtContext[] | StmtContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(StmtContext);
+        }
 
-    return this.getRuleContext(i, StmtContext);
-  }
-  public expr(): ExprContext | null {
-    return this.getRuleContext(0, ExprContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_block;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterBlock) {
-      listener.enterBlock(this);
+        return this.getRuleContext(i, StmtContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitBlock) {
-      listener.exitBlock(this);
+    public expr(): ExprContext | null {
+        return this.getRuleContext(0, ExprContext);
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitBlock) {
-      return visitor.visitBlock(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_block;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterBlock) {
+             listener.enterBlock(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitBlock) {
+             listener.exitBlock(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitBlock) {
+            return visitor.visitBlock(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ExprStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public expr(): ExprContext {
-    return this.getRuleContext(0, ExprContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_exprStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterExprStmt) {
-      listener.enterExprStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitExprStmt) {
-      listener.exitExprStmt(this);
+    public expr(): ExprContext {
+        return this.getRuleContext(0, ExprContext)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitExprStmt) {
-      return visitor.visitExprStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_exprStmt;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterExprStmt) {
+             listener.enterExprStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitExprStmt) {
+             listener.exitExprStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitExprStmt) {
+            return visitor.visitExprStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class DeclareStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public exprStmt(): ExprStmtContext {
-    return this.getRuleContext(0, ExprStmtContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_declareStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterDeclareStmt) {
-      listener.enterDeclareStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitDeclareStmt) {
-      listener.exitDeclareStmt(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitDeclareStmt) {
-      return visitor.visitDeclareStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public exprStmt(): ExprStmtContext {
+        return this.getRuleContext(0, ExprStmtContext)!;
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_declareStmt;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterDeclareStmt) {
+             listener.enterDeclareStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitDeclareStmt) {
+             listener.exitDeclareStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitDeclareStmt) {
+            return visitor.visitDeclareStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class CondStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public logicExpr(): LogicExprContext[];
-  public logicExpr(i: number): LogicExprContext | null;
-  public logicExpr(i?: number): LogicExprContext[] | LogicExprContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(LogicExprContext);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public logicExpr(): LogicExprContext[];
+    public logicExpr(i: number): LogicExprContext | null;
+    public logicExpr(i?: number): LogicExprContext[] | LogicExprContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(LogicExprContext);
+        }
 
-    return this.getRuleContext(i, LogicExprContext);
-  }
-  public block(): BlockContext[];
-  public block(i: number): BlockContext | null;
-  public block(i?: number): BlockContext[] | BlockContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(BlockContext);
+        return this.getRuleContext(i, LogicExprContext);
     }
+    public block(): BlockContext[];
+    public block(i: number): BlockContext | null;
+    public block(i?: number): BlockContext[] | BlockContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(BlockContext);
+        }
 
-    return this.getRuleContext(i, BlockContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_condStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterCondStmt) {
-      listener.enterCondStmt(this);
+        return this.getRuleContext(i, BlockContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitCondStmt) {
-      listener.exitCondStmt(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_condStmt;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitCondStmt) {
-      return visitor.visitCondStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterCondStmt) {
+             listener.enterCondStmt(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitCondStmt) {
+             listener.exitCondStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitCondStmt) {
+            return visitor.visitCondStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class LoopStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public block(): BlockContext {
-    return this.getRuleContext(0, BlockContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_loopStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterLoopStmt) {
-      listener.enterLoopStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitLoopStmt) {
-      listener.exitLoopStmt(this);
+    public block(): BlockContext {
+        return this.getRuleContext(0, BlockContext)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitLoopStmt) {
-      return visitor.visitLoopStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_loopStmt;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterLoopStmt) {
+             listener.enterLoopStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitLoopStmt) {
+             listener.exitLoopStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitLoopStmt) {
+            return visitor.visitLoopStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class WhileStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public logicExpr(): LogicExprContext {
-    return this.getRuleContext(0, LogicExprContext)!;
-  }
-  public block(): BlockContext {
-    return this.getRuleContext(0, BlockContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_whileStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterWhileStmt) {
-      listener.enterWhileStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitWhileStmt) {
-      listener.exitWhileStmt(this);
+    public logicExpr(): LogicExprContext {
+        return this.getRuleContext(0, LogicExprContext)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitWhileStmt) {
-      return visitor.visitWhileStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public block(): BlockContext {
+        return this.getRuleContext(0, BlockContext)!;
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_whileStmt;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterWhileStmt) {
+             listener.enterWhileStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitWhileStmt) {
+             listener.exitWhileStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitWhileStmt) {
+            return visitor.visitWhileStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class LoopControlContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_loopControl;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterLoopControl) {
-      listener.enterLoopControl(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitLoopControl) {
-      listener.exitLoopControl(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_loopControl;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitLoopControl) {
-      return visitor.visitLoopControl(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterLoopControl) {
+             listener.enterLoopControl(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitLoopControl) {
+             listener.exitLoopControl(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitLoopControl) {
+            return visitor.visitLoopControl(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class LoopControlStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public loopControl(): LoopControlContext {
-    return this.getRuleContext(0, LoopControlContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_loopControlStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterLoopControlStmt) {
-      listener.enterLoopControlStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitLoopControlStmt) {
-      listener.exitLoopControlStmt(this);
+    public loopControl(): LoopControlContext {
+        return this.getRuleContext(0, LoopControlContext)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitLoopControlStmt) {
-      return visitor.visitLoopControlStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_loopControlStmt;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterLoopControlStmt) {
+             listener.enterLoopControlStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitLoopControlStmt) {
+             listener.exitLoopControlStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitLoopControlStmt) {
+            return visitor.visitLoopControlStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class IterableContext extends antlr.ParserRuleContext {
-  public _op?: Token | null;
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode | null {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0);
-  }
-  public INT(): antlr.TerminalNode[];
-  public INT(i: number): antlr.TerminalNode | null;
-  public INT(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    if (i === undefined) {
-      return this.getTokens(RustLiteParser.INT);
-    } else {
-      return this.getToken(RustLiteParser.INT, i);
+    public _op?: Token | null;
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_iterable;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterIterable) {
-      listener.enterIterable(this);
+    public IDENTIFIER(): antlr.TerminalNode | null {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitIterable) {
-      listener.exitIterable(this);
+    public INT(): antlr.TerminalNode[];
+    public INT(i: number): antlr.TerminalNode | null;
+    public INT(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(RustLiteParser.INT);
+    	} else {
+    		return this.getToken(RustLiteParser.INT, i);
+    	}
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitIterable) {
-      return visitor.visitIterable(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_iterable;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterIterable) {
+             listener.enterIterable(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitIterable) {
+             listener.exitIterable(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitIterable) {
+            return visitor.visitIterable(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ForStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public iterable(): IterableContext {
-    return this.getRuleContext(0, IterableContext)!;
-  }
-  public block(): BlockContext {
-    return this.getRuleContext(0, BlockContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_forStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterForStmt) {
-      listener.enterForStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitForStmt) {
-      listener.exitForStmt(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitForStmt) {
-      return visitor.visitForStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public iterable(): IterableContext {
+        return this.getRuleContext(0, IterableContext)!;
     }
-  }
+    public block(): BlockContext {
+        return this.getRuleContext(0, BlockContext)!;
+    }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_forStmt;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterForStmt) {
+             listener.enterForStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitForStmt) {
+             listener.exitForStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitForStmt) {
+            return visitor.visitForStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ParamContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public TYPE(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.TYPE, 0)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_param;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterParam) {
-      listener.enterParam(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitParam) {
-      listener.exitParam(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitParam) {
-      return visitor.visitParam(this);
-    } else {
-      return visitor.visitChildren(this);
+    public TYPE(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.TYPE, 0)!;
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_param;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterParam) {
+             listener.enterParam(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitParam) {
+             listener.exitParam(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitParam) {
+            return visitor.visitParam(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ParamListContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public param(): ParamContext[];
-  public param(i: number): ParamContext | null;
-  public param(i?: number): ParamContext[] | ParamContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(ParamContext);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public param(): ParamContext[];
+    public param(i: number): ParamContext | null;
+    public param(i?: number): ParamContext[] | ParamContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ParamContext);
+        }
 
-    return this.getRuleContext(i, ParamContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_paramList;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterParamList) {
-      listener.enterParamList(this);
+        return this.getRuleContext(i, ParamContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitParamList) {
-      listener.exitParamList(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_paramList;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitParamList) {
-      return visitor.visitParamList(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterParamList) {
+             listener.enterParamList(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitParamList) {
+             listener.exitParamList(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitParamList) {
+            return visitor.visitParamList(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ReturnTypesContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public TYPE(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.TYPE, 0)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_returnTypes;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterReturnTypes) {
-      listener.enterReturnTypes(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitReturnTypes) {
-      listener.exitReturnTypes(this);
+    public TYPE(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.TYPE, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitReturnTypes) {
-      return visitor.visitReturnTypes(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_returnTypes;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterReturnTypes) {
+             listener.enterReturnTypes(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitReturnTypes) {
+             listener.exitReturnTypes(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitReturnTypes) {
+            return visitor.visitReturnTypes(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ReturnTypeContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public returnTypes(): ReturnTypesContext {
-    return this.getRuleContext(0, ReturnTypesContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_returnType;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterReturnType) {
-      listener.enterReturnType(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitReturnType) {
-      listener.exitReturnType(this);
+    public returnTypes(): ReturnTypesContext {
+        return this.getRuleContext(0, ReturnTypesContext)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitReturnType) {
-      return visitor.visitReturnType(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_returnType;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterReturnType) {
+             listener.enterReturnType(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitReturnType) {
+             listener.exitReturnType(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitReturnType) {
+            return visitor.visitReturnType(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ReturnStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public expr(): ExprContext | null {
-    return this.getRuleContext(0, ExprContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_returnStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterReturnStmt) {
-      listener.enterReturnStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitReturnStmt) {
-      listener.exitReturnStmt(this);
+    public expr(): ExprContext | null {
+        return this.getRuleContext(0, ExprContext);
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitReturnStmt) {
-      return visitor.visitReturnStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_returnStmt;
     }
-  }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterReturnStmt) {
+             listener.enterReturnStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitReturnStmt) {
+             listener.exitReturnStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitReturnStmt) {
+            return visitor.visitReturnStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class FnDeclareStmtContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public block(): BlockContext {
-    return this.getRuleContext(0, BlockContext)!;
-  }
-  public paramList(): ParamListContext | null {
-    return this.getRuleContext(0, ParamListContext);
-  }
-  public returnType(): ReturnTypeContext | null {
-    return this.getRuleContext(0, ReturnTypeContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_fnDeclareStmt;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterFnDeclareStmt) {
-      listener.enterFnDeclareStmt(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitFnDeclareStmt) {
-      listener.exitFnDeclareStmt(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitFnDeclareStmt) {
-      return visitor.visitFnDeclareStmt(this);
-    } else {
-      return visitor.visitChildren(this);
+    public block(): BlockContext {
+        return this.getRuleContext(0, BlockContext)!;
     }
-  }
+    public paramList(): ParamListContext | null {
+        return this.getRuleContext(0, ParamListContext);
+    }
+    public returnType(): ReturnTypeContext | null {
+        return this.getRuleContext(0, ReturnTypeContext);
+    }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_fnDeclareStmt;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterFnDeclareStmt) {
+             listener.enterFnDeclareStmt(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitFnDeclareStmt) {
+             listener.exitFnDeclareStmt(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitFnDeclareStmt) {
+            return visitor.visitFnDeclareStmt(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class ArgListContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public expr(): ExprContext[];
-  public expr(i: number): ExprContext | null;
-  public expr(i?: number): ExprContext[] | ExprContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(ExprContext);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public expr(): ExprContext[];
+    public expr(i: number): ExprContext | null;
+    public expr(i?: number): ExprContext[] | ExprContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(ExprContext);
+        }
 
-    return this.getRuleContext(i, ExprContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_argList;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterArgList) {
-      listener.enterArgList(this);
+        return this.getRuleContext(i, ExprContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitArgList) {
-      listener.exitArgList(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_argList;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitArgList) {
-      return visitor.visitArgList(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterArgList) {
+             listener.enterArgList(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitArgList) {
+             listener.exitArgList(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitArgList) {
+            return visitor.visitArgList(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class FnCallContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public argList(): ArgListContext | null {
-    return this.getRuleContext(0, ArgListContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_fnCall;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterFnCall) {
-      listener.enterFnCall(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitFnCall) {
-      listener.exitFnCall(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitFnCall) {
-      return visitor.visitFnCall(this);
-    } else {
-      return visitor.visitChildren(this);
+    public argList(): ArgListContext | null {
+        return this.getRuleContext(0, ArgListContext);
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_fnCall;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterFnCall) {
+             listener.enterFnCall(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitFnCall) {
+             listener.exitFnCall(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitFnCall) {
+            return visitor.visitFnCall(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StructDeclareContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public structDeclareFieldList(): StructDeclareFieldListContext {
-    return this.getRuleContext(0, StructDeclareFieldListContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structDeclare;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructDeclare) {
-      listener.enterStructDeclare(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructDeclare) {
-      listener.exitStructDeclare(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructDeclare) {
-      return visitor.visitStructDeclare(this);
-    } else {
-      return visitor.visitChildren(this);
+    public structDeclareFieldList(): StructDeclareFieldListContext {
+        return this.getRuleContext(0, StructDeclareFieldListContext)!;
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structDeclare;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructDeclare) {
+             listener.enterStructDeclare(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructDeclare) {
+             listener.exitStructDeclare(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructDeclare) {
+            return visitor.visitStructDeclare(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StructDeclareFieldListContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public structDeclareField(): StructDeclareFieldContext[];
-  public structDeclareField(i: number): StructDeclareFieldContext | null;
-  public structDeclareField(
-    i?: number
-  ): StructDeclareFieldContext[] | StructDeclareFieldContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(StructDeclareFieldContext);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public structDeclareField(): StructDeclareFieldContext[];
+    public structDeclareField(i: number): StructDeclareFieldContext | null;
+    public structDeclareField(i?: number): StructDeclareFieldContext[] | StructDeclareFieldContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(StructDeclareFieldContext);
+        }
 
-    return this.getRuleContext(i, StructDeclareFieldContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structDeclareFieldList;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructDeclareFieldList) {
-      listener.enterStructDeclareFieldList(this);
+        return this.getRuleContext(i, StructDeclareFieldContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructDeclareFieldList) {
-      listener.exitStructDeclareFieldList(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structDeclareFieldList;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructDeclareFieldList) {
-      return visitor.visitStructDeclareFieldList(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructDeclareFieldList) {
+             listener.enterStructDeclareFieldList(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructDeclareFieldList) {
+             listener.exitStructDeclareFieldList(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructDeclareFieldList) {
+            return visitor.visitStructDeclareFieldList(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StructDeclareFieldContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public TYPE(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.TYPE, 0)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structDeclareField;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructDeclareField) {
-      listener.enterStructDeclareField(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructDeclareField) {
-      listener.exitStructDeclareField(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructDeclareField) {
-      return visitor.visitStructDeclareField(this);
-    } else {
-      return visitor.visitChildren(this);
+    public TYPE(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.TYPE, 0)!;
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structDeclareField;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructDeclareField) {
+             listener.enterStructDeclareField(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructDeclareField) {
+             listener.exitStructDeclareField(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructDeclareField) {
+            return visitor.visitStructDeclareField(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StructInitContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public structInitFieldList(): StructInitFieldListContext {
-    return this.getRuleContext(0, StructInitFieldListContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structInit;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructInit) {
-      listener.enterStructInit(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructInit) {
-      listener.exitStructInit(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructInit) {
-      return visitor.visitStructInit(this);
-    } else {
-      return visitor.visitChildren(this);
+    public structInitFieldList(): StructInitFieldListContext {
+        return this.getRuleContext(0, StructInitFieldListContext)!;
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structInit;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructInit) {
+             listener.enterStructInit(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructInit) {
+             listener.exitStructInit(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructInit) {
+            return visitor.visitStructInit(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StructInitFieldListContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public structInitField(): StructInitFieldContext[];
-  public structInitField(i: number): StructInitFieldContext | null;
-  public structInitField(
-    i?: number
-  ): StructInitFieldContext[] | StructInitFieldContext | null {
-    if (i === undefined) {
-      return this.getRuleContexts(StructInitFieldContext);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
+    public structInitField(): StructInitFieldContext[];
+    public structInitField(i: number): StructInitFieldContext | null;
+    public structInitField(i?: number): StructInitFieldContext[] | StructInitFieldContext | null {
+        if (i === undefined) {
+            return this.getRuleContexts(StructInitFieldContext);
+        }
 
-    return this.getRuleContext(i, StructInitFieldContext);
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structInitFieldList;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructInitFieldList) {
-      listener.enterStructInitFieldList(this);
+        return this.getRuleContext(i, StructInitFieldContext);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructInitFieldList) {
-      listener.exitStructInitFieldList(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structInitFieldList;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructInitFieldList) {
-      return visitor.visitStructInitFieldList(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructInitFieldList) {
+             listener.enterStructInitFieldList(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructInitFieldList) {
+             listener.exitStructInitFieldList(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructInitFieldList) {
+            return visitor.visitStructInitFieldList(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
+
 
 export class StructInitFieldContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode {
-    return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
-  }
-  public expr(): ExprContext {
-    return this.getRuleContext(0, ExprContext)!;
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structInitField;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructInitField) {
-      listener.enterStructInitField(this);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructInitField) {
-      listener.exitStructInitField(this);
+    public IDENTIFIER(): antlr.TerminalNode {
+        return this.getToken(RustLiteParser.IDENTIFIER, 0)!;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructInitField) {
-      return visitor.visitStructInitField(this);
-    } else {
-      return visitor.visitChildren(this);
+    public expr(): ExprContext {
+        return this.getRuleContext(0, ExprContext)!;
     }
-  }
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structInitField;
+    }
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructInitField) {
+             listener.enterStructInitField(this);
+        }
+    }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructInitField) {
+             listener.exitStructInitField(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructInitField) {
+            return visitor.visitStructInitField(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
 
+
 export class StructFieldAccessContext extends antlr.ParserRuleContext {
-  public constructor(
-    parent: antlr.ParserRuleContext | null,
-    invokingState: number
-  ) {
-    super(parent, invokingState);
-  }
-  public IDENTIFIER(): antlr.TerminalNode[];
-  public IDENTIFIER(i: number): antlr.TerminalNode | null;
-  public IDENTIFIER(
-    i?: number
-  ): antlr.TerminalNode | null | antlr.TerminalNode[] {
-    if (i === undefined) {
-      return this.getTokens(RustLiteParser.IDENTIFIER);
-    } else {
-      return this.getToken(RustLiteParser.IDENTIFIER, i);
+    public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
+        super(parent, invokingState);
     }
-  }
-  public override get ruleIndex(): number {
-    return RustLiteParser.RULE_structFieldAccess;
-  }
-  public override enterRule(listener: RustLiteListener): void {
-    if (listener.enterStructFieldAccess) {
-      listener.enterStructFieldAccess(this);
+    public IDENTIFIER(): antlr.TerminalNode[];
+    public IDENTIFIER(i: number): antlr.TerminalNode | null;
+    public IDENTIFIER(i?: number): antlr.TerminalNode | null | antlr.TerminalNode[] {
+    	if (i === undefined) {
+    		return this.getTokens(RustLiteParser.IDENTIFIER);
+    	} else {
+    		return this.getToken(RustLiteParser.IDENTIFIER, i);
+    	}
     }
-  }
-  public override exitRule(listener: RustLiteListener): void {
-    if (listener.exitStructFieldAccess) {
-      listener.exitStructFieldAccess(this);
+    public override get ruleIndex(): number {
+        return RustLiteParser.RULE_structFieldAccess;
     }
-  }
-  public override accept<Result>(
-    visitor: RustLiteVisitor<Result>
-  ): Result | null {
-    if (visitor.visitStructFieldAccess) {
-      return visitor.visitStructFieldAccess(this);
-    } else {
-      return visitor.visitChildren(this);
+    public override enterRule(listener: RustLiteListener): void {
+        if(listener.enterStructFieldAccess) {
+             listener.enterStructFieldAccess(this);
+        }
     }
-  }
+    public override exitRule(listener: RustLiteListener): void {
+        if(listener.exitStructFieldAccess) {
+             listener.exitStructFieldAccess(this);
+        }
+    }
+    public override accept<Result>(visitor: RustLiteVisitor<Result>): Result | null {
+        if (visitor.visitStructFieldAccess) {
+            return visitor.visitStructFieldAccess(this);
+        } else {
+            return visitor.visitChildren(this);
+        }
+    }
 }
