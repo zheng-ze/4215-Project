@@ -77,9 +77,23 @@ class RustLiteEvaluatorVisitor
       return this.visit(ctx.expr());
     }
 
-    const result = this.visitChildren(ctx);
-    console.log(`Result of expression: ${result}`);
-    return result;
+    if (ctx.BOOL()) {
+      console.log("Visiting Expr: BOOL");
+      return ctx.BOOL().getText() === "true";
+    }
+    if (ctx.INT()) {
+      console.log("Visiting Expr: INT");
+      return parseInt(ctx.INT().getText());
+    }
+    if (ctx.IDENTIFIER()) {
+      return 0;
+    }
+    if (ctx.arithExpr()) {
+      return this.visit(ctx.arithExpr());
+    }
+    if (ctx.logicExpr()) {
+      return this.visit(ctx.logicExpr());
+    }
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
