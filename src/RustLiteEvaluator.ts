@@ -83,6 +83,7 @@ class RustLiteEvaluatorVisitor
       return parseInt(ctx.INT().getText());
     }
     if (ctx.IDENTIFIER()) {
+      console.log("Visiting Expr: IDENTIFIER");
       return 0;
     }
     if (ctx.arithExpr()) {
@@ -242,57 +243,10 @@ class RustLiteEvaluatorVisitor
       return 0;
     }
 
-    // // implicit return statement
-    // if (numChildren === 1) {
-    //   let text = ctx.getText();
-    //   console.log(`text is: ${text}`);
-    //   return this.visit(ctx.getChild(0));
-    // } else if (ctx.getChild(0).getText() === "return") {
-    //   // explicit return statement
-    //   return this.visitReturnStmt(ctx.returnStmt());
-    // }
+    for (let i = 0; i < numChildren; i++) {
+      console.log(`Statement child ${i}: ${ctx.getChild(i).getText()}`);
+    }
 
-    // if (numChildren === 2) {
-    //   if (ctx.getChild(0).getText() === "loop") {
-    //     // loop statement
-    //     return this.visitLoopStmt(ctx.loopStmt());
-    //   }
-    //   if (ctx.getChild(1).getText() === ";") {
-    //     // expression statement
-    //     return this.visitExprStmt(ctx.exprStmt());
-    //   }
-    // }
-
-    // if (ctx.getChild(0).getText() === "if") {
-    //   // conditional statement
-    //   return this.visitCondStmt(ctx.condStmt());
-    // }
-
-    // if (ctx.getChild(0).getText() === "for") {
-    //   // for statement
-    //   return this.visitForStmt(ctx.forStmt());
-    // }
-
-    // if (ctx.getChild(0).getText() === "while") {
-    //   // while statement
-    //   return this.visitWhileStmt(ctx.whileStmt());
-    // }
-
-    // if (ctx.getChild(0).getText() === "let") {
-    //   // declare statement
-    //   return this.visitDeclareStmt(ctx.declareStmt());
-    // }
-
-    // if (ctx.getChild(0).getText() === "{") {
-    //   // block statement
-    //   return this.visitBlock(ctx.block());
-    // }
-
-    // if (ctx.getChild(0).getText() === "fn") {
-    //   // function statement
-    //   return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
-    // }
-    // console.log("Unable to match statement");
     return this.visitChildren(ctx);
   }
 
