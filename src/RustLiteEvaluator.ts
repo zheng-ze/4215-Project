@@ -53,18 +53,19 @@ class RustLiteEvaluatorVisitor
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
     let result: SUPPORTED_TYPES;
     let statement = ctx.stmt();
-
-    for (let i = 0; i < statement.length; i++) {
-      try {
-        if (statement && statement[i]) {
-          console.log(`Statement: ${statement[i]}`);
-          result = this.visitStmt(statement[i]);
+    if (statement) {
+      for (let i = 0; i < statement.length; i++) {
+        try {
+          if (statement && statement[i]) {
+            console.log(`Statement: ${statement[i]}`);
+            result = this.visitStmt(statement[i]);
+          }
+        } catch (error) {
+          throw `Error while visiting statement ${statement}, with error: ${error}`;
         }
-      } catch (error) {
-        throw `Error while visiting statement ${statement}, with error: ${error}`;
       }
+      return result;
     }
-    return result;
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
@@ -219,7 +220,7 @@ class RustLiteEvaluatorVisitor
 
     // implicit return statement
     if (numChildren === 1) {
-      console.log(`context text is ${ctx.getText()}`);
+      console.log(`context payload is ${ctx.getPayload()}`);
       return this.visitReturnStmt(ctx.returnStmt());
     } else if (ctx.getChild(0).getText() === "return") {
       // explicit return statement
