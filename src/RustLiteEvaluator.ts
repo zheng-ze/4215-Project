@@ -66,7 +66,7 @@ class RustLiteEvaluatorVisitor
         throw "Unable to get statement";
       }
       try {
-        if (statement && statement[0]) {
+        if (statement != null) {
           result = this.visit(statement[0]);
         }
       } catch (error) {
