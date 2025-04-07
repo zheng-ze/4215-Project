@@ -1,6 +1,8 @@
 export type SUPPORTED_TYPES = number | boolean;
 
 export const word_size = 8;
+export const node_size = 4;
+export const size_offset = 5;
 
 export enum instruction_type {
   LDC,
@@ -17,6 +19,12 @@ export enum instruction_type {
   CALL,
   TAIL_CALL,
   RESET,
+  DONE,
+}
+
+export interface Pair<T> {
+  first: T;
+  second: T;
 }
 
 export interface instruction {
@@ -63,12 +71,12 @@ export interface EXIT_SCOPE extends instruction {
 
 export interface LD extends instruction {
   type: instruction_type.LD;
-  pos: number;
+  pos: Pair<number>;
 }
 
 export interface ASSIGN extends instruction {
   type: instruction_type.ASSIGN;
-  pos: number;
+  pos: Pair<number>;
 }
 
 export interface LDF extends instruction {
@@ -91,4 +99,8 @@ export interface TAIL_CALL extends instruction {
 
 export interface RESET extends instruction {
   type: instruction_type.RESET;
+}
+
+export interface DONE extends instruction {
+  type: instruction_type.DONE;
 }
