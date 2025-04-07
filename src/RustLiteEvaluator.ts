@@ -53,6 +53,7 @@ class RustLiteEvaluatorVisitor
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
     console.log("Visiting Prog");
     console.log(ctx.getText());
+    console.log(`Children: ${ctx.getChildCount()}`);
     let result: SUPPORTED_TYPES;
     let statement = ctx.stmt();
     if (statement) {
@@ -71,6 +72,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
+    console.log("Visiting Expr");
     return 0;
   }
 
@@ -224,11 +226,7 @@ class RustLiteEvaluatorVisitor
     if (numChildren === 1) {
       let text = ctx.getText();
       console.log(`text is: ${text}`);
-      if (text === "true" || text === "false") {
-        return text === "true";
-      } else {
-        return parseInt(text);
-      }
+      return this.visit(ctx.getChild(0));
     } else if (ctx.getChild(0).getText() === "return") {
       // explicit return statement
       return this.visitReturnStmt(ctx.returnStmt());
@@ -274,6 +272,7 @@ class RustLiteEvaluatorVisitor
       // function statement
       return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
     }
+    console.log("Unable to match statement");
   }
 
   visitBlock(ctx: BlockContext): SUPPORTED_TYPES {
@@ -281,6 +280,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitExprStmt(ctx: ExprStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting ExprStmt");
     return this.visit(ctx.expr());
   }
 
