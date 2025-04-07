@@ -70,7 +70,7 @@ class RustLiteEvaluatorVisitor
           result = this.visit(statement[0]);
         }
       } catch (error) {
-        throw `Error while visiting statement ${statement[0]}, with error: ${error}`;
+        throw `Error while visiting statement ${statement}, with error: ${error}`;
       }
     }
     return result;
