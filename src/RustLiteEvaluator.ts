@@ -55,20 +55,21 @@ class RustLiteEvaluatorVisitor
     console.log(ctx.getText());
     console.log(`Children: ${ctx.getChildCount()}`);
     let result: SUPPORTED_TYPES;
-    let statement = ctx.stmt();
-    if (statement) {
-      for (let i = 0; i < statement.length; i++) {
-        try {
-          if (statement && statement[i]) {
-            console.log(`Statement: ${statement[i]}`);
-            result = this.visit(statement[i]);
-          }
-        } catch (error) {
-          throw `Error while visiting statement ${statement}, with error: ${error}`;
-        }
-      }
-      return result;
+    let globalElements = ctx.globalElement();
+    if (!globalElements) {
+      return 0;
     }
+    for (let i = 0; i < globalElements.length; i++) {
+      try {
+        if (globalElements[i]) {
+          console.log(`Statement: ${globalElements[i]}`);
+          result = this.visit(globalElements[i]);
+        }
+      } catch (error) {
+        throw `Error while visiting statement ${globalElements[i]}, with error: ${error}`;
+      }
+    }
+    return result;
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
