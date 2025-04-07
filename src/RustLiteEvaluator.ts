@@ -73,7 +73,14 @@ class RustLiteEvaluatorVisitor
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
     console.log("Visiting Expr");
-    return 0;
+    const numChildren = ctx.getChildCount();
+    console.log(numChildren);
+
+    if (numChildren === 1) {
+      return this.visit(ctx.getChild(0));
+    } else {
+      return this.visit(ctx.getChild(1));
+    }
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
