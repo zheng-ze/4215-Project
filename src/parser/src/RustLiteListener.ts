@@ -8,10 +8,12 @@ import { ExprContext } from "./RustLiteParser.js";
 import { ArithExprContext } from "./RustLiteParser.js";
 import { LogicExprContext } from "./RustLiteParser.js";
 import { StructExprContext } from "./RustLiteParser.js";
+import { GlobalElementContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
 import { DeclareStmtContext } from "./RustLiteParser.js";
+import { ConstStmtContext } from "./RustLiteParser.js";
 import { CondStmtContext } from "./RustLiteParser.js";
 import { LoopStmtContext } from "./RustLiteParser.js";
 import { WhileStmtContext } from "./RustLiteParser.js";
@@ -92,6 +94,16 @@ export class RustLiteListener implements ParseTreeListener {
      */
     exitStructExpr?: (ctx: StructExprContext) => void;
     /**
+     * Enter a parse tree produced by `RustLiteParser.globalElement`.
+     * @param ctx the parse tree
+     */
+    enterGlobalElement?: (ctx: GlobalElementContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.globalElement`.
+     * @param ctx the parse tree
+     */
+    exitGlobalElement?: (ctx: GlobalElementContext) => void;
+    /**
      * Enter a parse tree produced by `RustLiteParser.stmt`.
      * @param ctx the parse tree
      */
@@ -131,6 +143,16 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitDeclareStmt?: (ctx: DeclareStmtContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.constStmt`.
+     * @param ctx the parse tree
+     */
+    enterConstStmt?: (ctx: ConstStmtContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.constStmt`.
+     * @param ctx the parse tree
+     */
+    exitConstStmt?: (ctx: ConstStmtContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.condStmt`.
      * @param ctx the parse tree

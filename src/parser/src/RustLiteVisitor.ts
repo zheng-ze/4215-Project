@@ -8,10 +8,12 @@ import { ExprContext } from "./RustLiteParser.js";
 import { ArithExprContext } from "./RustLiteParser.js";
 import { LogicExprContext } from "./RustLiteParser.js";
 import { StructExprContext } from "./RustLiteParser.js";
+import { GlobalElementContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
 import { DeclareStmtContext } from "./RustLiteParser.js";
+import { ConstStmtContext } from "./RustLiteParser.js";
 import { CondStmtContext } from "./RustLiteParser.js";
 import { LoopStmtContext } from "./RustLiteParser.js";
 import { WhileStmtContext } from "./RustLiteParser.js";
@@ -75,6 +77,12 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitStructExpr?: (ctx: StructExprContext) => Result;
     /**
+     * Visit a parse tree produced by `RustLiteParser.globalElement`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitGlobalElement?: (ctx: GlobalElementContext) => Result;
+    /**
      * Visit a parse tree produced by `RustLiteParser.stmt`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -98,6 +106,12 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitDeclareStmt?: (ctx: DeclareStmtContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.constStmt`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitConstStmt?: (ctx: ConstStmtContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.condStmt`.
      * @param ctx the parse tree

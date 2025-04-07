@@ -1,6 +1,6 @@
 grammar RustLite;
 
-prog: stmt* EOF;
+prog: globalElement* EOF;
 
 INT: [0-9]+;
 BOOL: 'true' | 'false';
@@ -38,8 +38,11 @@ logicExpr: primary=BOOL
         | left=logicExpr op='||' right=logicExpr;
 
 structExpr: structInit
-        | structDeclare
         | structFieldAccess;
+
+globalElement: fnDeclareStmt
+            | structDeclare
+            | constStmt;
 
 stmt: exprStmt
     | declareStmt
@@ -58,7 +61,7 @@ block: '{' stmt* expr? '}';
 
 exprStmt: expr ';';
 
-declareStmt: 'let' 'mut'? IDENTIFIER '=' exprStmt;
+declareStmt: 'let' 'mut'? IDENTIFIER (':' TYPE)? ('=' exprStmt)?;
 
 constStmt: 'const' IDENTIFIER (':' TYPE)? '=' exprStmt;
 
