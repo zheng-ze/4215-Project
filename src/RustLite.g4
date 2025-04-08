@@ -18,8 +18,7 @@ expr: '(' inner=expr ')'
     | arithExpr
     | logicExpr
     | structExpr
-    | fnCall
-    | .+? {notifyErrorListeners("Invalid Expression");};
+    | fnCall;
 
 arithExpr: primary=INT
         | primary=IDENTIFIER
@@ -28,9 +27,9 @@ arithExpr: primary=INT
         | op='-' arithExpr
         | left=arithExpr op=('*'|'/'|'%') right=arithExpr
         | left=arithExpr op=('+'|'-') right=arithExpr
-        | BOOL {notifyErrorListeners("Cannot use boolean in arithmetic expressions");}
+        | BOOL {this.notifyErrorListeners("Cannot use boolean in arithmetic expressions");}
         | left=arithExpr op=('/'|'%') INT {
-            if ($right.text.equals("0")) notifyErrorListeners("Division by zero");
+            if ($right.text === 0) this.notifyErrorListeners("Division by zero");
         };
 
 logicExpr: primary=BOOL
@@ -41,7 +40,7 @@ logicExpr: primary=BOOL
         | op='!' right=logicExpr
         | left=logicExpr op='&&' right=logicExpr
         | left=logicExpr op='||' right=logicExpr
-        | INT {notifyErrorListeners("Cannot use INT without comparison operators in logical expressions");};
+        | INT {this.notifyErrorListeners("Cannot use INT without comparison operators in logical expressions");};
 
 structExpr: structInit
         | structFieldAccess;
@@ -61,12 +60,14 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt
     | block
-    | structDeclare {notifyErrorListeners("Struct definitions are only allowed in global scope");}
-    | expr {notifyErrorListeners("missing semicolon")}
-    | .+? ';' {notifyErrorListeners("Invalid statement");};
+    | structDeclare {this.notifyErrorListeners("Struct definitions are only allowed in global scope");}
+    | .+? ';' {this.notifyErrorListeners("Invalid statement");};
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
-block: '{' stmt* expr? '}';
+block: '{' blockContent '}';
+blockContent: stmts finalExpr? | stmts expr finalExpr {this.notifyErrorListeners("Missing semicolon")};
+stmts: stmt*;
+finalExpr: expr;
 
 exprStmt: expr ';';
 
@@ -74,24 +75,24 @@ declareStmt: 'let' 'mut'? IDENTIFIER ':' TYPE '=' exprStmt
         | 'let' 'mut'? IDENTIFIER ':' TYPE ';'
         | 'let' 'mut'? IDENTIFIER '=' exprStmt
         | 'let' 'mut'? IDENTIFIER {
-                notifyErrorListeners("Variable declaration requires either type annotation or initialization");
+                this.notifyErrorListeners("Variable declaration requires either type annotation or initialization");
             } ';'? 
-        | 'let' 'mut'? (':' TYPE)? {notifyErrorListeners("Missing variable name in variable declaration");};
+        | 'let' 'mut'? (':' TYPE)? {this.notifyErrorListeners("Missing variable name in variable declaration");};
 
 constStmt: 'const' IDENTIFIER (':' TYPE)? '=' exprStmt
-        | 'const' IDENTIFIER '=' exprStmt {notifyErrorListeners("Constants must specify a type");}
-        | 'const' 'mut' {notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' TYPE '=' exprStmt;
+        | 'const' IDENTIFIER '=' exprStmt {this.notifyErrorListeners("Constants must specify a type");}
+        | 'const' 'mut' {this.notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' TYPE '=' exprStmt;
 
 condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?
         | 'if' expr {
-                notifyErrorListeners("Condition must be a boolean expression");
+                this.notifyErrorListeners("Condition must be a boolean expression");
             } block ('else' block)?;
 
 loopStmt: 'loop' block;
 
 whileStmt: 'while' logicExpr block
         | 'while' expr {
-                ("Condition must be a boolean expression");
+                this.notifyErrorListeners("Condition must be a boolean expression");
             } block;
 
 loopControl: 'break' | 'continue'; 
@@ -106,7 +107,7 @@ forStmt: 'for' IDENTIFIER 'in' iterable block;
 
 // Function declaration
 param: IDENTIFIER ':' TYPE
-    | IDENTIFIER {notifyErrorListeners("Parameters must specify a type");};
+    | IDENTIFIER {this.notifyErrorListeners("Parameters must specify a type");};
 paramList: param (',' param)* ','?;
 
 returnTypes: TYPE
@@ -114,7 +115,7 @@ returnTypes: TYPE
 returnType: '->' returnTypes;
 returnStmt: 'return' expr? ';';
 
-fnDeclareStmt: 'fn' IDENTIFIER '(' paramList? ')'  returnType? block;
+fnDeclareStmt: 'fn' IDENTIFIER ('(' paramList ')' | '()')  returnType? block;
 
 argList: expr (',' expr)* ','?;
 fnCall: IDENTIFIER '(' argList? ')';
@@ -129,4 +130,4 @@ structInitFieldList: structInitField (',' structInitField)* ','?;
 structInitField: IDENTIFIER ':' expr;
 
 structFieldAccess: IDENTIFIER ('.' IDENTIFIER)+
-                | IDENTIFIER '.' {notifyErrorListeners("Missing field name after '.'");};
+                | IDENTIFIER '.' {this.notifyErrorListeners("Missing field name after '.'");};

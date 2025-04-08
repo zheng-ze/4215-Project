@@ -4,24 +4,34 @@ import {
   CommonTokenStream,
 } from "antlr4ng";
 import {
+  ArgListContext,
   ArithExprContext,
+  BlockContentContext,
   BlockContext,
   CondStmtContext,
+  ConstStmtContext,
   DeclareStmtContext,
   ExprContext,
   ExprStmtContext,
+  FinalExprContext,
+  FnCallContext,
   FnDeclareStmtContext,
   ForStmtContext,
+  GlobalElementContext,
   IterableContext,
   LogicExprContext,
+  LoopControlContext,
+  LoopControlStmtContext,
   LoopStmtContext,
   ParamContext,
   ParamListContext,
   ProgContext,
   ReturnStmtContext,
   ReturnTypeContext,
+  ReturnTypesContext,
   RustLiteParser,
   StmtContext,
+  StmtsContext,
   StructDeclareContext,
   StructDeclareFieldContext,
   StructDeclareFieldListContext,
@@ -51,9 +61,7 @@ class RustLiteEvaluatorVisitor
 {
   //TODO: Implement Visit Prog
   visitProg(ctx: ProgContext): SUPPORTED_TYPES {
-    console.log("Visiting Prog");
-    console.log(ctx.getText());
-    console.log(`Children: ${ctx.getChildCount()}`);
+    console.log(`Visiting Program, text parsed: ${ctx.getText()}`);
     let result: SUPPORTED_TYPES;
     let globalElements = ctx.globalElement();
     if (!globalElements) {
@@ -63,13 +71,27 @@ class RustLiteEvaluatorVisitor
       try {
         if (globalElements[i]) {
           console.log(`Statement: ${globalElements[i]}`);
-          result = this.visit(globalElements[i]);
+          result = this.visitGlobalElement(globalElements[i]);
         }
       } catch (error) {
         throw `Error while visiting statement ${globalElements[i]}, with error: ${error}`;
       }
     }
     return result;
+  }
+
+  visitGlobalElement(ctx: GlobalElementContext): SUPPORTED_TYPES {
+    console.log("Visiting GlobalElement");
+    if (ctx.structDeclare()) {
+      return this.visitStructDeclare(ctx.structDeclare());
+    }
+    if (ctx.fnDeclareStmt()) {
+      return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
+    }
+    if (ctx.constStmt()) {
+      return this.visitConstStmt(ctx.constStmt());
+    }
+    throw new Error(`Unknown global element: ${ctx.getText()}`);
   }
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
@@ -133,6 +155,7 @@ class RustLiteEvaluatorVisitor
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
+    console.log("Visiting ArithExpr");
     if (ctx.INT()) {
       // Is integer
       return parseInt(ctx.INT().getText());
@@ -188,10 +211,11 @@ class RustLiteEvaluatorVisitor
       }
     }
 
-    throw new Error(`Invalid expression: ${ctx.getText()}`);
+    // throw new Error(`Invalid expression: ${ctx.getText()}`);
   }
 
   visitLogicExpr(ctx: LogicExprContext): boolean {
+    console.log("Visiting LogicExpr");
     if (ctx.BOOL()) {
       return ctx.BOOL().getText() === "true";
     }
@@ -261,75 +285,87 @@ class RustLiteEvaluatorVisitor
       }
     }
 
-    throw new Error(`Invalid expression: ${ctx.getText()}`);
+    // throw new Error(`Invalid expression: ${ctx.getText()}`);
   }
 
   visitStructExpr(ctx: StructExprContext): SUPPORTED_TYPES {
+    console.log("Visiting StructExpr");
     return 0;
   }
 
   visitStmt(ctx: StmtContext): SUPPORTED_TYPES {
-    const numChildren = ctx.getChildCount();
-    console.log(`Statement has ${numChildren} Children`);
-    if (numChildren === 0) {
-      return 0;
+    console.log("Visiting Stmt");
+    if (ctx.exprStmt()) {
+      return this.visitExprStmt(ctx.exprStmt());
     }
 
-    // implicit return statement
-    if (numChildren === 1) {
-      let text = ctx.getText();
-      console.log(`text is: ${text}`);
-      return this.visit(ctx.getChild(0));
-    } else if (ctx.getChild(0).getText() === "return") {
-      // explicit return statement
-      return this.visitReturnStmt(ctx.returnStmt());
-    }
-
-    if (numChildren === 2) {
-      if (ctx.getChild(0).getText() === "loop") {
-        // loop statement
-        return this.visitLoopStmt(ctx.loopStmt());
-      }
-      if (ctx.getChild(1).getText() === ";") {
-        // expression statement
-        return this.visitExprStmt(ctx.exprStmt());
-      }
-    }
-
-    if (ctx.getChild(0).getText() === "if") {
-      // conditional statement
-      return this.visitCondStmt(ctx.condStmt());
-    }
-
-    if (ctx.getChild(0).getText() === "for") {
-      // for statement
-      return this.visitForStmt(ctx.forStmt());
-    }
-
-    if (ctx.getChild(0).getText() === "while") {
-      // while statement
-      return this.visitWhileStmt(ctx.whileStmt());
-    }
-
-    if (ctx.getChild(0).getText() === "let") {
-      // declare statement
+    if (ctx.declareStmt()) {
       return this.visitDeclareStmt(ctx.declareStmt());
     }
-
-    if (ctx.getChild(0).getText() === "{") {
-      // block statement
-      return this.visitBlock(ctx.block());
+    if (ctx.constStmt()) {
+      return this.visitConstStmt(ctx.constStmt());
     }
-
-    if (ctx.getChild(0).getText() === "fn") {
-      // function statement
+    if (ctx.condStmt()) {
+      return this.visitCondStmt(ctx.condStmt());
+    }
+    if (ctx.loopStmt()) {
+      return this.visitLoopStmt(ctx.loopStmt());
+    }
+    if (ctx.whileStmt()) {
+      return this.visitWhileStmt(ctx.whileStmt());
+    }
+    if (ctx.forStmt()) {
+      return this.visitForStmt(ctx.forStmt());
+    }
+    if (ctx.fnDeclareStmt()) {
       return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
     }
-    console.log("Unable to match statement");
+    if (ctx.returnStmt()) {
+      return this.visitReturnStmt(ctx.returnStmt());
+    }
+    if (ctx.block()) {
+      return this.visitBlock(ctx.block());
+    }
   }
 
   visitBlock(ctx: BlockContext): SUPPORTED_TYPES {
-    return 0;
+    console.log("Visiting Block");
+    return this.visitBlockContent(ctx.blockContent());
+  }
+
+  visitBlockContent(ctx: BlockContentContext): SUPPORTED_TYPES {
+    console.log("Visiting BlockContent");
+    let result: SUPPORTED_TYPES;
+    result = this.visitStmts(ctx.stmts());
+    if (ctx.finalExpr()) {
+      result = this.visitFinalExpr(ctx.finalExpr());
+    }
+    return result;
+  }
+
+  visitFinalExpr(ctx: FinalExprContext): SUPPORTED_TYPES {
+    console.log("Visiting FinalExpr");
+    return this.visitExpr(ctx.expr());
+  }
+
+  visitStmts(ctx: StmtsContext): SUPPORTED_TYPES {
+    console.log("Visiting Stmts");
+    let result: SUPPORTED_TYPES;
+    let statements = ctx.stmt();
+    if (!statements) {
+      return 0;
+    }
+    for (let i = 0; i < statements.length; i++) {
+      try {
+        if (statements[i]) {
+          console.log(`Statement: ${statements[i]}`);
+          result = this.visitStmt(statements[i]);
+        }
+      } catch (error) {
+        throw `Error while visiting statement ${statements[i]}, with error: ${error}`;
+      }
+    }
+    return result;
   }
 
   visitExprStmt(ctx: ExprStmtContext): SUPPORTED_TYPES {
@@ -338,78 +374,130 @@ class RustLiteEvaluatorVisitor
   }
 
   visitLoopStmt(ctx: LoopStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting LoopStmt");
     return 0;
   }
 
   visitDeclareStmt(ctx: DeclareStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting DeclareStmt");
+    return 0;
+  }
+
+  visitConstStmt(ctx: ConstStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting ConstStmt");
     return 0;
   }
 
   visitCondStmt(ctx: CondStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting CondStmt");
     return 0;
   }
 
   visitWhileStmt(ctx: WhileStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting WhileStmt");
+    return 0;
+  }
+
+  visitLoopControl(ctx: LoopControlContext): SUPPORTED_TYPES {
+    console.log("Visiting LoopControl");
+    return 0;
+  }
+
+  visitLoopControlStmt(ctx: LoopControlStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting LoopControlStmt");
     return 0;
   }
 
   visitIterable(ctx: IterableContext): SUPPORTED_TYPES {
+    console.log("Visiting Iterable");
     return 0;
   }
 
   visitForStmt(ctx: ForStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting ForStmt");
     return 0;
   }
 
   visitParam(ctx: ParamContext): SUPPORTED_TYPES {
+    console.log("Visiting Param");
     return 0;
   }
 
   visitParamList(ctx: ParamListContext): SUPPORTED_TYPES {
+    console.log("Visiting ParamList");
     return 0;
   }
 
   visitReturnType(ctx: ReturnTypeContext): SUPPORTED_TYPES {
+    console.log("Visiting ReturnType");
     return 0;
   }
 
   visitReturnStmt(ctx: ReturnStmtContext): SUPPORTED_TYPES {
+    console.log("Visiting ReturnStmt");
     return 0;
   }
 
   visitFnDeclareStmt(ctx: FnDeclareStmtContext): SUPPORTED_TYPES {
+    this.visitParamList(ctx.paramList());
+    this.visitReturnType(ctx.returnType());
+    console.log("Visiting FnDeclareStmt");
+    this.visitBlock(ctx.block());
+    return 0;
+  }
+
+  visitReturnTypes(ctx: ReturnTypesContext): SUPPORTED_TYPES {
+    console.log("Visiting ReturnTypes");
+    return 0;
+  }
+
+  visitFnCall(ctx: FnCallContext): SUPPORTED_TYPES {
+    console.log("Visiting FnCall");
+    return 0;
+  }
+
+  visitArgList(ctx: ArgListContext): SUPPORTED_TYPES {
+    console.log("Visiting ArgList");
     return 0;
   }
 
   visitStructDeclare(ctx: StructDeclareContext): SUPPORTED_TYPES {
+    console.log("Visiting StructDeclare");
     return 0;
   }
 
   visitStructDeclareField(ctx: StructDeclareFieldContext): SUPPORTED_TYPES {
+    console.log("Visiting StructDeclareField");
     return 0;
   }
 
   visitStructDeclareFieldList(
     ctx: StructDeclareFieldListContext
   ): SUPPORTED_TYPES {
+    console.log("Visiting StructDeclareFieldList");
     return 0;
   }
 
   visitStructInit(ctx: StructInitContext): SUPPORTED_TYPES {
+    console.log("Visiting StructInit");
     return 0;
   }
 
   visitStructInitFieldList(ctx: StructInitFieldListContext): SUPPORTED_TYPES {
+    console.log("Visiting StructInitFieldList");
     return 0;
   }
 
   visitStructInitField(ctx: StructInitFieldContext): SUPPORTED_TYPES {
+    console.log("Visiting StructInitField");
     return 0;
   }
 
   visitStructFieldAccess(ctx: StructFieldAccessContext): SUPPORTED_TYPES {
+    console.log("Visiting StructFieldAccess");
     return 0;
   }
+
   protected defaultResult(): SUPPORTED_TYPES {
     return 0;
   }
@@ -452,6 +540,23 @@ export class RustLiteEvaluator extends BasicEvaluator {
         ) => {
           this.conductor.sendOutput(
             `Syntax error at ${line}:${charPositionInLine} - ${msg}`
+          );
+        },
+        reportAmbiguity() {},
+        reportAttemptingFullContext() {},
+        reportContextSensitivity() {},
+      });
+      lexer.removeErrorListeners();
+      lexer.addErrorListener({
+        syntaxError: (
+          recognizer,
+          offendingSymbol,
+          line,
+          charPositionInLine,
+          msg
+        ) => {
+          this.conductor.sendOutput(
+            `Lexer error at ${line}:${charPositionInLine} - ${msg}`
           );
         },
         reportAmbiguity() {},
