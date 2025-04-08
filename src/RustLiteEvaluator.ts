@@ -13,7 +13,6 @@ import {
   DeclareStmtContext,
   ExprContext,
   ExprStmtContext,
-  FinalExprContext,
   FnCallContext,
   FnDeclareStmtContext,
   ForStmtContext,
@@ -31,7 +30,6 @@ import {
   ReturnTypesContext,
   RustLiteParser,
   StmtContext,
-  StmtsContext,
   StructDeclareContext,
   StructDeclareFieldContext,
   StructDeclareFieldListContext,
@@ -313,36 +311,20 @@ class RustLiteEvaluatorVisitor
   visitBlockContent(ctx: BlockContentContext): SUPPORTED_TYPES {
     console.log("Visiting BlockContent");
     let result: SUPPORTED_TYPES;
-    if (ctx.stmts()) {
-      result = this.visitStmts(ctx.stmts());
+    const stmts = ctx.stmt();
+
+    for (let i = 0; i < stmts.length; i++) {
+      try {
+        if (stmts[i]) {
+          console.log(`Statement: ${stmts[i]}`);
+          result = this.visitStmt(stmts[i]);
+        }
+      } catch (error) {
+        throw `Error while visiting statement ${stmts[i]}, with error: ${error}`;
+      }
     }
     if (ctx._finalExpr) {
       result = this.visitExpr(ctx._finalExpr);
-    }
-    return result;
-  }
-
-  visitFinalExpr(ctx: FinalExprContext): SUPPORTED_TYPES {
-    console.log("Visiting FinalExpr");
-    return this.visitExpr(ctx.expr());
-  }
-
-  visitStmts(ctx: StmtsContext): SUPPORTED_TYPES {
-    console.log("Visiting Stmts");
-    let result: SUPPORTED_TYPES;
-    let statements = ctx.stmt();
-    if (!statements) {
-      return 0;
-    }
-    for (let i = 0; i < statements.length; i++) {
-      try {
-        if (statements[i]) {
-          console.log(`Statement: ${statements[i]}`);
-          result = this.visitStmt(statements[i]);
-        }
-      } catch (error) {
-        throw `Error while visiting statement ${statements[i]}, with error: ${error}`;
-      }
     }
     return result;
   }

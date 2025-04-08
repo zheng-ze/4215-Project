@@ -13,7 +13,6 @@ import { GlobalElementContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
 import { BlockContentContext } from "./RustLiteParser.js";
-import { StmtsContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
 import { DeclareStmtContext } from "./RustLiteParser.js";
 import { ConstStmtContext } from "./RustLiteParser.js";
@@ -109,12 +108,6 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitBlockContent?: (ctx: BlockContentContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.stmts`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStmts?: (ctx: StmtsContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.exprStmt`.
      * @param ctx the parse tree

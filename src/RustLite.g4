@@ -73,16 +73,13 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt
     | block
+    | expr {notifyErrorListeners("Missing semicolon after expression");} 
     | structDeclare {this.notifyErrorListeners("Struct definitions are only allowed in global scope");};
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
 block: '{' blockContent '}';
-blockContent: stmts finalExpr=expr
-        | stmts
-        | validStmts+=stmt* invalidExpr=expr {this.notifyErrorListeners("Missing semicolon after expression");} 
-        (nextStmts+=stmt* nextInvalidExpr=expr {this.notifyErrorListeners("Missing semicolon after expression");})*
-        finalStmts=stmt*;
-stmts: stmt*;
+
+blockContent: stmt* finalExpr=expr?;
 
 exprStmt: expr ';';
 
