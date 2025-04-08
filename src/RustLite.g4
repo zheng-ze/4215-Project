@@ -78,11 +78,11 @@ stmt: exprStmt
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
 block: '{' blockContent '}';
-blockContent: stmts
-        | stmts finalExpr=expr
-        | stmt* expr {this.notifyErrorListeners("Missing semicolon after expression");} 
-        (stmt* expr {this.notifyErrorListeners("Missing semicolon after expression");})*
-        stmt* expr?;
+blockContent: stmts finalExpr=expr
+        | stmts
+        | validStmts+=stmt* invalidExpr=expr {this.notifyErrorListeners("Missing semicolon after expression");} 
+        (nextStmts+=stmt* nextInvalidExpr=expr {this.notifyErrorListeners("Missing semicolon after expression");})*
+        finalStmts=stmt* finalExpr=expr?;
 stmts: stmt*;
 
 exprStmt: expr ';';

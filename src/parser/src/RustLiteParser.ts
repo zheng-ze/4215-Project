@@ -880,15 +880,15 @@ export class RustLiteParser extends antlr.Parser {
                 {
                 this.state = 189;
                 this.stmts();
+                this.state = 190;
+                localContext._finalExpr = this.expr();
                 }
                 break;
             case 2:
                 this.enterOuterAlt(localContext, 2);
                 {
-                this.state = 190;
+                this.state = 192;
                 this.stmts();
-                this.state = 191;
-                localContext._finalExpr = this.expr();
                 }
                 break;
             case 3:
@@ -902,7 +902,8 @@ export class RustLiteParser extends antlr.Parser {
                         {
                         {
                         this.state = 193;
-                        this.stmt();
+                        localContext._stmt = this.stmt();
+                        localContext._validStmts.push(localContext._stmt!);
                         }
                         }
                     }
@@ -911,7 +912,7 @@ export class RustLiteParser extends antlr.Parser {
                     alternative = this.interpreter.adaptivePredict(this.tokenStream, 12, this.context);
                 }
                 this.state = 199;
-                this.expr();
+                localContext._invalidExpr = this.expr();
                 this.notifyErrorListeners("Missing semicolon after expression");
                 this.state = 212;
                 this.errorHandler.sync(this);
@@ -928,7 +929,8 @@ export class RustLiteParser extends antlr.Parser {
                                 {
                                 {
                                 this.state = 201;
-                                this.stmt();
+                                localContext._stmt = this.stmt();
+                                localContext._nextStmts.push(localContext._stmt!);
                                 }
                                 }
                             }
@@ -937,7 +939,7 @@ export class RustLiteParser extends antlr.Parser {
                             alternative = this.interpreter.adaptivePredict(this.tokenStream, 13, this.context);
                         }
                         this.state = 207;
-                        this.expr();
+                        localContext._nextInvalidExpr = this.expr();
                         this.notifyErrorListeners("Missing semicolon after expression");
                         }
                         }
@@ -954,7 +956,7 @@ export class RustLiteParser extends antlr.Parser {
                         {
                         {
                         this.state = 215;
-                        this.stmt();
+                        localContext._finalStmts = this.stmt();
                         }
                         }
                     }
@@ -968,7 +970,7 @@ export class RustLiteParser extends antlr.Parser {
                 if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 16394) !== 0) || ((((_la - 42)) & ~0x1F) === 0 && ((1 << (_la - 42)) & 7) !== 0)) {
                     {
                     this.state = 221;
-                    this.expr();
+                    localContext._finalExpr = this.expr();
                     }
                 }
 
@@ -2371,8 +2373,8 @@ export class RustLiteParser extends antlr.Parser {
         167,1,0,0,0,183,168,1,0,0,0,183,169,1,0,0,0,183,170,1,0,0,0,183,
         171,1,0,0,0,183,172,1,0,0,0,183,173,1,0,0,0,183,177,1,0,0,0,184,
         15,1,0,0,0,185,186,5,18,0,0,186,187,3,18,9,0,187,188,5,19,0,0,188,
-        17,1,0,0,0,189,225,3,20,10,0,190,191,3,20,10,0,191,192,3,4,2,0,192,
-        225,1,0,0,0,193,195,3,14,7,0,194,193,1,0,0,0,195,198,1,0,0,0,196,
+        17,1,0,0,0,189,190,3,20,10,0,190,191,3,4,2,0,191,225,1,0,0,0,192,
+        225,3,20,10,0,193,195,3,14,7,0,194,193,1,0,0,0,195,198,1,0,0,0,196,
         194,1,0,0,0,196,197,1,0,0,0,197,199,1,0,0,0,198,196,1,0,0,0,199,
         200,3,4,2,0,200,212,6,9,-1,0,201,203,3,14,7,0,202,201,1,0,0,0,203,
         206,1,0,0,0,204,202,1,0,0,0,204,205,1,0,0,0,205,207,1,0,0,0,206,
@@ -2381,7 +2383,7 @@ export class RustLiteParser extends antlr.Parser {
         218,1,0,0,0,214,212,1,0,0,0,215,217,3,14,7,0,216,215,1,0,0,0,217,
         220,1,0,0,0,218,216,1,0,0,0,218,219,1,0,0,0,219,222,1,0,0,0,220,
         218,1,0,0,0,221,223,3,4,2,0,222,221,1,0,0,0,222,223,1,0,0,0,223,
-        225,1,0,0,0,224,189,1,0,0,0,224,190,1,0,0,0,224,196,1,0,0,0,225,
+        225,1,0,0,0,224,189,1,0,0,0,224,192,1,0,0,0,224,196,1,0,0,0,225,
         19,1,0,0,0,226,228,3,14,7,0,227,226,1,0,0,0,228,231,1,0,0,0,229,
         227,1,0,0,0,229,230,1,0,0,0,230,21,1,0,0,0,231,229,1,0,0,0,232,233,
         3,4,2,0,233,234,5,17,0,0,234,23,1,0,0,0,235,237,5,20,0,0,236,238,
@@ -2913,6 +2915,12 @@ export class BlockContext extends antlr.ParserRuleContext {
 
 export class BlockContentContext extends antlr.ParserRuleContext {
     public _finalExpr?: ExprContext;
+    public _stmt?: StmtContext;
+    public _validStmts: StmtContext[] = [];
+    public _invalidExpr?: ExprContext;
+    public _nextStmts: StmtContext[] = [];
+    public _nextInvalidExpr?: ExprContext;
+    public _finalStmts?: StmtContext;
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
