@@ -790,7 +790,7 @@ export class RustLiteParser extends antlr.Parser {
                 {
                 this.state = 171;
                 this.expr();
-                notifyErrorListeners("Missing semicolon after expression");
+                this.notifyErrorListeners("Missing semicolon after expression");
                 }
                 break;
             case 13:

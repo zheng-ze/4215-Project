@@ -73,7 +73,7 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt
     | block
-    | expr {notifyErrorListeners("Missing semicolon after expression");} 
+    | expr {this.notifyErrorListeners("Missing semicolon after expression");} 
     | structDeclare {this.notifyErrorListeners("Struct definitions are only allowed in global scope");};
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
