@@ -313,7 +313,12 @@ class RustLiteEvaluatorVisitor
   visitBlockContent(ctx: BlockContentContext): SUPPORTED_TYPES {
     console.log("Visiting BlockContent");
     let result: SUPPORTED_TYPES;
-    result = this.visitStmts(ctx.stmts());
+    if (ctx._left) {
+      result = this.visitStmts(ctx._left);
+    }
+    if (ctx._right) {
+      result = this.visitStmts(ctx._right);
+    }
     if (ctx.finalExpr()) {
       result = this.visitFinalExpr(ctx.finalExpr());
     }

@@ -896,11 +896,11 @@ export class RustLiteParser extends antlr.Parser {
                 this.enterOuterAlt(localContext, 2);
                 {
                 this.state = 195;
-                this.stmts();
+                localContext._left = this.stmts();
                 this.state = 196;
                 this.expr();
                 this.state = 197;
-                this.stmts();
+                localContext._right = this.stmts();
                 this.state = 198;
                 this.finalExpr();
                 this.notifyErrorListeners("Missing semicolon")
@@ -2859,6 +2859,8 @@ export class BlockContext extends antlr.ParserRuleContext {
 
 
 export class BlockContentContext extends antlr.ParserRuleContext {
+    public _left?: StmtsContext;
+    public _right?: StmtsContext;
     public constructor(parent: antlr.ParserRuleContext | null, invokingState: number) {
         super(parent, invokingState);
     }
