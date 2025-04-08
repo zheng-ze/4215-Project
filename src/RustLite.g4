@@ -115,7 +115,7 @@ returnTypes: TYPE
 returnType: '->' returnTypes;
 returnStmt: 'return' expr? ';';
 
-fnDeclareStmt: 'fn' IDENTIFIER ('(' paramList ')' | '()')  returnType? block;
+fnDeclareStmt: 'fn' IDENTIFIER ('(' paramList? ')' | '()')  returnType? block;
 
 argList: expr (',' expr)* ','?;
 fnCall: IDENTIFIER '(' argList? ')';

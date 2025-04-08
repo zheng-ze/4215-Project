@@ -186,9 +186,15 @@ export class RustLiteParser extends antlr.Parser {
                 {
                 this.state = 80;
                 this.match(RustLiteParser.T__0);
+<<<<<<< HEAD
                 this.state = 81;
                 localContext._inner = this.expr();
                 this.state = 82;
+=======
+                this.state = 71;
+                localContext._inner = this.expr();
+                this.state = 72;
+>>>>>>> main
                 this.match(RustLiteParser.T__1);
                 }
                 break;
@@ -1705,11 +1711,16 @@ export class RustLiteParser extends antlr.Parser {
             this.match(RustLiteParser.T__38);
             this.state = 365;
             this.match(RustLiteParser.IDENTIFIER);
+<<<<<<< HEAD
             this.state = 371;
+=======
+            this.state = 244;
+>>>>>>> main
             this.errorHandler.sync(this);
             switch (this.tokenStream.LA(1)) {
             case RustLiteParser.T__0:
                 {
+<<<<<<< HEAD
                 this.state = 366;
                 this.match(RustLiteParser.T__0);
                 this.state = 367;
@@ -1722,22 +1733,48 @@ export class RustLiteParser extends antlr.Parser {
                 {
                 this.state = 370;
                 this.match(RustLiteParser.T__35);
+=======
+                this.state = 239;
+                this.match(RustLiteParser.T__0);
+                this.state = 240;
+                this.paramList();
+                this.state = 241;
+                this.match(RustLiteParser.T__1);
+                }
+                break;
+            case RustLiteParser.T__34:
+                {
+                this.state = 243;
+                this.match(RustLiteParser.T__34);
+>>>>>>> main
                 }
                 break;
             default:
                 throw new antlr.NoViableAltException(this);
             }
+<<<<<<< HEAD
             this.state = 374;
+=======
+            this.state = 247;
+>>>>>>> main
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 37) {
                 {
+<<<<<<< HEAD
                 this.state = 373;
+=======
+                this.state = 246;
+>>>>>>> main
                 this.returnType();
                 }
             }
 
+<<<<<<< HEAD
             this.state = 376;
+=======
+            this.state = 249;
+>>>>>>> main
             this.block();
             }
         }
@@ -1762,6 +1799,7 @@ export class RustLiteParser extends antlr.Parser {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 378;
             this.expr();
             this.state = 383;
@@ -1783,13 +1821,31 @@ export class RustLiteParser extends antlr.Parser {
                 alternative = this.interpreter.adaptivePredict(this.tokenStream, 37, this.context);
             }
             this.state = 387;
+=======
+            this.state = 251;
+            this.expr();
+            this.state = 256;
+>>>>>>> main
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 35) {
                 {
+<<<<<<< HEAD
                 this.state = 386;
                 this.match(RustLiteParser.T__34);
                 }
+=======
+                {
+                this.state = 252;
+                this.match(RustLiteParser.T__33);
+                this.state = 253;
+                this.expr();
+                }
+                }
+                this.state = 258;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+>>>>>>> main
             }
 
             }
@@ -1814,21 +1870,37 @@ export class RustLiteParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 389;
             this.match(RustLiteParser.IDENTIFIER);
             this.state = 390;
             this.match(RustLiteParser.T__0);
             this.state = 392;
+=======
+            this.state = 259;
+            this.match(RustLiteParser.IDENTIFIER);
+            this.state = 260;
+            this.match(RustLiteParser.T__0);
+            this.state = 262;
+>>>>>>> main
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if ((((_la) & ~0x1F) === 0 && ((1 << _la) & 16394) !== 0) || ((((_la - 42)) & ~0x1F) === 0 && ((1 << (_la - 42)) & 7) !== 0)) {
                 {
+<<<<<<< HEAD
                 this.state = 391;
+=======
+                this.state = 261;
+>>>>>>> main
                 this.argList();
                 }
             }
 
+<<<<<<< HEAD
             this.state = 394;
+=======
+            this.state = 264;
+>>>>>>> main
             this.match(RustLiteParser.T__1);
             }
         }
@@ -1852,11 +1924,21 @@ export class RustLiteParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 396;
             this.match(RustLiteParser.T__39);
             this.state = 397;
             this.match(RustLiteParser.IDENTIFIER);
             this.state = 398;
+=======
+            this.state = 266;
+            this.match(RustLiteParser.IDENTIFIER);
+            this.state = 267;
+            this.match(RustLiteParser.T__16);
+            this.state = 268;
+            this.structDeclareFieldList();
+            this.state = 269;
+>>>>>>> main
             this.match(RustLiteParser.T__17);
             this.state = 400;
             this.errorHandler.sync(this);
@@ -1893,6 +1975,7 @@ export class RustLiteParser extends antlr.Parser {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 404;
             this.structDeclareField();
             this.state = 409;
@@ -1914,13 +1997,31 @@ export class RustLiteParser extends antlr.Parser {
                 alternative = this.interpreter.adaptivePredict(this.tokenStream, 41, this.context);
             }
             this.state = 413;
+=======
+            this.state = 271;
+            this.structDeclareField();
+            this.state = 276;
+>>>>>>> main
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 35) {
                 {
+<<<<<<< HEAD
                 this.state = 412;
                 this.match(RustLiteParser.T__34);
                 }
+=======
+                {
+                this.state = 272;
+                this.match(RustLiteParser.T__33);
+                this.state = 273;
+                this.structDeclareField();
+                }
+                }
+                this.state = 278;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+>>>>>>> main
             }
 
             }
@@ -1944,11 +2045,19 @@ export class RustLiteParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 415;
             this.match(RustLiteParser.IDENTIFIER);
             this.state = 416;
             this.match(RustLiteParser.T__21);
             this.state = 417;
+=======
+            this.state = 279;
+            this.match(RustLiteParser.IDENTIFIER);
+            this.state = 280;
+            this.match(RustLiteParser.T__32);
+            this.state = 281;
+>>>>>>> main
             this.match(RustLiteParser.TYPE);
             }
         }
@@ -1972,9 +2081,19 @@ export class RustLiteParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 419;
             this.match(RustLiteParser.IDENTIFIER);
             this.state = 420;
+=======
+            this.state = 283;
+            this.match(RustLiteParser.IDENTIFIER);
+            this.state = 284;
+            this.match(RustLiteParser.T__16);
+            this.state = 285;
+            this.structInitFieldList();
+            this.state = 286;
+>>>>>>> main
             this.match(RustLiteParser.T__17);
             this.state = 422;
             this.errorHandler.sync(this);
@@ -2011,6 +2130,7 @@ export class RustLiteParser extends antlr.Parser {
             let alternative: number;
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 426;
             this.structInitField();
             this.state = 431;
@@ -2032,13 +2152,31 @@ export class RustLiteParser extends antlr.Parser {
                 alternative = this.interpreter.adaptivePredict(this.tokenStream, 44, this.context);
             }
             this.state = 435;
+=======
+            this.state = 288;
+            this.structInitField();
+            this.state = 293;
+>>>>>>> main
             this.errorHandler.sync(this);
             _la = this.tokenStream.LA(1);
             if (_la === 35) {
                 {
+<<<<<<< HEAD
                 this.state = 434;
                 this.match(RustLiteParser.T__34);
                 }
+=======
+                {
+                this.state = 289;
+                this.match(RustLiteParser.T__33);
+                this.state = 290;
+                this.structInitField();
+                }
+                }
+                this.state = 295;
+                this.errorHandler.sync(this);
+                _la = this.tokenStream.LA(1);
+>>>>>>> main
             }
 
             }
@@ -2062,11 +2200,19 @@ export class RustLiteParser extends antlr.Parser {
         try {
             this.enterOuterAlt(localContext, 1);
             {
+<<<<<<< HEAD
             this.state = 437;
             this.match(RustLiteParser.IDENTIFIER);
             this.state = 438;
             this.match(RustLiteParser.T__21);
             this.state = 439;
+=======
+            this.state = 296;
+            this.match(RustLiteParser.IDENTIFIER);
+            this.state = 297;
+            this.match(RustLiteParser.T__32);
+            this.state = 298;
+>>>>>>> main
             this.expr();
             }
         }
@@ -2088,6 +2234,7 @@ export class RustLiteParser extends antlr.Parser {
         this.enterRule(localContext, 70, RustLiteParser.RULE_structFieldAccess);
         try {
             let alternative: number;
+<<<<<<< HEAD
             this.state = 451;
             this.errorHandler.sync(this);
             switch (this.interpreter.adaptivePredict(this.tokenStream, 47, this.context) ) {
@@ -2097,6 +2244,31 @@ export class RustLiteParser extends antlr.Parser {
                 this.state = 441;
                 this.match(RustLiteParser.IDENTIFIER);
                 this.state = 444;
+=======
+            this.enterOuterAlt(localContext, 1);
+            {
+            this.state = 300;
+            this.match(RustLiteParser.IDENTIFIER);
+            this.state = 303;
+            this.errorHandler.sync(this);
+            alternative = 1;
+            do {
+                switch (alternative) {
+                case 1:
+                    {
+                    {
+                    this.state = 301;
+                    this.match(RustLiteParser.T__38);
+                    this.state = 302;
+                    this.match(RustLiteParser.IDENTIFIER);
+                    }
+                    }
+                    break;
+                default:
+                    throw new antlr.NoViableAltException(this);
+                }
+                this.state = 305;
+>>>>>>> main
                 this.errorHandler.sync(this);
                 alternative = 1;
                 do {
@@ -2177,6 +2349,7 @@ export class RustLiteParser extends antlr.Parser {
     }
 
     public static readonly _serializedATN: number[] = [
+<<<<<<< HEAD
         4,1,47,454,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
@@ -2344,6 +2517,115 @@ export class RustLiteParser extends antlr.Parser {
         158,177,181,189,196,201,211,220,228,235,240,244,248,251,257,275,
         287,292,300,302,316,327,340,347,351,360,371,374,383,387,392,400,
         409,413,422,431,435,446,451
+=======
+        4,1,45,308,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
+        2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
+        7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
+        2,27,7,27,2,28,7,28,2,29,7,29,2,30,7,30,1,0,5,0,64,8,0,10,0,12,0,
+        67,9,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,82,
+        8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,94,8,2,1,2,1,2,1,
+        2,1,2,1,2,1,2,5,2,102,8,2,10,2,12,2,105,9,2,1,3,1,3,1,3,1,3,1,3,
+        1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,121,8,3,1,3,1,3,1,3,1,3,
+        1,3,1,3,5,3,129,8,3,10,3,12,3,132,9,3,1,4,1,4,1,4,3,4,137,8,4,1,
+        5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,5,149,8,5,1,6,1,6,5,6,153,
+        8,6,10,6,12,6,156,9,6,1,6,3,6,159,8,6,1,6,1,6,1,7,1,7,1,7,1,8,1,
+        8,3,8,168,8,8,1,8,1,8,1,8,1,8,1,9,1,9,1,9,1,9,1,9,1,9,1,9,1,9,5,
+        9,182,8,9,10,9,12,9,185,9,9,1,9,1,9,3,9,189,8,9,1,10,1,10,1,10,1,
+        11,1,11,1,11,1,11,1,12,1,12,1,13,1,13,1,13,1,14,1,14,1,14,1,14,3,
+        14,207,8,14,1,15,1,15,1,15,1,15,1,15,1,15,1,16,1,16,1,16,1,16,1,
+        17,1,17,1,17,5,17,222,8,17,10,17,12,17,225,9,17,1,18,1,18,1,19,1,
+        19,1,19,1,20,1,20,3,20,234,8,20,1,20,1,20,1,21,1,21,1,21,1,21,1,
+        21,1,21,1,21,3,21,245,8,21,1,21,3,21,248,8,21,1,21,1,21,1,22,1,22,
+        1,22,5,22,255,8,22,10,22,12,22,258,9,22,1,23,1,23,1,23,3,23,263,
+        8,23,1,23,1,23,1,24,1,24,1,24,1,24,1,24,1,25,1,25,1,25,5,25,275,
+        8,25,10,25,12,25,278,9,25,1,26,1,26,1,26,1,26,1,27,1,27,1,27,1,27,
+        1,27,1,28,1,28,1,28,5,28,292,8,28,10,28,12,28,295,9,28,1,29,1,29,
+        1,29,1,29,1,30,1,30,1,30,4,30,304,8,30,11,30,12,30,305,1,30,0,2,
+        4,6,31,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,
+        42,44,46,48,50,52,54,56,58,60,0,6,1,0,4,6,2,0,3,3,7,7,1,0,8,13,1,
+        0,27,28,1,0,29,30,2,0,35,35,43,43,323,0,65,1,0,0,0,2,81,1,0,0,0,
+        4,93,1,0,0,0,6,120,1,0,0,0,8,136,1,0,0,0,10,148,1,0,0,0,12,150,1,
+        0,0,0,14,162,1,0,0,0,16,165,1,0,0,0,18,173,1,0,0,0,20,190,1,0,0,
+        0,22,193,1,0,0,0,24,197,1,0,0,0,26,199,1,0,0,0,28,206,1,0,0,0,30,
+        208,1,0,0,0,32,214,1,0,0,0,34,218,1,0,0,0,36,226,1,0,0,0,38,228,
+        1,0,0,0,40,231,1,0,0,0,42,237,1,0,0,0,44,251,1,0,0,0,46,259,1,0,
+        0,0,48,266,1,0,0,0,50,271,1,0,0,0,52,279,1,0,0,0,54,283,1,0,0,0,
+        56,288,1,0,0,0,58,296,1,0,0,0,60,300,1,0,0,0,62,64,3,10,5,0,63,62,
+        1,0,0,0,64,67,1,0,0,0,65,63,1,0,0,0,65,66,1,0,0,0,66,68,1,0,0,0,
+        67,65,1,0,0,0,68,69,5,0,0,1,69,1,1,0,0,0,70,71,5,1,0,0,71,72,3,2,
+        1,0,72,73,5,2,0,0,73,82,1,0,0,0,74,82,5,42,0,0,75,82,5,40,0,0,76,
+        82,5,41,0,0,77,82,3,4,2,0,78,82,3,6,3,0,79,82,3,8,4,0,80,82,3,46,
+        23,0,81,70,1,0,0,0,81,74,1,0,0,0,81,75,1,0,0,0,81,76,1,0,0,0,81,
+        77,1,0,0,0,81,78,1,0,0,0,81,79,1,0,0,0,81,80,1,0,0,0,82,3,1,0,0,
+        0,83,84,6,2,-1,0,84,94,5,40,0,0,85,94,5,42,0,0,86,94,3,60,30,0,87,
+        88,5,1,0,0,88,89,3,4,2,0,89,90,5,2,0,0,90,94,1,0,0,0,91,92,5,3,0,
+        0,92,94,3,4,2,3,93,83,1,0,0,0,93,85,1,0,0,0,93,86,1,0,0,0,93,87,
+        1,0,0,0,93,91,1,0,0,0,94,103,1,0,0,0,95,96,10,2,0,0,96,97,7,0,0,
+        0,97,102,3,4,2,3,98,99,10,1,0,0,99,100,7,1,0,0,100,102,3,4,2,2,101,
+        95,1,0,0,0,101,98,1,0,0,0,102,105,1,0,0,0,103,101,1,0,0,0,103,104,
+        1,0,0,0,104,5,1,0,0,0,105,103,1,0,0,0,106,107,6,3,-1,0,107,121,5,
+        41,0,0,108,121,5,42,0,0,109,121,3,60,30,0,110,111,5,1,0,0,111,112,
+        3,6,3,0,112,113,5,2,0,0,113,121,1,0,0,0,114,115,3,4,2,0,115,116,
+        7,2,0,0,116,117,3,4,2,0,117,121,1,0,0,0,118,119,5,14,0,0,119,121,
+        3,6,3,3,120,106,1,0,0,0,120,108,1,0,0,0,120,109,1,0,0,0,120,110,
+        1,0,0,0,120,114,1,0,0,0,120,118,1,0,0,0,121,130,1,0,0,0,122,123,
+        10,2,0,0,123,124,5,15,0,0,124,129,3,6,3,3,125,126,10,1,0,0,126,127,
+        5,16,0,0,127,129,3,6,3,2,128,122,1,0,0,0,128,125,1,0,0,0,129,132,
+        1,0,0,0,130,128,1,0,0,0,130,131,1,0,0,0,131,7,1,0,0,0,132,130,1,
+        0,0,0,133,137,3,54,27,0,134,137,3,48,24,0,135,137,3,60,30,0,136,
+        133,1,0,0,0,136,134,1,0,0,0,136,135,1,0,0,0,137,9,1,0,0,0,138,149,
+        3,14,7,0,139,149,3,16,8,0,140,149,3,18,9,0,141,149,3,20,10,0,142,
+        149,3,30,15,0,143,149,3,22,11,0,144,149,3,26,13,0,145,149,3,42,21,
+        0,146,149,3,40,20,0,147,149,3,12,6,0,148,138,1,0,0,0,148,139,1,0,
+        0,0,148,140,1,0,0,0,148,141,1,0,0,0,148,142,1,0,0,0,148,143,1,0,
+        0,0,148,144,1,0,0,0,148,145,1,0,0,0,148,146,1,0,0,0,148,147,1,0,
+        0,0,149,11,1,0,0,0,150,154,5,17,0,0,151,153,3,10,5,0,152,151,1,0,
+        0,0,153,156,1,0,0,0,154,152,1,0,0,0,154,155,1,0,0,0,155,158,1,0,
+        0,0,156,154,1,0,0,0,157,159,3,2,1,0,158,157,1,0,0,0,158,159,1,0,
+        0,0,159,160,1,0,0,0,160,161,5,18,0,0,161,13,1,0,0,0,162,163,3,2,
+        1,0,163,164,5,19,0,0,164,15,1,0,0,0,165,167,5,20,0,0,166,168,5,21,
+        0,0,167,166,1,0,0,0,167,168,1,0,0,0,168,169,1,0,0,0,169,170,5,42,
+        0,0,170,171,5,22,0,0,171,172,3,14,7,0,172,17,1,0,0,0,173,174,5,23,
+        0,0,174,175,3,6,3,0,175,183,3,12,6,0,176,177,5,24,0,0,177,178,5,
+        23,0,0,178,179,3,6,3,0,179,180,3,12,6,0,180,182,1,0,0,0,181,176,
+        1,0,0,0,182,185,1,0,0,0,183,181,1,0,0,0,183,184,1,0,0,0,184,188,
+        1,0,0,0,185,183,1,0,0,0,186,187,5,24,0,0,187,189,3,12,6,0,188,186,
+        1,0,0,0,188,189,1,0,0,0,189,19,1,0,0,0,190,191,5,25,0,0,191,192,
+        3,12,6,0,192,21,1,0,0,0,193,194,5,26,0,0,194,195,3,6,3,0,195,196,
+        3,12,6,0,196,23,1,0,0,0,197,198,7,3,0,0,198,25,1,0,0,0,199,200,3,
+        24,12,0,200,201,5,19,0,0,201,27,1,0,0,0,202,207,5,42,0,0,203,204,
+        5,40,0,0,204,205,7,4,0,0,205,207,5,40,0,0,206,202,1,0,0,0,206,203,
+        1,0,0,0,207,29,1,0,0,0,208,209,5,31,0,0,209,210,5,42,0,0,210,211,
+        5,32,0,0,211,212,3,28,14,0,212,213,3,12,6,0,213,31,1,0,0,0,214,215,
+        5,42,0,0,215,216,5,33,0,0,216,217,5,43,0,0,217,33,1,0,0,0,218,223,
+        3,32,16,0,219,220,5,34,0,0,220,222,3,32,16,0,221,219,1,0,0,0,222,
+        225,1,0,0,0,223,221,1,0,0,0,223,224,1,0,0,0,224,35,1,0,0,0,225,223,
+        1,0,0,0,226,227,7,5,0,0,227,37,1,0,0,0,228,229,5,36,0,0,229,230,
+        3,36,18,0,230,39,1,0,0,0,231,233,5,37,0,0,232,234,3,2,1,0,233,232,
+        1,0,0,0,233,234,1,0,0,0,234,235,1,0,0,0,235,236,5,19,0,0,236,41,
+        1,0,0,0,237,238,5,38,0,0,238,244,5,42,0,0,239,240,5,1,0,0,240,241,
+        3,34,17,0,241,242,5,2,0,0,242,245,1,0,0,0,243,245,5,35,0,0,244,239,
+        1,0,0,0,244,243,1,0,0,0,245,247,1,0,0,0,246,248,3,38,19,0,247,246,
+        1,0,0,0,247,248,1,0,0,0,248,249,1,0,0,0,249,250,3,12,6,0,250,43,
+        1,0,0,0,251,256,3,2,1,0,252,253,5,34,0,0,253,255,3,2,1,0,254,252,
+        1,0,0,0,255,258,1,0,0,0,256,254,1,0,0,0,256,257,1,0,0,0,257,45,1,
+        0,0,0,258,256,1,0,0,0,259,260,5,42,0,0,260,262,5,1,0,0,261,263,3,
+        44,22,0,262,261,1,0,0,0,262,263,1,0,0,0,263,264,1,0,0,0,264,265,
+        5,2,0,0,265,47,1,0,0,0,266,267,5,42,0,0,267,268,5,17,0,0,268,269,
+        3,50,25,0,269,270,5,18,0,0,270,49,1,0,0,0,271,276,3,52,26,0,272,
+        273,5,34,0,0,273,275,3,52,26,0,274,272,1,0,0,0,275,278,1,0,0,0,276,
+        274,1,0,0,0,276,277,1,0,0,0,277,51,1,0,0,0,278,276,1,0,0,0,279,280,
+        5,42,0,0,280,281,5,33,0,0,281,282,5,43,0,0,282,53,1,0,0,0,283,284,
+        5,42,0,0,284,285,5,17,0,0,285,286,3,56,28,0,286,287,5,18,0,0,287,
+        55,1,0,0,0,288,293,3,58,29,0,289,290,5,34,0,0,290,292,3,58,29,0,
+        291,289,1,0,0,0,292,295,1,0,0,0,293,291,1,0,0,0,293,294,1,0,0,0,
+        294,57,1,0,0,0,295,293,1,0,0,0,296,297,5,42,0,0,297,298,5,33,0,0,
+        298,299,3,2,1,0,299,59,1,0,0,0,300,303,5,42,0,0,301,302,5,39,0,0,
+        302,304,5,42,0,0,303,301,1,0,0,0,304,305,1,0,0,0,305,303,1,0,0,0,
+        305,306,1,0,0,0,306,61,1,0,0,0,25,65,81,93,101,103,120,128,130,136,
+        148,154,158,167,183,188,206,223,233,244,247,256,262,276,293,305
+>>>>>>> main
     ];
 
     private static __ATN: antlr.ATN;

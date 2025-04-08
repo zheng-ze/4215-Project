@@ -96,62 +96,40 @@ class RustLiteEvaluatorVisitor
 
   visitExpr(ctx: ExprContext): SUPPORTED_TYPES {
     console.log("Visiting Expr");
-
     if (ctx._inner) {
       return this.visitExpr(ctx._inner);
     }
-
-    if (ctx.IDENTIFIER()) {
-      // Is variable
-      const variableName = ctx.IDENTIFIER().getText();
-      return 0; //TODO: Implement retrieving variable value
-    }
-
-    if (ctx.INT()) {
-      // Is integer
-      return parseInt(ctx.INT().getText());
-    }
-
     if (ctx.BOOL()) {
-      // Is boolean
+      console.log("Visiting Expr: BOOL");
       return ctx.BOOL().getText() === "true";
     }
-
+    if (ctx.INT()) {
+      console.log("Visiting Expr: INT");
+      return parseInt(ctx.INT().getText());
+    }
+    if (ctx.IDENTIFIER()) {
+      console.log("Visiting Expr: IDENTIFIER");
+      // TODO: Implement retrieving variable value
+      return 0;
+    }
     if (ctx.arithExpr()) {
-      // Arithmetic expression
-      const arithExpr = ctx.arithExpr();
-      const result = this.visitArithExpr(arithExpr);
-      if (typeof result !== "number") {
-        throw new Error("Arithmetic expression is not a number");
-      }
-      return result;
+      return this.visitArithExpr(ctx.arithExpr());
     }
-
     if (ctx.logicExpr()) {
-      // Logic expression
-      const logicExpr = ctx.logicExpr();
-      const result = this.visitLogicExpr(logicExpr);
-      if (typeof result !== "boolean") {
-        throw new Error("Logic expression is not a boolean");
-      }
-      return result;
+      return this.visitLogicExpr(ctx.logicExpr());
     }
-
     if (ctx.structExpr()) {
       // Struct expression
       const structExpr = ctx.structExpr();
       const result = this.visitStructExpr(structExpr);
       return result;
     }
-
     if (ctx.fnCall()) {
       // Struct field access
       const fnCall = ctx.fnCall();
-      const result = this.visit(fnCall);
+      const result = this.visitFnCall(fnCall);
       return result;
     }
-
-    return 0;
   }
 
   visitArithExpr(ctx: ArithExprContext): number {
@@ -298,7 +276,6 @@ class RustLiteEvaluatorVisitor
     if (ctx.exprStmt()) {
       return this.visitExprStmt(ctx.exprStmt());
     }
-
     if (ctx.declareStmt()) {
       return this.visitDeclareStmt(ctx.declareStmt());
     }
