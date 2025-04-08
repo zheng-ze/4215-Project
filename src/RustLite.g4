@@ -79,7 +79,7 @@ declareStmt: 'let' 'mut'? IDENTIFIER ':' TYPE '=' exprStmt
             } ';'? 
         | 'let' 'mut'? (':' TYPE)? {this.notifyErrorListeners("Missing variable name in variable declaration");};
 
-constStmt: 'const' IDENTIFIER (':' TYPE)? '=' exprStmt
+constStmt: 'const' IDENTIFIER ':' TYPE '=' exprStmt
         | 'const' IDENTIFIER '=' exprStmt {this.notifyErrorListeners("Constants must specify a type");}
         | 'const' 'mut' {this.notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' TYPE '=' exprStmt;
 
