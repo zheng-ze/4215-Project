@@ -5,7 +5,20 @@ prog: globalElement* EOF;
 INT: [0-9]+;
 BOOL: 'true' | 'false';
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*; // - not allowed in name.
-TYPE: ('u'|'i')('8'|'16'|'32'|'64') | 'bool' | IDENTIFIER;
+U8_TYPE: 'u8';
+U16_TYPE: 'u16';
+U32_TYPE: 'u32';
+U64_TYPE: 'u64';
+I8_TYPE: 'i8';
+I16_TYPE: 'i16';
+I32_TYPE: 'i32';
+I64_TYPE: 'i64';
+BOOL_TYPE: 'bool';
+
+
+type: U8_TYPE | U16_TYPE | U32_TYPE | U64_TYPE 
+    | I8_TYPE | I16_TYPE | I32_TYPE | I64_TYPE 
+    | BOOL_TYPE | IDENTIFIER;
 
 // Ignore whitespace and comments
 WS: [ \t\r\n]+ -> skip;
@@ -72,17 +85,17 @@ finalExpr: expr;
 
 exprStmt: expr ';';
 
-declareStmt: 'let' 'mut'? IDENTIFIER ':' TYPE '=' exprStmt
-        | 'let' 'mut'? IDENTIFIER ':' TYPE ';'
+declareStmt: 'let' 'mut'? IDENTIFIER ':' type '=' exprStmt
+        | 'let' 'mut'? IDENTIFIER ':' type ';'
         | 'let' 'mut'? IDENTIFIER '=' exprStmt
         | 'let' 'mut'? IDENTIFIER {
                 this.notifyErrorListeners("Variable declaration requires either type annotation or initialization");
             } ';'? 
-        | 'let' 'mut'? (':' TYPE)? {this.notifyErrorListeners("Missing variable name in variable declaration");};
+        | 'let' 'mut'? (':' type)? {this.notifyErrorListeners("Missing variable name in variable declaration");};
 
-constStmt: 'const' IDENTIFIER ':' TYPE '=' exprStmt
+constStmt: 'const' IDENTIFIER ':' type '=' exprStmt
         | 'const' IDENTIFIER '=' exprStmt {this.notifyErrorListeners("Constants must specify a type");}
-        | 'const' 'mut' {this.notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' TYPE '=' exprStmt;
+        | 'const' 'mut' {this.notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' type '=' exprStmt;
 
 condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?
         | 'if' expr {
@@ -107,11 +120,11 @@ iterable: IDENTIFIER
 forStmt: 'for' IDENTIFIER 'in' iterable block;
 
 // Function declaration
-param: IDENTIFIER ':' TYPE
+param: IDENTIFIER ':' type
     | IDENTIFIER {this.notifyErrorListeners("Parameters must specify a type");};
 paramList: param (',' param)* ','?;
 
-returnTypes: TYPE
+returnTypes: type
             | '()';
 returnType: '->' returnTypes;
 returnStmt: 'return' expr? ';';
@@ -124,7 +137,7 @@ fnCall: IDENTIFIER '(' argList? ')';
 // Structs
 structDeclare: 'struct' IDENTIFIER '{' structDeclareFieldList? '}';
 structDeclareFieldList: structDeclareField (',' structDeclareField)* ','?;
-structDeclareField: IDENTIFIER ':' TYPE;
+structDeclareField: IDENTIFIER ':' type;
 
 structInit: IDENTIFIER '{' structInitFieldList? '}';
 structInitFieldList: structInitField (',' structInitField)* ','?;

@@ -4,6 +4,7 @@ import { ErrorNode, ParseTreeListener, ParserRuleContext, TerminalNode } from "a
 
 
 import { ProgContext } from "./RustLiteParser.js";
+import { TypeContext } from "./RustLiteParser.js";
 import { ExprContext } from "./RustLiteParser.js";
 import { ArithExprContext } from "./RustLiteParser.js";
 import { LogicExprContext } from "./RustLiteParser.js";
@@ -56,6 +57,16 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitProg?: (ctx: ProgContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.type`.
+     * @param ctx the parse tree
+     */
+    enterType?: (ctx: TypeContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.type`.
+     * @param ctx the parse tree
+     */
+    exitType?: (ctx: TypeContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.expr`.
      * @param ctx the parse tree

@@ -4,6 +4,7 @@ import { AbstractParseTreeVisitor } from "antlr4ng";
 
 
 import { ProgContext } from "./RustLiteParser.js";
+import { TypeContext } from "./RustLiteParser.js";
 import { ExprContext } from "./RustLiteParser.js";
 import { ArithExprContext } from "./RustLiteParser.js";
 import { LogicExprContext } from "./RustLiteParser.js";
@@ -55,6 +56,12 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitProg?: (ctx: ProgContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.type`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitType?: (ctx: TypeContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.expr`.
      * @param ctx the parse tree
