@@ -81,7 +81,7 @@ blockContent: stmts finalExpr=expr
         | stmts
         | validStmts+=stmt* invalidExpr=expr {this.notifyErrorListeners("Missing semicolon after expression");} 
         (nextStmts+=stmt* nextInvalidExpr=expr {this.notifyErrorListeners("Missing semicolon after expression");})*
-        finalStmts=stmt* finalExpr=expr?;
+        finalStmts=stmt*;
 stmts: stmt*;
 
 exprStmt: expr ';';
