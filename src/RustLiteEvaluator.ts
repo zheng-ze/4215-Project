@@ -316,8 +316,8 @@ class RustLiteEvaluatorVisitor
     if (ctx.stmts()) {
       result = this.visitStmts(ctx.stmts());
     }
-    if (ctx.finalExpr()) {
-      result = this.visitFinalExpr(ctx.finalExpr());
+    if (ctx._finalExpr) {
+      result = this.visitExpr(ctx._finalExpr);
     }
     return result;
   }
