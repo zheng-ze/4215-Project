@@ -912,7 +912,7 @@ export class RustLiteParser extends antlr.Parser {
                 }
                 this.state = 199;
                 this.expr();
-                notifyErrorListeners("Missing semicolon after expression");
+                this.notifyErrorListeners("Missing semicolon after expression");
                 this.state = 212;
                 this.errorHandler.sync(this);
                 alternative = this.interpreter.adaptivePredict(this.tokenStream, 14, this.context);
@@ -938,7 +938,7 @@ export class RustLiteParser extends antlr.Parser {
                         }
                         this.state = 207;
                         this.expr();
-                        notifyErrorListeners("Missing semicolon after expression");
+                        this.notifyErrorListeners("Missing semicolon after expression");
                         }
                         }
                     }

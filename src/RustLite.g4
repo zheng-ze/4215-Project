@@ -80,8 +80,8 @@ stmt: exprStmt
 block: '{' blockContent '}';
 blockContent: stmts
         | stmts finalExpr=expr
-        | stmt* expr {notifyErrorListeners("Missing semicolon after expression");} 
-        (stmt* expr {notifyErrorListeners("Missing semicolon after expression");})*
+        | stmt* expr {this.notifyErrorListeners("Missing semicolon after expression");} 
+        (stmt* expr {this.notifyErrorListeners("Missing semicolon after expression");})*
         stmt* expr?;
 stmts: stmt*;
 
