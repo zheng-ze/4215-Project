@@ -73,8 +73,7 @@ stmt: exprStmt
     | fnDeclareStmt
     | returnStmt
     | block
-    | structDeclare {this.notifyErrorListeners("Struct definitions are only allowed in global scope");}
-    | .+? ';' {this.notifyErrorListeners("Invalid statement");};
+    | structDeclare {this.notifyErrorListeners("Struct definitions are only allowed in global scope");};
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
 block: '{' blockContent '}';
