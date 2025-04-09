@@ -74,13 +74,13 @@ blockContent: stmt* finalExpr=expr?
 
 exprStmt: expr ';';
 
-declareStmt: 'let' IDENTIFIER ':' type '=' exprStmt
-        | 'let' IDENTIFIER ':' type ';'
-        | 'let' IDENTIFIER '=' exprStmt
-        | 'let' IDENTIFIER {
+declareStmt: 'let' 'mut'? IDENTIFIER ':' type '=' exprStmt
+        | 'let' 'mut'? IDENTIFIER ':' type ';'
+        | 'let' 'mut'? IDENTIFIER '=' exprStmt
+        | 'let' 'mut'? IDENTIFIER {
                 this.notifyErrorListeners("Variable declaration requires either type annotation or initialization");
             } ';'? 
-        | 'let' (':' type)? {this.notifyErrorListeners("Missing variable name in variable declaration");} ';'?;
+        | 'let' 'mut'? (':' type)? {this.notifyErrorListeners("Missing variable name in variable declaration");};
 
 constStmt: 'const' IDENTIFIER ':' type '=' exprStmt
         | 'const' IDENTIFIER '=' exprStmt {this.notifyErrorListeners("Constants must specify a type");}
