@@ -9,35 +9,34 @@ import {
   BlockContentContext,
   BlockContext,
   CondStmtContext,
-  ConstStmtContext,
   DeclareStmtContext,
   ExprContext,
   ExprStmtContext,
   FnCallContext,
   FnDeclareStmtContext,
-  ForStmtContext,
   GlobalElementContext,
-  IterableContext,
   LogicExprContext,
   LoopControlContext,
   LoopControlStmtContext,
-  LoopStmtContext,
   ParamContext,
   ParamListContext,
+  PrintlnArgsContext,
+  PrintlnMacroContext,
   ProgContext,
   ReturnStmtContext,
   ReturnTypeContext,
   ReturnTypesContext,
   RustLiteParser,
   StmtContext,
-  StructDeclareContext,
-  StructDeclareFieldContext,
-  StructDeclareFieldListContext,
-  StructExprContext,
-  StructFieldAccessContext,
-  StructInitContext,
-  StructInitFieldContext,
-  StructInitFieldListContext,
+  TypeContext,
+  VectorAssignmentContext,
+  VectorExprContext,
+  VectorIndexAccessContext,
+  VectorInitContext,
+  VectorLenContext,
+  VectorPopContext,
+  VectorPushContext,
+  VectorTypeContext,
   WhileStmtContext,
 } from "./parser/src/RustLiteParser";
 import {
@@ -80,14 +79,8 @@ class RustLiteEvaluatorVisitor
 
   visitGlobalElement(ctx: GlobalElementContext): SUPPORTED_TYPES {
     console.log("Visiting GlobalElement");
-    if (ctx.structDeclare()) {
-      return this.visitStructDeclare(ctx.structDeclare());
-    }
     if (ctx.fnDeclareStmt()) {
       return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
-    }
-    if (ctx.constStmt()) {
-      return this.visitConstStmt(ctx.constStmt());
     }
     throw new Error(`Unknown global element: ${ctx.getText()}`);
   }
@@ -116,12 +109,6 @@ class RustLiteEvaluatorVisitor
     if (ctx.logicExpr()) {
       return this.visitLogicExpr(ctx.logicExpr());
     }
-    if (ctx.structExpr()) {
-      // Struct expression
-      const structExpr = ctx.structExpr();
-      const result = this.visitStructExpr(structExpr);
-      return result;
-    }
     if (ctx.fnCall()) {
       // Struct field access
       const fnCall = ctx.fnCall();
@@ -141,17 +128,6 @@ class RustLiteEvaluatorVisitor
       // Is variable
       const variableName = ctx.IDENTIFIER().getText();
       return 0; //TODO: Implement retrieving variable value
-    }
-
-    if (ctx.structFieldAccess()) {
-      // Accessing struct
-      const structFieldAccess = ctx.structFieldAccess();
-      const result = this.visitStructFieldAccess(structFieldAccess);
-
-      if (typeof result !== "number") {
-        throw new Error("Struct field is not a number");
-      }
-      return result;
     }
 
     if (ctx._inner) {
@@ -200,17 +176,6 @@ class RustLiteEvaluatorVisitor
       // Is variable
       const variableName = ctx.IDENTIFIER().getText();
       return false; //TODO: Implement retrieving variable value
-    }
-
-    if (ctx.structFieldAccess()) {
-      // Accessing struct
-      const structFieldAccess = ctx.structFieldAccess();
-      const result = this.visitStructFieldAccess(structFieldAccess);
-
-      if (typeof result !== "boolean") {
-        throw new Error("Struct field is not a boolean");
-      }
-      return result;
     }
 
     if (ctx._inner) {
@@ -264,11 +229,6 @@ class RustLiteEvaluatorVisitor
     // throw new Error(`Invalid expression: ${ctx.getText()}`);
   }
 
-  visitStructExpr(ctx: StructExprContext): SUPPORTED_TYPES {
-    console.log("Visiting StructExpr");
-    return 0;
-  }
-
   visitStmt(ctx: StmtContext): SUPPORTED_TYPES {
     console.log("Visiting Stmt");
     if (ctx.exprStmt()) {
@@ -277,20 +237,11 @@ class RustLiteEvaluatorVisitor
     if (ctx.declareStmt()) {
       return this.visitDeclareStmt(ctx.declareStmt());
     }
-    if (ctx.constStmt()) {
-      return this.visitConstStmt(ctx.constStmt());
-    }
     if (ctx.condStmt()) {
       return this.visitCondStmt(ctx.condStmt());
     }
-    if (ctx.loopStmt()) {
-      return this.visitLoopStmt(ctx.loopStmt());
-    }
     if (ctx.whileStmt()) {
       return this.visitWhileStmt(ctx.whileStmt());
-    }
-    if (ctx.forStmt()) {
-      return this.visitForStmt(ctx.forStmt());
     }
     if (ctx.fnDeclareStmt()) {
       return this.visitFnDeclareStmt(ctx.fnDeclareStmt());
@@ -334,18 +285,8 @@ class RustLiteEvaluatorVisitor
     return this.visit(ctx.expr());
   }
 
-  visitLoopStmt(ctx: LoopStmtContext): SUPPORTED_TYPES {
-    console.log("Visiting LoopStmt");
-    return 0;
-  }
-
   visitDeclareStmt(ctx: DeclareStmtContext): SUPPORTED_TYPES {
     console.log("Visiting DeclareStmt");
-    return 0;
-  }
-
-  visitConstStmt(ctx: ConstStmtContext): SUPPORTED_TYPES {
-    console.log("Visiting ConstStmt");
     return 0;
   }
 
@@ -366,16 +307,6 @@ class RustLiteEvaluatorVisitor
 
   visitLoopControlStmt(ctx: LoopControlStmtContext): SUPPORTED_TYPES {
     console.log("Visiting LoopControlStmt");
-    return 0;
-  }
-
-  visitIterable(ctx: IterableContext): SUPPORTED_TYPES {
-    console.log("Visiting Iterable");
-    return 0;
-  }
-
-  visitForStmt(ctx: ForStmtContext): SUPPORTED_TYPES {
-    console.log("Visiting ForStmt");
     return 0;
   }
 
@@ -422,40 +353,53 @@ class RustLiteEvaluatorVisitor
     return 0;
   }
 
-  visitStructDeclare(ctx: StructDeclareContext): SUPPORTED_TYPES {
-    console.log("Visiting StructDeclare");
+  visitVectorExpr(ctx: VectorExprContext): SUPPORTED_TYPES {
+    console.log("Visiting VectorExpr");
     return 0;
   }
 
-  visitStructDeclareField(ctx: StructDeclareFieldContext): SUPPORTED_TYPES {
-    console.log("Visiting StructDeclareField");
+  visitVectorInit(ctx: VectorInitContext): SUPPORTED_TYPES {
+    console.log("Visiting VectorInit");
     return 0;
   }
 
-  visitStructDeclareFieldList(
-    ctx: StructDeclareFieldListContext
-  ): SUPPORTED_TYPES {
-    console.log("Visiting StructDeclareFieldList");
+  visitVectorType(ctx: VectorTypeContext): SUPPORTED_TYPES {
+    console.log("Visiting Type");
     return 0;
   }
 
-  visitStructInit(ctx: StructInitContext): SUPPORTED_TYPES {
-    console.log("Visiting StructInit");
+  visitVectorAssignment(ctx: VectorAssignmentContext): SUPPORTED_TYPES {
+    console.log("Visiting VectorAssignment");
     return 0;
   }
 
-  visitStructInitFieldList(ctx: StructInitFieldListContext): SUPPORTED_TYPES {
-    console.log("Visiting StructInitFieldList");
+  visitVectorIndexAccess(ctx: VectorIndexAccessContext): SUPPORTED_TYPES {
+    console.log("Visiting VectorIndexAccess");
     return 0;
   }
 
-  visitStructInitField(ctx: StructInitFieldContext): SUPPORTED_TYPES {
-    console.log("Visiting StructInitField");
+  visitVectorLen(ctx: VectorLenContext): SUPPORTED_TYPES {
+    console.log("Visiting VectorLen");
     return 0;
   }
 
-  visitStructFieldAccess(ctx: StructFieldAccessContext): SUPPORTED_TYPES {
-    console.log("Visiting StructFieldAccess");
+  visitVectorPop(ctx: VectorPopContext): SUPPORTED_TYPES {
+    console.log("Visiting VectorPop");
+    return 0;
+  }
+
+  visitVectorPush(ctx: VectorPushContext): SUPPORTED_TYPES {
+    console.log("Visiting VectorPush");
+    return 0;
+  }
+
+  visitPrintlnArgs(ctx: PrintlnArgsContext): SUPPORTED_TYPES {
+    console.log("Visiting PrintlnArgs");
+    return 0;
+  }
+
+  visitPrintlnMacro(ctx: PrintlnMacroContext): SUPPORTED_TYPES {
+    console.log("Visiting PrintlnMacro");
     return 0;
   }
 
