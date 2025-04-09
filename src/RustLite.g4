@@ -15,7 +15,6 @@ I32_TYPE: 'i32';
 I64_TYPE: 'i64';
 BOOL_TYPE: 'bool';
 
-
 type: U8_TYPE | U16_TYPE | U32_TYPE | U64_TYPE 
     | I8_TYPE | I16_TYPE | I32_TYPE | I64_TYPE 
     | BOOL_TYPE | IDENTIFIER;
@@ -52,12 +51,10 @@ logicExpr: primary=BOOL
         | left=logicExpr op='||' right=logicExpr
         | INT {this.notifyErrorListeners("Cannot use INT without comparison operators in logical expressions");};
 
-globalElement: fnDeclareStmt
-            | constStmt;
+globalElement: fnDeclareStmt;
 
 stmt: exprStmt
     | declareStmt
-    | constStmt
     | condStmt
     | whileStmt
     | loopControlStmt
@@ -81,10 +78,6 @@ declareStmt: 'let' 'mut'? IDENTIFIER ':' type '=' exprStmt
                 this.notifyErrorListeners("Variable declaration requires either type annotation or initialization");
             } ';'? 
         | 'let' 'mut'? (':' type)? {this.notifyErrorListeners("Missing variable name in variable declaration");};
-
-constStmt: 'const' IDENTIFIER ':' type '=' exprStmt
-        | 'const' IDENTIFIER '=' exprStmt {this.notifyErrorListeners("Constants must specify a type");}
-        | 'const' 'mut' {this.notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' type '=' exprStmt;
 
 condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?
         | 'if' expr {

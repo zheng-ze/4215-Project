@@ -14,7 +14,6 @@ import { BlockContext } from "./RustLiteParser.js";
 import { BlockContentContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
 import { DeclareStmtContext } from "./RustLiteParser.js";
-import { ConstStmtContext } from "./RustLiteParser.js";
 import { CondStmtContext } from "./RustLiteParser.js";
 import { WhileStmtContext } from "./RustLiteParser.js";
 import { LoopControlContext } from "./RustLiteParser.js";
@@ -103,12 +102,6 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitDeclareStmt?: (ctx: DeclareStmtContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.constStmt`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitConstStmt?: (ctx: ConstStmtContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.condStmt`.
      * @param ctx the parse tree

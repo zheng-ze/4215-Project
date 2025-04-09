@@ -14,7 +14,6 @@ import { BlockContext } from "./RustLiteParser.js";
 import { BlockContentContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
 import { DeclareStmtContext } from "./RustLiteParser.js";
-import { ConstStmtContext } from "./RustLiteParser.js";
 import { CondStmtContext } from "./RustLiteParser.js";
 import { WhileStmtContext } from "./RustLiteParser.js";
 import { LoopControlContext } from "./RustLiteParser.js";
@@ -144,16 +143,6 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitDeclareStmt?: (ctx: DeclareStmtContext) => void;
-    /**
-     * Enter a parse tree produced by `RustLiteParser.constStmt`.
-     * @param ctx the parse tree
-     */
-    enterConstStmt?: (ctx: ConstStmtContext) => void;
-    /**
-     * Exit a parse tree produced by `RustLiteParser.constStmt`.
-     * @param ctx the parse tree
-     */
-    exitConstStmt?: (ctx: ConstStmtContext) => void;
     /**
      * Enter a parse tree produced by `RustLiteParser.condStmt`.
      * @param ctx the parse tree
