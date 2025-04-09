@@ -26,6 +26,16 @@ import { ReturnStmtContext } from "./RustLiteParser.js";
 import { FnDeclareStmtContext } from "./RustLiteParser.js";
 import { ArgListContext } from "./RustLiteParser.js";
 import { FnCallContext } from "./RustLiteParser.js";
+import { VectorTypeContext } from "./RustLiteParser.js";
+import { VectorInitContext } from "./RustLiteParser.js";
+import { VectorPushContext } from "./RustLiteParser.js";
+import { VectorPopContext } from "./RustLiteParser.js";
+import { VectorLenContext } from "./RustLiteParser.js";
+import { VectorIndexAccessContext } from "./RustLiteParser.js";
+import { VectorAssignmentContext } from "./RustLiteParser.js";
+import { VectorExprContext } from "./RustLiteParser.js";
+import { PrintlnMacroContext } from "./RustLiteParser.js";
+import { PrintlnArgsContext } from "./RustLiteParser.js";
 
 
 /**
@@ -263,6 +273,106 @@ export class RustLiteListener implements ParseTreeListener {
      * @param ctx the parse tree
      */
     exitFnCall?: (ctx: FnCallContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorType`.
+     * @param ctx the parse tree
+     */
+    enterVectorType?: (ctx: VectorTypeContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorType`.
+     * @param ctx the parse tree
+     */
+    exitVectorType?: (ctx: VectorTypeContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorInit`.
+     * @param ctx the parse tree
+     */
+    enterVectorInit?: (ctx: VectorInitContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorInit`.
+     * @param ctx the parse tree
+     */
+    exitVectorInit?: (ctx: VectorInitContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorPush`.
+     * @param ctx the parse tree
+     */
+    enterVectorPush?: (ctx: VectorPushContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorPush`.
+     * @param ctx the parse tree
+     */
+    exitVectorPush?: (ctx: VectorPushContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorPop`.
+     * @param ctx the parse tree
+     */
+    enterVectorPop?: (ctx: VectorPopContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorPop`.
+     * @param ctx the parse tree
+     */
+    exitVectorPop?: (ctx: VectorPopContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorLen`.
+     * @param ctx the parse tree
+     */
+    enterVectorLen?: (ctx: VectorLenContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorLen`.
+     * @param ctx the parse tree
+     */
+    exitVectorLen?: (ctx: VectorLenContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorIndexAccess`.
+     * @param ctx the parse tree
+     */
+    enterVectorIndexAccess?: (ctx: VectorIndexAccessContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorIndexAccess`.
+     * @param ctx the parse tree
+     */
+    exitVectorIndexAccess?: (ctx: VectorIndexAccessContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorAssignment`.
+     * @param ctx the parse tree
+     */
+    enterVectorAssignment?: (ctx: VectorAssignmentContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorAssignment`.
+     * @param ctx the parse tree
+     */
+    exitVectorAssignment?: (ctx: VectorAssignmentContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.vectorExpr`.
+     * @param ctx the parse tree
+     */
+    enterVectorExpr?: (ctx: VectorExprContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.vectorExpr`.
+     * @param ctx the parse tree
+     */
+    exitVectorExpr?: (ctx: VectorExprContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.printlnMacro`.
+     * @param ctx the parse tree
+     */
+    enterPrintlnMacro?: (ctx: PrintlnMacroContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.printlnMacro`.
+     * @param ctx the parse tree
+     */
+    exitPrintlnMacro?: (ctx: PrintlnMacroContext) => void;
+    /**
+     * Enter a parse tree produced by `RustLiteParser.printlnArgs`.
+     * @param ctx the parse tree
+     */
+    enterPrintlnArgs?: (ctx: PrintlnArgsContext) => void;
+    /**
+     * Exit a parse tree produced by `RustLiteParser.printlnArgs`.
+     * @param ctx the parse tree
+     */
+    exitPrintlnArgs?: (ctx: PrintlnArgsContext) => void;
 
     visitTerminal(node: TerminalNode): void {}
     visitErrorNode(node: ErrorNode): void {}

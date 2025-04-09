@@ -14,10 +14,13 @@ I16_TYPE: 'i16';
 I32_TYPE: 'i32';
 I64_TYPE: 'i64';
 BOOL_TYPE: 'bool';
+STRING: '"' (~["\r\n] | '\\"')* '"';
+METHOD_ACCESSOR: '::';
+VECTOR_MODULE_NAME: 'Vec';
 
 type: U8_TYPE | U16_TYPE | U32_TYPE | U64_TYPE 
     | I8_TYPE | I16_TYPE | I32_TYPE | I64_TYPE 
-    | BOOL_TYPE | IDENTIFIER;
+    | BOOL_TYPE | vectorType;
 
 // Ignore whitespace and comments
 WS: [ \t\r\n]+ -> skip;
@@ -29,7 +32,8 @@ expr: '(' inner=expr ')'
     | BOOL
     | arithExpr
     | logicExpr
-    | fnCall;
+    | fnCall
+    | vectorExpr;
 
 arithExpr: primary=INT
         | primary=IDENTIFIER
@@ -107,3 +111,23 @@ fnDeclareStmt: 'fn' IDENTIFIER ('(' paramList? ')' | '()')  returnType? block;
 
 argList: expr (',' expr)* ','?;
 fnCall: IDENTIFIER '(' argList? ')';
+
+vectorType: VECTOR_MODULE_NAME '<' type '>';
+vectorInit: VECTOR_MODULE_NAME METHOD_ACCESSOR 'new' ('()' | '(' ')')
+        | 'vec' '!' '[' initList=(INT|BOOL)* ']';
+vectorPush: IDENTIFIER '.' 'push' '(' INT|BOOL ')';
+vectorPop: IDENTIFIER '.' 'pop' ('()' | '(' ')');
+vectorLen: IDENTIFIER '.' 'len' ('()' | '(' ')');
+vectorIndexAccess: IDENTIFIER '[' expr ']';
+vectorAssignment: IDENTIFIER '[' expr ']' '=' expr;
+
+vectorExpr: vectorInit
+        | vectorPush
+        | vectorPop
+        | vectorLen
+        | vectorIndexAccess
+        | vectorAssignment;
+        
+
+printlnMacro: 'println' '!' '(' printlnArgs ')';
+printlnArgs: STRING (',' expr)*;
