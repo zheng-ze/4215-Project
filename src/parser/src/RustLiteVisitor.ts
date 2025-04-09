@@ -8,21 +8,16 @@ import { TypeContext } from "./RustLiteParser.js";
 import { ExprContext } from "./RustLiteParser.js";
 import { ArithExprContext } from "./RustLiteParser.js";
 import { LogicExprContext } from "./RustLiteParser.js";
-import { StructExprContext } from "./RustLiteParser.js";
 import { GlobalElementContext } from "./RustLiteParser.js";
 import { StmtContext } from "./RustLiteParser.js";
 import { BlockContext } from "./RustLiteParser.js";
 import { BlockContentContext } from "./RustLiteParser.js";
 import { ExprStmtContext } from "./RustLiteParser.js";
 import { DeclareStmtContext } from "./RustLiteParser.js";
-import { ConstStmtContext } from "./RustLiteParser.js";
 import { CondStmtContext } from "./RustLiteParser.js";
-import { LoopStmtContext } from "./RustLiteParser.js";
 import { WhileStmtContext } from "./RustLiteParser.js";
 import { LoopControlContext } from "./RustLiteParser.js";
 import { LoopControlStmtContext } from "./RustLiteParser.js";
-import { IterableContext } from "./RustLiteParser.js";
-import { ForStmtContext } from "./RustLiteParser.js";
 import { ParamContext } from "./RustLiteParser.js";
 import { ParamListContext } from "./RustLiteParser.js";
 import { ReturnTypesContext } from "./RustLiteParser.js";
@@ -31,13 +26,16 @@ import { ReturnStmtContext } from "./RustLiteParser.js";
 import { FnDeclareStmtContext } from "./RustLiteParser.js";
 import { ArgListContext } from "./RustLiteParser.js";
 import { FnCallContext } from "./RustLiteParser.js";
-import { StructDeclareContext } from "./RustLiteParser.js";
-import { StructDeclareFieldListContext } from "./RustLiteParser.js";
-import { StructDeclareFieldContext } from "./RustLiteParser.js";
-import { StructInitContext } from "./RustLiteParser.js";
-import { StructInitFieldListContext } from "./RustLiteParser.js";
-import { StructInitFieldContext } from "./RustLiteParser.js";
-import { StructFieldAccessContext } from "./RustLiteParser.js";
+import { VectorTypeContext } from "./RustLiteParser.js";
+import { VectorInitContext } from "./RustLiteParser.js";
+import { VectorPushContext } from "./RustLiteParser.js";
+import { VectorPopContext } from "./RustLiteParser.js";
+import { VectorLenContext } from "./RustLiteParser.js";
+import { VectorIndexAccessContext } from "./RustLiteParser.js";
+import { VectorAssignmentContext } from "./RustLiteParser.js";
+import { VectorExprContext } from "./RustLiteParser.js";
+import { PrintlnMacroContext } from "./RustLiteParser.js";
+import { PrintlnArgsContext } from "./RustLiteParser.js";
 
 
 /**
@@ -79,12 +77,6 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitLogicExpr?: (ctx: LogicExprContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structExpr`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitStructExpr?: (ctx: StructExprContext) => Result;
-    /**
      * Visit a parse tree produced by `RustLiteParser.globalElement`.
      * @param ctx the parse tree
      * @return the visitor result
@@ -121,23 +113,11 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitDeclareStmt?: (ctx: DeclareStmtContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.constStmt`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitConstStmt?: (ctx: ConstStmtContext) => Result;
-    /**
      * Visit a parse tree produced by `RustLiteParser.condStmt`.
      * @param ctx the parse tree
      * @return the visitor result
      */
     visitCondStmt?: (ctx: CondStmtContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.loopStmt`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitLoopStmt?: (ctx: LoopStmtContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.whileStmt`.
      * @param ctx the parse tree
@@ -156,18 +136,6 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      * @return the visitor result
      */
     visitLoopControlStmt?: (ctx: LoopControlStmtContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.iterable`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitIterable?: (ctx: IterableContext) => Result;
-    /**
-     * Visit a parse tree produced by `RustLiteParser.forStmt`.
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    visitForStmt?: (ctx: ForStmtContext) => Result;
     /**
      * Visit a parse tree produced by `RustLiteParser.param`.
      * @param ctx the parse tree
@@ -217,46 +185,64 @@ export class RustLiteVisitor<Result> extends AbstractParseTreeVisitor<Result> {
      */
     visitFnCall?: (ctx: FnCallContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structDeclare`.
+     * Visit a parse tree produced by `RustLiteParser.vectorType`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructDeclare?: (ctx: StructDeclareContext) => Result;
+    visitVectorType?: (ctx: VectorTypeContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structDeclareFieldList`.
+     * Visit a parse tree produced by `RustLiteParser.vectorInit`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructDeclareFieldList?: (ctx: StructDeclareFieldListContext) => Result;
+    visitVectorInit?: (ctx: VectorInitContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structDeclareField`.
+     * Visit a parse tree produced by `RustLiteParser.vectorPush`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructDeclareField?: (ctx: StructDeclareFieldContext) => Result;
+    visitVectorPush?: (ctx: VectorPushContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structInit`.
+     * Visit a parse tree produced by `RustLiteParser.vectorPop`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructInit?: (ctx: StructInitContext) => Result;
+    visitVectorPop?: (ctx: VectorPopContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structInitFieldList`.
+     * Visit a parse tree produced by `RustLiteParser.vectorLen`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructInitFieldList?: (ctx: StructInitFieldListContext) => Result;
+    visitVectorLen?: (ctx: VectorLenContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structInitField`.
+     * Visit a parse tree produced by `RustLiteParser.vectorIndexAccess`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructInitField?: (ctx: StructInitFieldContext) => Result;
+    visitVectorIndexAccess?: (ctx: VectorIndexAccessContext) => Result;
     /**
-     * Visit a parse tree produced by `RustLiteParser.structFieldAccess`.
+     * Visit a parse tree produced by `RustLiteParser.vectorAssignment`.
      * @param ctx the parse tree
      * @return the visitor result
      */
-    visitStructFieldAccess?: (ctx: StructFieldAccessContext) => Result;
+    visitVectorAssignment?: (ctx: VectorAssignmentContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.vectorExpr`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitVectorExpr?: (ctx: VectorExprContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.printlnMacro`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPrintlnMacro?: (ctx: PrintlnMacroContext) => Result;
+    /**
+     * Visit a parse tree produced by `RustLiteParser.printlnArgs`.
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    visitPrintlnArgs?: (ctx: PrintlnArgsContext) => Result;
 }
 

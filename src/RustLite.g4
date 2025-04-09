@@ -14,11 +14,13 @@ I16_TYPE: 'i16';
 I32_TYPE: 'i32';
 I64_TYPE: 'i64';
 BOOL_TYPE: 'bool';
-
+STRING: '"' (~["\r\n] | '\\"')* '"';
+METHOD_ACCESSOR: '::';
+VECTOR_MODULE_NAME: 'Vec';
 
 type: U8_TYPE | U16_TYPE | U32_TYPE | U64_TYPE 
     | I8_TYPE | I16_TYPE | I32_TYPE | I64_TYPE 
-    | BOOL_TYPE | IDENTIFIER;
+    | BOOL_TYPE | vectorType;
 
 // Ignore whitespace and comments
 WS: [ \t\r\n]+ -> skip;
@@ -30,12 +32,11 @@ expr: '(' inner=expr ')'
     | BOOL
     | arithExpr
     | logicExpr
-    | structExpr
-    | fnCall;
+    | fnCall
+    | vectorExpr;
 
 arithExpr: primary=INT
         | primary=IDENTIFIER
-        | fieldAccess=structFieldAccess
         | '(' inner=arithExpr ')'
         | op='-' arithExpr
         | left=arithExpr op=('*'|'/'|'%') right=arithExpr
@@ -47,7 +48,6 @@ arithExpr: primary=INT
 
 logicExpr: primary=BOOL
         | primary=IDENTIFIER
-        | fieldAccess=structFieldAccess
         | '(' inner=logicExpr ')'
         | arithLeft=arithExpr op=('>'|'<'|'=='|'!='|'<='|'>=') arithRight=arithExpr
         | op='!' right=logicExpr
@@ -55,25 +55,16 @@ logicExpr: primary=BOOL
         | left=logicExpr op='||' right=logicExpr
         | INT {this.notifyErrorListeners("Cannot use INT without comparison operators in logical expressions");};
 
-structExpr: structInit
-        | structFieldAccess;
-
-globalElement: fnDeclareStmt
-            | structDeclare
-            | constStmt;
+globalElement: fnDeclareStmt;
 
 stmt: exprStmt
     | declareStmt
-    | constStmt
     | condStmt
-    | loopStmt
-    | forStmt
     | whileStmt
     | loopControlStmt
     | fnDeclareStmt
     | returnStmt
-    | block
-    | structDeclare {this.notifyErrorListeners("Struct definitions are only allowed in global scope");};
+    | block;
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
 block: '{' blockContent '}';
@@ -92,16 +83,10 @@ declareStmt: 'let' 'mut'? IDENTIFIER ':' type '=' exprStmt
             } ';'? 
         | 'let' 'mut'? (':' type)? {this.notifyErrorListeners("Missing variable name in variable declaration");};
 
-constStmt: 'const' IDENTIFIER ':' type '=' exprStmt
-        | 'const' IDENTIFIER '=' exprStmt {this.notifyErrorListeners("Constants must specify a type");}
-        | 'const' 'mut' {this.notifyErrorListeners("Constants cannot be mutable");} IDENTIFIER ':' type '=' exprStmt;
-
 condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?
         | 'if' expr {
                 this.notifyErrorListeners("Condition must be a boolean expression");
             } block ('else' block)?;
-
-loopStmt: 'loop' block;
 
 whileStmt: 'while' logicExpr block
         | 'while' expr {
@@ -111,12 +96,6 @@ whileStmt: 'while' logicExpr block
 loopControl: 'break' | 'continue'; 
 
 loopControlStmt: loopControl ';';
-
-// For loops
-iterable: IDENTIFIER
-        | INT op=('..'|'..=') INT;
-
-forStmt: 'for' IDENTIFIER 'in' iterable block;
 
 // Function declaration
 param: IDENTIFIER ':' type
@@ -133,14 +112,22 @@ fnDeclareStmt: 'fn' IDENTIFIER ('(' paramList? ')' | '()')  returnType? block;
 argList: expr (',' expr)* ','?;
 fnCall: IDENTIFIER '(' argList? ')';
 
-// Structs
-structDeclare: 'struct' IDENTIFIER '{' structDeclareFieldList? '}';
-structDeclareFieldList: structDeclareField (',' structDeclareField)* ','?;
-structDeclareField: IDENTIFIER ':' type;
+vectorType: VECTOR_MODULE_NAME '<' type '>';
+vectorInit: VECTOR_MODULE_NAME METHOD_ACCESSOR 'new' ('()' | '(' ')')
+        | 'vec' '!' '[' initList=(INT|BOOL)* ']';
+vectorPush: IDENTIFIER '.' 'push' '(' INT|BOOL ')';
+vectorPop: IDENTIFIER '.' 'pop' ('()' | '(' ')');
+vectorLen: IDENTIFIER '.' 'len' ('()' | '(' ')');
+vectorIndexAccess: IDENTIFIER '[' expr ']';
+vectorAssignment: IDENTIFIER '[' expr ']' '=' expr;
 
-structInit: IDENTIFIER '{' structInitFieldList? '}';
-structInitFieldList: structInitField (',' structInitField)* ','?;
-structInitField: IDENTIFIER ':' expr;
+vectorExpr: vectorInit
+        | vectorPush
+        | vectorPop
+        | vectorLen
+        | vectorIndexAccess
+        | vectorAssignment;
+        
 
-structFieldAccess: IDENTIFIER ('.' IDENTIFIER)+
-                | IDENTIFIER '.' {this.notifyErrorListeners("Missing field name after '.'");};
+printlnMacro: 'println' '!' '(' printlnArgs ')';
+printlnArgs: STRING (',' expr)*;
