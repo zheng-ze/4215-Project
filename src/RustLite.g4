@@ -30,12 +30,10 @@ expr: '(' inner=expr ')'
     | BOOL
     | arithExpr
     | logicExpr
-    | structExpr
     | fnCall;
 
 arithExpr: primary=INT
         | primary=IDENTIFIER
-        | fieldAccess=structFieldAccess
         | '(' inner=arithExpr ')'
         | op='-' arithExpr
         | left=arithExpr op=('*'|'/'|'%') right=arithExpr
@@ -47,7 +45,6 @@ arithExpr: primary=INT
 
 logicExpr: primary=BOOL
         | primary=IDENTIFIER
-        | fieldAccess=structFieldAccess
         | '(' inner=logicExpr ')'
         | arithLeft=arithExpr op=('>'|'<'|'=='|'!='|'<='|'>=') arithRight=arithExpr
         | op='!' right=logicExpr
@@ -55,25 +52,18 @@ logicExpr: primary=BOOL
         | left=logicExpr op='||' right=logicExpr
         | INT {this.notifyErrorListeners("Cannot use INT without comparison operators in logical expressions");};
 
-structExpr: structInit
-        | structFieldAccess;
-
 globalElement: fnDeclareStmt
-            | structDeclare
             | constStmt;
 
 stmt: exprStmt
     | declareStmt
     | constStmt
     | condStmt
-    | loopStmt
-    | forStmt
     | whileStmt
     | loopControlStmt
     | fnDeclareStmt
     | returnStmt
-    | block
-    | structDeclare {this.notifyErrorListeners("Struct definitions are only allowed in global scope");};
+    | block;
 
 // expr for implicit return in fn block. Need to check when compiling to bytecode
 block: '{' blockContent '}';
@@ -101,8 +91,6 @@ condStmt: 'if' logicExpr block ('else' 'if' logicExpr block)* ('else' block)?
                 this.notifyErrorListeners("Condition must be a boolean expression");
             } block ('else' block)?;
 
-loopStmt: 'loop' block;
-
 whileStmt: 'while' logicExpr block
         | 'while' expr {
                 this.notifyErrorListeners("Condition must be a boolean expression");
@@ -111,12 +99,6 @@ whileStmt: 'while' logicExpr block
 loopControl: 'break' | 'continue'; 
 
 loopControlStmt: loopControl ';';
-
-// For loops
-iterable: IDENTIFIER
-        | INT op=('..'|'..=') INT;
-
-forStmt: 'for' IDENTIFIER 'in' iterable block;
 
 // Function declaration
 param: IDENTIFIER ':' type
@@ -132,15 +114,3 @@ fnDeclareStmt: 'fn' IDENTIFIER ('(' paramList? ')' | '()')  returnType? block;
 
 argList: expr (',' expr)* ','?;
 fnCall: IDENTIFIER '(' argList? ')';
-
-// Structs
-structDeclare: 'struct' IDENTIFIER '{' structDeclareFieldList? '}';
-structDeclareFieldList: structDeclareField (',' structDeclareField)* ','?;
-structDeclareField: IDENTIFIER ':' type;
-
-structInit: IDENTIFIER '{' structInitFieldList? '}';
-structInitFieldList: structInitField (',' structInitField)* ','?;
-structInitField: IDENTIFIER ':' expr;
-
-structFieldAccess: IDENTIFIER ('.' IDENTIFIER)+
-                | IDENTIFIER '.' {this.notifyErrorListeners("Missing field name after '.'");};
