@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "./dist-test",
+    "strict": true
+  },
+  "include": [
+    "src/TestRunner.ts",
+    "src/MockConductor.ts",
+    "src/RustLiteEvaluator.ts"
+  ]
+}

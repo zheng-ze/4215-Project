@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.instruction_type = exports.size_offset = exports.node_size = exports.word_size = void 0;
+exports.word_size = 8;
+exports.node_size = 4;
+exports.size_offset = 5;
+var instruction_type;
+(function (instruction_type) {
+    instruction_type[instruction_type["LDC"] = 0] = "LDC";
+    instruction_type[instruction_type["UNOP"] = 1] = "UNOP";
+    instruction_type[instruction_type["BINOP"] = 2] = "BINOP";
+    instruction_type[instruction_type["POP"] = 3] = "POP";
+    instruction_type[instruction_type["JOF"] = 4] = "JOF";
+    instruction_type[instruction_type["GOTO"] = 5] = "GOTO";
+    instruction_type[instruction_type["ENTER_SCOPE"] = 6] = "ENTER_SCOPE";
+    instruction_type[instruction_type["EXIT_SCOPE"] = 7] = "EXIT_SCOPE";
+    instruction_type[instruction_type["LD"] = 8] = "LD";
+    instruction_type[instruction_type["ASSIGN"] = 9] = "ASSIGN";
+    instruction_type[instruction_type["LDF"] = 10] = "LDF";
+    instruction_type[instruction_type["CALL"] = 11] = "CALL";
+    instruction_type[instruction_type["TAIL_CALL"] = 12] = "TAIL_CALL";
+    instruction_type[instruction_type["RESET"] = 13] = "RESET";
+    instruction_type[instruction_type["DONE"] = 14] = "DONE";
+})(instruction_type || (exports.instruction_type = instruction_type = {}));

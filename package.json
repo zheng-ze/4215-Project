@@ -7,7 +7,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
-    "generate-parser": "antlr4ng -Dlanguage=TypeScript -visitor -o src/parser src/RustLite.g4"
+    "generate-parser": "antlr4ng -Dlanguage=TypeScript -visitor -o src/parser src/RustLite.g4",
+    "build-test": "npx tsc --project tsconfig.test.json",
+    "run-tests": "node dist-test/TestRunner.js"
   },
   "repository": {
     "type": "git",
